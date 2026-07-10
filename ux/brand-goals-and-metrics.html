@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brand Goals and Metrics</title>
+  <style>
+    :root {
+      --teal: #1d627b;
+      --gold: #ddaf4b;
+      --red: #b03d19;
+      --sky: #59a4d4;
+      --green: #00a080;
+      --charcoal: #4d5259;
+      --light-gray: #e7e6e6;
+      --soft-gray: #f5f6f7;
+      --white: #ffffff;
+      --black: #111111;
+      --max-width: 1160px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--charcoal);
+      background: var(--white);
+      font-family: "Apex New", "Calibri", "Segoe UI", Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    .page {
+      min-height: 100vh;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 68px 24px 58px;
+      border-bottom: 10px solid var(--gold);
+      background:
+        linear-gradient(135deg, rgba(29, 98, 123, .96), rgba(29, 98, 123, .82)),
+        radial-gradient(circle at 86% 18%, rgba(221, 175, 75, .38), transparent 34%);
+      color: var(--white);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -110px;
+      bottom: -150px;
+      width: 380px;
+      height: 380px;
+      border: 54px solid rgba(255, 255, 255, .14);
+      border-radius: 50%;
+    }
+
+    .hero-inner,
+    .section {
+      width: min(100%, var(--max-width));
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--gold);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      color: inherit;
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: .01em;
+      line-height: 1.08;
+    }
+
+    h1 {
+      max-width: 780px;
+      font-size: clamp(42px, 7vw, 74px);
+      text-transform: uppercase;
+    }
+
+    .hero-copy {
+      max-width: 780px;
+      margin: 22px 0 0;
+      font-size: 21px;
+      color: rgba(255, 255, 255, .92);
+    }
+
+    .section {
+      padding: 48px 24px;
+    }
+
+    .section-header {
+      display: grid;
+      gap: 10px;
+      max-width: 820px;
+      margin-bottom: 26px;
+    }
+
+    h2 {
+      color: var(--teal);
+      font-size: clamp(30px, 4vw, 44px);
+      text-transform: uppercase;
+    }
+
+    .lead {
+      margin: 0;
+      font-size: 19px;
+      color: var(--charcoal);
+    }
+
+    .highlight-band {
+      border-left: 8px solid var(--gold);
+      padding: 22px 24px;
+      background: var(--soft-gray);
+      font-size: 20px;
+    }
+
+    .highlight-band strong {
+      color: var(--teal);
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .category-card,
+    .rule-card {
+      border: 1px solid var(--light-gray);
+      border-top: 6px solid var(--accent, var(--teal));
+      padding: 22px;
+      background: var(--white);
+      box-shadow: 0 12px 28px rgba(77, 82, 89, .08);
+    }
+
+    .category-card h3,
+    .rule-card h3 {
+      margin-bottom: 10px;
+      color: var(--teal);
+      font-size: 22px;
+      text-transform: uppercase;
+    }
+
+    .category-card p,
+    .rule-card p {
+      margin: 0;
+      color: var(--charcoal);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--light-gray);
+      background: var(--white);
+      box-shadow: 0 12px 28px rgba(77, 82, 89, .08);
+    }
+
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--light-gray);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--teal);
+      color: var(--white);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td:first-child {
+      color: var(--teal);
+      font-weight: 700;
+    }
+
+    .metric-list {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .metric-list li + li {
+      margin-top: 4px;
+    }
+
+    .rule-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .rule-card {
+      border-top-color: var(--gold);
+    }
+
+    .quote {
+      margin: 0;
+      padding: 30px;
+      color: var(--teal);
+      background: linear-gradient(90deg, rgba(221, 175, 75, .18), rgba(221, 175, 75, .05));
+      font-family: Garamond, Georgia, serif;
+      font-size: 28px;
+      font-style: italic;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .source-note {
+      margin-top: 18px;
+      color: #6d737b;
+      font-size: 14px;
+    }
+
+    .source-note a {
+      color: var(--teal);
+      font-weight: 700;
+    }
+
+    .source-box {
+      margin: 22px 0;
+      padding: 18px 20px;
+      border-left: 8px solid var(--gold);
+      background: var(--soft-gray);
+      color: var(--charcoal);
+      font-size: 16px;
+    }
+
+    .source-box strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      text-transform: uppercase;
+    }
+
+    .source-box a {
+      color: var(--teal);
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .article-block {
+      display: grid;
+      gap: 18px;
+    }
+
+    .prose {
+      max-width: 920px;
+    }
+
+    .prose p {
+      margin: 0 0 18px;
+      font-size: 18px;
+    }
+
+    .metric-category-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .metric-category-list li {
+      padding: 12px 14px;
+      border-left: 5px solid var(--accent, var(--teal));
+      background: var(--soft-gray);
+    }
+
+    .metric-category-list strong {
+      color: var(--teal);
+    }
+
+    .footer {
+      padding: 30px 24px;
+      background: var(--charcoal);
+      color: var(--white);
+    }
+
+    .footer-inner {
+      width: min(100%, var(--max-width));
+      margin: 0 auto;
+      font-size: 14px;
+    }
+
+    @media (max-width: 880px) {
+      .category-grid,
+      .rule-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hero {
+        padding: 52px 18px 44px;
+      }
+
+      .section {
+        padding: 38px 18px;
+      }
+
+      .category-grid,
+      .rule-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy,
+      .lead,
+      .highlight-band {
+        font-size: 17px;
+      }
+
+      .quote {
+        font-size: 23px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Section 1</p>
+        <h1>Brand Goals and Metrics</h1>
+        <p class="hero-copy">You can have several types of goals on social media, and other goals, if you will, to get you there.</p>
+      </div>
+    </header>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Social media goals guide the content</h2>
+      </div>
+      <div class="prose">
+        <p>You can have several types of goals on social media, and other goals, if you will, to get you there. For instance, your goal could be to increase sales. And other related goals could be to increase credibility / image so that people would see you as an expert and want to purchase from you. Another company might be an entertainment company, so post viewing and engagement is the final goal for the company. This will all drive the type of content that you produce.</p>
+        <p>How do you track success of those goal(s)? You choose the type of metrics that align with them. Here are key metrics that we can track for different social media goals.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Social media metric categories</h2>
+      </div>
+      <div class="source-box">
+        <strong>Source for this section</strong>
+        Content below from and adapted from: <a href="https://blog.hootsuite.com/social-media-analytics">https://blog.hootsuite.com/social-media-analytics</a>
+      </div>
+      <div class="article-block">
+        <p class="lead">Social media metrics generally fall into one of these categories:</p>
+        <div class="category-grid">
+          <article class="category-card" style="--accent: var(--teal)">
+            <h3>Awareness</h3>
+            <p>Current and potential audience.</p>
+          </article>
+          <article class="category-card" style="--accent: var(--gold)">
+            <h3>Engagement</h3>
+            <p>How audiences are interacting with your content.</p>
+          </article>
+          <article class="category-card" style="--accent: var(--green)">
+            <h3>Conversion</h3>
+            <p>How audiences convert to customers, subscribers, or leads.</p>
+          </article>
+          <article class="category-card" style="--accent: var(--red)">
+            <h3>Brand Health</h3>
+            <p>Brand Health (sentiment) - Shown as “Consumer” below: How active customers think and feel about your brand.</p>
+          </article>
+          <article class="category-card" style="--accent: var(--sky)">
+            <h3>Consumer Experience (Added)</h3>
+            <p>Increase the customer experience with your brand.</p>
+          </article>
+          <article class="category-card" style="--accent: var(--charcoal)">
+            <h3>Audience (Added)</h3>
+            <p>Who follows you and how fast they grow</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>What social media analytics metrics should you track?</h2>
+        <p class="lead">The metrics you track should align with your business goals. Tracking everything leads to dashboard overload. Tracking the right things leads to better decisions. Here’s a framework that maps common business goals to the metrics that actually matter.</p>
+      </div>
+      <div class="source-box">
+        <strong>Source for this section</strong>
+        Content below from and adapted from: <a href="https://blog.hootsuite.com/social-media-analytics">https://blog.hootsuite.com/social-media-analytics</a>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Business goal</th>
+              <th>Key metrics</th>
+              <th>Why it matters</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Brand awareness</td>
+              <td>Reach, impressions, follower growth, share of voice</td>
+              <td>Shows how many people are seeing your brand and whether that audience is growing</td>
+            </tr>
+            <tr>
+              <td>Engagement</td>
+              <td>Engagement rate, comments, shares, saves</td>
+              <td>Reveals whether your content resonates enough for people to interact with it</td>
+            </tr>
+            <tr>
+              <td>Conversions</td>
+              <td>Click-through rate, conversion rate, cost per conversion, revenue attributed</td>
+              <td>Connects social activity directly to business outcomes like leads and sales</td>
+            </tr>
+            <tr>
+              <td>Brand health</td>
+              <td>Brand mentions, sentiment trend, share of voice vs. competitors</td>
+              <td>Tracks your reputation over time and flags potential issues early</td>
+            </tr>
+            <tr>
+              <td>Customer experience</td>
+              <td>Response time, sentiment score, CSAT (customer satisfaction score)</td>
+              <td>Measures how well your social team supports and satisfies customers</td>
+            </tr>
+            <tr>
+              <td>Audience</td>
+              <td>Who follows you and how fast they grow</td>
+              <td>Follower count, follower growth rate, demographics</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Choose a focused set of KPIs</h2>
+      </div>
+      <div class="source-box">
+        <strong>Source for this section</strong>
+        Content below from and adapted from: <a href="https://blog.hootsuite.com/social-media-analytics">https://blog.hootsuite.com/social-media-analytics</a>
+      </div>
+      <div class="prose">
+        <p>A good rule of thumb: choose 3-5 KPIs per goal. That’s enough to get a clear picture without drowning in data. Your engagement rate and conversion metrics will likely be the ones leadership cares about most, so make sure those are front and center in your reporting.</p>
+        <p>The metrics you choose will also depend on the platform. A high save rate matters on Instagram. Watch time matters on YouTube. Shares matter on LinkedIn. Tailor your tracking to each channel’s strengths.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-header">
+        <h2>Glossary of important social media metrics to track</h2>
+        <p class="lead">While the right metrics depend on your goals, these 10 consistently appear in the measurement frameworks used by marketing teams. Each one answers a specific question about your social media performance.</p>
+      </div>
+      <div class="source-box">
+        <strong>Source for this section</strong>
+        Content from: <a href="https://www.brandwatch.com/social-media-glossary/social-media-metrics/">https://www.brandwatch.com/social-media-glossary/social-media-metrics/</a>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>What it tells you</th>
+              <th>How to calculate it</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Reach</td>
+              <td>How many unique people saw your content</td>
+              <td>Reported natively by each platform</td>
+            </tr>
+            <tr>
+              <td>Impressions</td>
+              <td>Total number of times your content was displayed</td>
+              <td>Reported natively (includes repeat views)</td>
+            </tr>
+            <tr>
+              <td>Engagement rate</td>
+              <td>What percentage of your audience interacts with posts</td>
+              <td>(Total engagements / Reach) x 100</td>
+            </tr>
+            <tr>
+              <td>Click-through rate (CTR)</td>
+              <td>How often people click your links</td>
+              <td>(Clicks / Impressions) x 100</td>
+            </tr>
+            <tr>
+              <td>Follower growth rate</td>
+              <td>How quickly your audience is expanding</td>
+              <td>(Net new followers / Starting followers) x 100</td>
+            </tr>
+            <tr>
+              <td>Share of voice</td>
+              <td>Your brand’s portion of industry conversation</td>
+              <td>(Brand mentions / Total market mentions) x 100</td>
+            </tr>
+            <tr>
+              <td>Conversion rate</td>
+              <td>How effectively social drives desired actions</td>
+              <td>(Conversions from social / Total social clicks) x 100</td>
+            </tr>
+            <tr>
+              <td>Cost per click (CPC)</td>
+              <td>Efficiency of paid social campaigns</td>
+              <td>Total ad spend / Total clicks</td>
+            </tr>
+            <tr>
+              <td>Video completion rate</td>
+              <td>Whether people watch videos to the end</td>
+              <td>(Complete views / Total video starts) x 100</td>
+            </tr>
+            <tr>
+              <td>Sentiment score</td>
+              <td>How people feel about your brand in social conversations</td>
+              <td>Ratio of positive to negative mentions, often expressed from -100 to +100</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      Brand styling adapted from the provided OGSM PowerPoint template: teal, gold, gray, white background, uppercase Century Gothic-style headings, and clean business-school presentation structure.
+    </div>
+  </footer>
+</body>
+</html>
