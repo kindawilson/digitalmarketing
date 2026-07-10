@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Casey's Canoe Rental - Bad Design Practice Page</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow: hidden;
+      background: limegreen;
+      font-family: "Comic Sans MS", "Papyrus", cursive;
+      cursor: crosshair;
+    }
+
+    .toolbar {
+      position: fixed;
+      z-index: 1000;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      padding: 8px;
+      background: #ff00ff;
+      border: 6px ridge yellow;
+      color: cyan;
+      font-family: Arial, sans-serif;
+      box-shadow: 10px 10px 0 red;
+    }
+
+    .toolbar button,
+    .toolbar input,
+    .toolbar select {
+      min-height: 32px;
+      border: 4px outset blue;
+      background: yellow;
+      color: red;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .toolbar input[type="range"] {
+      width: 110px;
+      vertical-align: middle;
+    }
+
+    .toolbar small {
+      color: white;
+      text-shadow: 2px 2px 0 black;
+      font-weight: 700;
+    }
+
+    .stage {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      padding-top: 78px;
+      background:
+        repeating-linear-gradient(45deg, rgba(255,255,0,.35) 0 12px, rgba(0,128,0,.2) 12px 24px),
+        limegreen;
+    }
+
+    .draggable {
+      position: absolute;
+      z-index: 5;
+      touch-action: none;
+      user-select: none;
+      outline: none;
+      cursor: grab;
+    }
+
+    .draggable.selected {
+      outline: 6px dashed red;
+      filter: saturate(180%);
+    }
+
+    .draggable.dragging {
+      cursor: grabbing;
+    }
+
+    .resize-handle {
+      position: fixed;
+      z-index: 1200;
+      display: none;
+      width: 26px;
+      height: 26px;
+      align-items: center;
+      justify-content: center;
+      background: white;
+      border: 3px solid black;
+      color: black;
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      line-height: 1;
+      box-shadow: 3px 3px 0 red;
+    }
+
+    .resize-handle.visible {
+      display: flex;
+    }
+
+    .resize-handle[data-corner="nw"],
+    .resize-handle[data-corner="se"] {
+      cursor: nwse-resize;
+    }
+
+    .resize-handle[data-corner="ne"],
+    .resize-handle[data-corner="sw"] {
+      cursor: nesw-resize;
+    }
+
+    .headline {
+      left: 48px;
+      top: 108px;
+      width: 880px;
+      color: yellow;
+      font-size: 68px;
+      line-height: .85;
+      text-align: center;
+      text-shadow: 5px 5px 0 purple, 9px 9px 0 orange;
+      background: green;
+      border: 12px dotted fuchsia;
+      --angle: -4deg;
+      transform: rotate(var(--angle));
+    }
+
+    .paragraph {
+      left: 28px;
+      top: 245px;
+      width: 760px;
+      max-height: 520px;
+      overflow: auto;
+      padding: 18px;
+      color: yellow;
+      background: green;
+      border: 18px groove #00ffff;
+      font-size: 25px;
+      line-height: 1.08;
+      letter-spacing: 0;
+      text-align: justify;
+    }
+
+    .bad-badge {
+      left: 910px;
+      top: 122px;
+      width: 260px;
+      padding: 18px;
+      color: yellow;
+      background: green;
+      border: 10px double red;
+      font-size: 34px;
+      text-align: center;
+      --angle: 8deg;
+      transform: rotate(var(--angle));
+      animation: blink 1s steps(2) infinite;
+    }
+
+    .canoe-img {
+      width: 240px;
+      height: 170px;
+      object-fit: cover;
+      border: 12px ridge orange;
+      box-shadow: 12px 12px 0 black;
+      -webkit-user-drag: none;
+    }
+
+    .img1 { left: 830px; top: 270px; --angle: 12deg; transform: rotate(var(--angle)); }
+    .img2 { left: 1110px; top: 250px; --angle: -10deg; transform: rotate(var(--angle)); }
+    .img3 { left: 820px; top: 480px; --angle: -16deg; transform: rotate(var(--angle)); }
+    .img4 { left: 1080px; top: 470px; --angle: 18deg; transform: rotate(var(--angle)); }
+    .img5 { left: 985px; top: 660px; --angle: 4deg; transform: rotate(var(--angle)); }
+
+    .price-box {
+      left: 1120px;
+      top: 110px;
+      width: 240px;
+      padding: 14px;
+      color: yellow;
+      background: green;
+      border: 11px solid purple;
+      font-size: 30px;
+      text-align: center;
+    }
+
+    .footer-ish {
+      left: 52px;
+      bottom: 18px;
+      width: fit-content;
+      min-width: 120px;
+      max-width: calc(100vw - 104px);
+      padding: 10px;
+      color: yellow;
+      background: green;
+      border: 9px dashed hotpink;
+      font-size: 22px;
+      white-space: nowrap;
+    }
+
+    [contenteditable="true"] {
+      user-select: text;
+      cursor: grab;
+    }
+
+    [contenteditable="true"]:focus {
+      cursor: text;
+    }
+
+    @keyframes blink {
+      0% { opacity: 1; }
+      100% { opacity: .25; }
+    }
+
+    @media (max-width: 900px) {
+      body {
+        overflow: auto;
+      }
+
+      .stage {
+        width: 1400px;
+        height: 980px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar" aria-label="Editing controls">
+    <button id="deleteSelected" type="button">Delete Selected</button>
+    <button id="duplicateSelected" type="button">Duplicate Selected</button>
+    <button id="bringForward" type="button">Bring Forward</button>
+    <label>
+      Text color:
+      <input id="textColor" type="color" value="#ffff00">
+    </label>
+    <label>
+      Item background:
+      <input id="backgroundColor" type="color" value="#008000">
+    </label>
+    <label>
+      Page background:
+      <input id="pageColor" type="color" value="#32cd32">
+    </label>
+    <button id="solidBackground" type="button">Solid Page</button>
+    <button id="stripeBackground" type="button">Stripe Page</button>
+    <button id="toggleBorder" type="button">Remove Border</button>
+    <label>
+      Angle:
+      <input id="angleControl" type="range" min="-45" max="45" value="0">
+      <span id="angleValue">0deg</span>
+    </label>
+    <label>
+      Font:
+      <select id="fontPicker">
+        <option value='"Comic Sans MS", "Papyrus", cursive'>Comic Sans</option>
+        <option value='Arial, sans-serif'>Arial</option>
+        <option value='Georgia, serif'>Georgia</option>
+        <option value='"Courier New", monospace'>Courier New</option>
+        <option value='Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif'>Impact</option>
+        <option value='"Times New Roman", serif'>Times New Roman</option>
+      </select>
+    </label>
+    <button id="straightenSelected" type="button">Straighten</button>
+    <button id="resetPage" type="button">Reset Mess</button>
+    <small>Click text to edit it. Click and hold while moving to drag an item. Recolor, rotate, duplicate, or delete selected items.</small>
+  </div>
+
+  <main class="stage" id="stage">
+    <h1 class="draggable headline editable" contenteditable="true" spellcheck="false">
+      CASEY'S CANOE RENTAL!!! BEST CANOES MAYBE!!!
+    </h1>
+
+    <section class="draggable paragraph editable" contenteditable="true" spellcheck="false">
+      Casey's Canoe Rental is the most unforgettable canoe rental experience that you can possibly imagine if you are imagining a canoe rental company that rents canoes, paddles, life jackets, river maps, snack recommendations, vague local legends, and also the feeling of wondering whether a website should really have this much text in one place. We have canoes for families, canoes for friends, canoes for people who just learned the word canoe, canoes for birthday parties, canoes for office outings, canoes for very serious outdoor experts, canoes for people who forgot sunscreen, canoes for people who remembered sunscreen but forgot water, and canoes for everyone who enjoys floating in a long narrow boat while reading an enormous paragraph in bright yellow letters on a green background. At Casey's Canoe Rental, we believe every landing page should tell you absolutely everything at once, including our hours, our favorite river bends, our thoughts about paddles, the history of Casey's uncle's first canoe, the number of ducks sometimes seen near the dock, why sandwiches taste better near water, and how exciting it is to rent a canoe from a company that definitely wants your attention. Our rental process is simple but also described in too many words: arrive, wave enthusiastically, choose a canoe, listen to a safety talk, put on a life jacket, take a paddle, ask whether the river goes in a circle, discover that it does not, and then enjoy a beautiful day outside. We are located somewhere near the water, probably by the big sign, unless the sign has blown over, in which case look for the canoes. Casey's Canoe Rental has been serving cheerful paddlers, cautious paddlers, nervous paddlers, snack-focused paddlers, and design students who need a bad landing page to improve since a year that sounds impressive. Book now, call now, paddle now, think about contrast now, and please notice how hard this paragraph is to scan because it is far too long, too dense, too yellow, too green, and too proud of itself.
+    </section>
+
+    <aside class="draggable bad-badge editable" contenteditable="true" spellcheck="false">
+      FLASH SALE! RENT 2 CANOES GET CONFUSED!
+    </aside>
+
+    <aside class="draggable price-box editable" contenteditable="true" spellcheck="false">
+      $19.99-ish per hour maybe plus fees probably
+    </aside>
+
+    <img class="draggable canoe-img img1" alt="Canoe on a quiet lake" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=500&q=80">
+    <img class="draggable canoe-img img2" alt="Paddles and boats near water" src="https://images.unsplash.com/photo-1470240731273-7821a6eeb6bd?auto=format&fit=crop&w=500&q=80">
+    <img class="draggable canoe-img img3" alt="People canoeing on a lake" src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=500&q=80">
+    <img class="draggable canoe-img img4" alt="Canoe near shore" src="https://images.unsplash.com/photo-1445308394109-4ec2920981b1?auto=format&fit=crop&w=500&q=80">
+    <img class="draggable canoe-img img5" alt="River through trees" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=500&q=80">
+
+    <div class="draggable footer-ish editable" contenteditable="true" spellcheck="false">
+      CALL 555-CANOE-NOW-NOW-NOW | NO WHITE SPACE WAS HARMED IN THIS DESIGN
+    </div>
+  </main>
+  <div class="resize-handle" data-corner="nw" title="Drag to resize selected image" aria-hidden="true">↖</div>
+  <div class="resize-handle" data-corner="ne" title="Drag to resize selected image" aria-hidden="true">↗</div>
+  <div class="resize-handle" data-corner="sw" title="Drag to resize selected image" aria-hidden="true">↙</div>
+  <div class="resize-handle" data-corner="se" title="Drag to resize selected image" aria-hidden="true">↘</div>
+
+  <script>
+    const stage = document.getElementById("stage");
+    const deleteButton = document.getElementById("deleteSelected");
+    const duplicateButton = document.getElementById("duplicateSelected");
+    const bringForwardButton = document.getElementById("bringForward");
+    const textColorInput = document.getElementById("textColor");
+    const backgroundColorInput = document.getElementById("backgroundColor");
+    const pageColorInput = document.getElementById("pageColor");
+    const solidBackgroundButton = document.getElementById("solidBackground");
+    const stripeBackgroundButton = document.getElementById("stripeBackground");
+    const toggleBorderButton = document.getElementById("toggleBorder");
+    const angleControl = document.getElementById("angleControl");
+    const angleValue = document.getElementById("angleValue");
+    const fontPicker = document.getElementById("fontPicker");
+    const straightenButton = document.getElementById("straightenSelected");
+    const resetButton = document.getElementById("resetPage");
+    const resizeHandles = Array.from(document.querySelectorAll(".resize-handle"));
+    const originalMarkup = stage.innerHTML;
+    const stripedBackground = window.getComputedStyle(stage).backgroundImage;
+    let selected = null;
+    let dragState = null;
+    let resizeState = null;
+    let zCounter = 20;
+
+    function selectElement(element) {
+      if (selected) {
+        selected.classList.remove("selected");
+      }
+      selected = element;
+      if (selected) {
+        selected.classList.add("selected");
+        const styles = window.getComputedStyle(selected);
+        textColorInput.value = rgbToHex(styles.color);
+        backgroundColorInput.value = rgbToHex(styles.backgroundColor);
+        const angle = getAngle(selected);
+        angleControl.value = String(angle);
+        angleValue.textContent = `${angle}deg`;
+        fontPicker.value = closestFontValue(styles.fontFamily);
+        toggleBorderButton.textContent = selected.dataset.borderRemoved === "true" ? "Restore Border" : "Remove Border";
+        updateResizeHandle();
+      }
+    }
+
+    function clearSelection() {
+      if (selected) {
+        selected.classList.remove("selected");
+      }
+      selected = null;
+      updateResizeHandle();
+    }
+
+    function rgbToHex(value) {
+      const match = value.match(/\d+/g);
+      if (!match || match.length < 3) {
+        return "#ffff00";
+      }
+      return "#" + match.slice(0, 3).map(number => {
+        return Number(number).toString(16).padStart(2, "0");
+      }).join("");
+    }
+
+    function makeDraggable(element) {
+      if (element.tagName === "IMG") {
+        element.setAttribute("draggable", "false");
+      }
+
+      element.addEventListener("pointerdown", event => {
+        selectElement(element);
+        if (event.target.closest(".toolbar")) {
+          return;
+        }
+        if (event.target.isContentEditable && event.detail > 1) {
+          element.focus();
+          return;
+        }
+        dragState = {
+          element,
+          startX: event.clientX,
+          startY: event.clientY,
+          startLeft: element.offsetLeft,
+          startTop: element.offsetTop,
+          pointerId: event.pointerId,
+          isDragging: false
+        };
+        if (element.tagName === "IMG") {
+          event.preventDefault();
+          element.setPointerCapture(event.pointerId);
+        }
+      });
+
+      element.addEventListener("pointermove", event => {
+        if (!dragState || dragState.element !== element) {
+          return;
+        }
+        const moveX = event.clientX - dragState.startX;
+        const moveY = event.clientY - dragState.startY;
+        if (!dragState.isDragging && Math.hypot(moveX, moveY) < 6) {
+          return;
+        }
+        if (!dragState.isDragging) {
+          dragState.isDragging = true;
+          element.classList.add("dragging");
+          element.setPointerCapture(dragState.pointerId);
+          if (document.activeElement === element) {
+            element.blur();
+          }
+        }
+        event.preventDefault();
+        const nextLeft = dragState.startLeft + event.clientX - dragState.startX;
+        const nextTop = dragState.startTop + event.clientY - dragState.startY;
+        element.style.left = `${Math.max(0, nextLeft)}px`;
+        element.style.top = `${Math.max(78, nextTop)}px`;
+        element.style.bottom = "auto";
+        updateResizeHandle();
+      });
+
+      element.addEventListener("pointerup", () => {
+        element.classList.remove("dragging");
+        dragState = null;
+      });
+
+      element.addEventListener("pointercancel", () => {
+        element.classList.remove("dragging");
+        dragState = null;
+      });
+    }
+
+    function getAngle(element) {
+      const customAngle = element.style.getPropertyValue("--angle") || window.getComputedStyle(element).getPropertyValue("--angle");
+      const parsed = parseFloat(customAngle);
+      return Number.isFinite(parsed) ? Math.round(parsed) : 0;
+    }
+
+    function setAngle(element, angle) {
+      element.style.setProperty("--angle", `${angle}deg`);
+      element.style.transform = "rotate(var(--angle))";
+      angleValue.textContent = `${angle}deg`;
+      updateResizeHandle();
+    }
+
+    function updateResizeHandle() {
+      if (!selected || selected.tagName !== "IMG") {
+        resizeHandles.forEach(handle => handle.classList.remove("visible"));
+        return;
+      }
+      const box = selected.getBoundingClientRect();
+      const points = {
+        nw: [box.left, box.top],
+        ne: [box.right, box.top],
+        sw: [box.left, box.bottom],
+        se: [box.right, box.bottom]
+      };
+
+      resizeHandles.forEach(handle => {
+        const point = points[handle.dataset.corner];
+        handle.style.left = `${point[0] - 13}px`;
+        handle.style.top = `${point[1] - 13}px`;
+        handle.classList.add("visible");
+      });
+    }
+
+    function toggleBorder(element) {
+      if (element.dataset.borderRemoved === "true") {
+        element.style.border = element.dataset.originalBorder || "";
+        element.dataset.borderRemoved = "false";
+        toggleBorderButton.textContent = "Remove Border";
+        return;
+      }
+
+      const styles = window.getComputedStyle(element);
+      element.dataset.originalBorder = element.style.border || styles.border;
+      element.style.border = "none";
+      element.dataset.borderRemoved = "true";
+      toggleBorderButton.textContent = "Restore Border";
+    }
+
+    function closestFontValue(fontFamily) {
+      const normalized = fontFamily.toLowerCase();
+      for (const option of fontPicker.options) {
+        const firstFont = option.value.split(",")[0].replaceAll('"', "").toLowerCase();
+        if (normalized.includes(firstFont)) {
+          return option.value;
+        }
+      }
+      return fontPicker.options[0].value;
+    }
+
+    function wirePage() {
+      document.querySelectorAll(".draggable").forEach(makeDraggable);
+    }
+
+    stage.addEventListener("click", event => {
+      const item = event.target.closest(".draggable");
+      if (item) {
+        selectElement(item);
+      }
+    });
+
+    deleteButton.addEventListener("click", () => {
+      if (selected) {
+        selected.remove();
+        clearSelection();
+      }
+    });
+
+    duplicateButton.addEventListener("click", () => {
+      if (!selected) {
+        return;
+      }
+      const copy = selected.cloneNode(true);
+      copy.classList.remove("selected");
+      copy.style.left = `${selected.offsetLeft + 35}px`;
+      copy.style.top = `${selected.offsetTop + 35}px`;
+      copy.style.bottom = "auto";
+      copy.style.zIndex = String(++zCounter);
+      stage.appendChild(copy);
+      makeDraggable(copy);
+      selectElement(copy);
+    });
+
+    bringForwardButton.addEventListener("click", () => {
+      if (selected) {
+        selected.style.zIndex = String(++zCounter);
+      }
+    });
+
+    textColorInput.addEventListener("input", () => {
+      if (selected) {
+        selected.style.color = textColorInput.value;
+      }
+    });
+
+    backgroundColorInput.addEventListener("input", () => {
+      if (selected) {
+        selected.style.backgroundColor = backgroundColorInput.value;
+      }
+    });
+
+    pageColorInput.addEventListener("input", () => {
+      document.body.style.backgroundColor = pageColorInput.value;
+      stage.style.backgroundColor = pageColorInput.value;
+      stage.style.backgroundImage = "none";
+    });
+
+    solidBackgroundButton.addEventListener("click", () => {
+      stage.style.backgroundImage = "none";
+      stage.style.backgroundColor = pageColorInput.value;
+      document.body.style.backgroundColor = pageColorInput.value;
+    });
+
+    stripeBackgroundButton.addEventListener("click", () => {
+      stage.style.backgroundImage = stripedBackground;
+      stage.style.backgroundColor = "limegreen";
+      document.body.style.backgroundColor = "limegreen";
+      pageColorInput.value = "#32cd32";
+    });
+
+    toggleBorderButton.addEventListener("click", () => {
+      if (selected) {
+        toggleBorder(selected);
+      }
+    });
+
+    angleControl.addEventListener("input", () => {
+      if (selected) {
+        setAngle(selected, Number(angleControl.value));
+      }
+    });
+
+    fontPicker.addEventListener("change", () => {
+      if (selected) {
+        selected.style.fontFamily = fontPicker.value;
+      }
+    });
+
+    straightenButton.addEventListener("click", () => {
+      if (selected) {
+        angleControl.value = "0";
+        setAngle(selected, 0);
+      }
+    });
+
+    resizeHandles.forEach(handle => {
+      handle.addEventListener("pointerdown", event => {
+        if (!selected || selected.tagName !== "IMG") {
+          return;
+        }
+        event.preventDefault();
+        resizeState = {
+          element: selected,
+          corner: handle.dataset.corner,
+          startX: event.clientX,
+          startY: event.clientY,
+          startLeft: selected.offsetLeft,
+          startTop: selected.offsetTop,
+          startWidth: selected.offsetWidth,
+          startHeight: selected.offsetHeight
+        };
+        handle.setPointerCapture(event.pointerId);
+      });
+
+      handle.addEventListener("pointermove", event => {
+        if (!resizeState) {
+          return;
+        }
+        event.preventDefault();
+        const dx = event.clientX - resizeState.startX;
+        const dy = event.clientY - resizeState.startY;
+        const corner = resizeState.corner;
+        const horizontalChange = corner.includes("w") ? -dx : dx;
+        const verticalChange = corner.includes("n") ? -dy : dy;
+        const change = Math.abs(horizontalChange) > Math.abs(verticalChange) ? horizontalChange : verticalChange;
+        const nextWidth = Math.max(80, resizeState.startWidth + change);
+        const ratio = resizeState.startHeight / resizeState.startWidth;
+        const nextHeight = Math.max(56, nextWidth * ratio);
+
+        resizeState.element.style.width = `${nextWidth}px`;
+        resizeState.element.style.height = `${nextHeight}px`;
+        if (corner.includes("w")) {
+          resizeState.element.style.left = `${resizeState.startLeft + resizeState.startWidth - nextWidth}px`;
+        }
+        if (corner.includes("n")) {
+          resizeState.element.style.top = `${resizeState.startTop + resizeState.startHeight - nextHeight}px`;
+        }
+        updateResizeHandle();
+      });
+
+      handle.addEventListener("pointerup", () => {
+        resizeState = null;
+      });
+
+      handle.addEventListener("pointercancel", () => {
+        resizeState = null;
+      });
+    });
+
+    resetButton.addEventListener("click", () => {
+      stage.innerHTML = originalMarkup;
+      stage.style.backgroundImage = stripedBackground;
+      stage.style.backgroundColor = "limegreen";
+      document.body.style.backgroundColor = "limegreen";
+      pageColorInput.value = "#32cd32";
+      angleControl.value = "0";
+      angleValue.textContent = "0deg";
+      clearSelection();
+      dragState = null;
+      resizeState = null;
+      wirePage();
+    });
+
+    document.addEventListener("keydown", event => {
+      if ((event.key === "Delete" || event.key === "Backspace") && selected && !document.activeElement.isContentEditable) {
+        selected.remove();
+        clearSelection();
+      }
+    });
+
+    window.addEventListener("resize", updateResizeHandle);
+
+    wirePage();
+  </script>
+</body>
+</html>
