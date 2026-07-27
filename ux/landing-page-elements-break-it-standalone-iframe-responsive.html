@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Break the Landing Page - Standalone iframe</title>
+  <style>
+    :root {
+      --ink: #102f3a;
+      --teal: #0f3f52;
+      --teal-2: #1d627b;
+      --gold: #ddaf4b;
+      --gray: #4d5259;
+      --line: #dfe3e6;
+      --paper: #ffffff;
+      --soft: #f5f6f7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: #f7f8f9;
+      color: var(--gray);
+      font-family: Lato, Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+
+    .activity {
+      min-height: 100vh;
+      padding: 24px;
+    }
+
+    .activity-shell {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      gap: 18px;
+    }
+
+    .instruction {
+      margin: 0;
+      color: var(--gray);
+      font-size: 17px;
+    }
+
+    .mock-browser {
+      overflow: hidden;
+      border: 1px solid #cfd5d9;
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: 0 20px 50px rgba(77, 82, 89, 0.18);
+    }
+
+    .browser-bar {
+      height: 46px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 18px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(#f9fafb, #eceff1);
+    }
+
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .dot.red { background: #e45a42; }
+    .dot.gold { background: #e8b13f; }
+    .dot.green { background: #4aa564; }
+
+    .address {
+      flex: 1;
+      height: 22px;
+      margin-left: 18px;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid #e2e6e8;
+    }
+
+    .landing-page {
+      background: var(--paper);
+    }
+
+    .site-nav {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 14px 44px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      width: 52px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      color: var(--teal);
+    }
+
+    .brand small {
+      display: block;
+      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: 0.28em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 440px;
+      padding: 72px 64px;
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(4, 43, 52, 0.86) 0%, rgba(4, 43, 52, 0.64) 35%, rgba(4, 43, 52, 0.12) 68%),
+        linear-gradient(135deg, #d9ecf0 0%, #98c0c9 28%, #3e7888 44%, #244f65 62%, #8db050 63%, #233b35 100%);
+    }
+
+    .mountains {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .mountains svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .hero-copy {
+      position: relative;
+      max-width: 560px;
+      z-index: 1;
+      color: #ffffff;
+    }
+
+    .hero-copy h1 {
+      margin: 0 0 18px;
+      color: #ffffff;
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: clamp(46px, 7vw, 78px);
+      line-height: 0.98;
+      letter-spacing: 0;
+      text-transform: none;
+      text-shadow: 0 2px 16px rgba(0, 0, 0, 0.24);
+    }
+
+    .gold-rule {
+      width: 64px;
+      height: 6px;
+      margin: 0 0 26px;
+      background: var(--gold);
+    }
+
+    .hero-copy p {
+      max-width: 480px;
+      margin: 0 0 28px;
+      color: rgba(255, 255, 255, 0.94);
+      font-size: 21px;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 56px;
+      padding: 0 28px;
+      border: 0;
+      border-radius: 6px;
+      background: var(--gold);
+      color: #102f3a;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+    }
+
+    .chunks {
+      position: relative;
+      padding: 54px 54px 64px;
+      background: var(--paper);
+    }
+
+    .chunk-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .chunk {
+      min-height: 190px;
+      padding: 24px 22px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      text-align: center;
+      background: #ffffff;
+    }
+
+    .chunk-icon {
+      width: 84px;
+      height: 84px;
+      margin: 0 auto 18px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #f1eee8;
+      color: var(--teal);
+    }
+
+    .chunk h2 {
+      margin: 0 0 10px;
+      color: var(--teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 24px;
+      line-height: 1.15;
+    }
+
+    .chunk p {
+      max-width: 230px;
+      margin: 0 auto;
+      color: var(--gray);
+      font-size: 17px;
+    }
+
+    .hotspot {
+      position: relative;
+      outline: none;
+    }
+
+    .hotspot::after {
+      content: "";
+      position: absolute;
+      inset: -8px;
+      border: 3px solid transparent;
+      border-radius: 10px;
+      pointer-events: none;
+      transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+    }
+
+    .hotspot:hover::after,
+    .hotspot:focus-visible::after,
+    .hotspot.active::after {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 5px rgba(221, 175, 75, 0.24);
+      background: rgba(221, 175, 75, 0.08);
+    }
+
+    .hero.hotspot::after {
+      inset: 12px;
+      border-radius: 0;
+    }
+
+    .chunks.hotspot::after {
+      inset: 24px;
+    }
+
+    .side-panel {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .concept-button {
+      min-height: 62px;
+      border: 2px solid var(--teal-2);
+      border-top: 5px solid var(--teal-2);
+      border-radius: 8px;
+      background: #ffffff;
+      color: var(--teal);
+      font: 700 15px/1.25 "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      text-align: left;
+      cursor: pointer;
+      padding: 12px;
+      box-shadow: 0 8px 18px rgba(77, 82, 89, 0.08);
+    }
+
+    .concept-button:hover,
+    .concept-button:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(29, 98, 123, 0.18), 0 10px 22px rgba(77, 82, 89, 0.12);
+    }
+
+    .concept-button.active,
+    .concept-button[aria-pressed="true"] {
+      border-color: var(--gold);
+      border-top-color: var(--gold);
+      box-shadow: 0 0 0 4px rgba(221, 175, 75, 0.24), 0 10px 22px rgba(77, 82, 89, 0.12);
+    }
+
+    .landing-page.no-image .hero {
+      min-height: 320px;
+      background: #f1f1f1;
+    }
+
+    .landing-page.no-image .mountains {
+      display: none;
+    }
+
+    .landing-page.no-image .hero-copy {
+      color: var(--gray);
+    }
+
+    .landing-page.no-image .hero-copy h1,
+    .landing-page.no-image .hero-copy p {
+      color: var(--gray);
+      text-shadow: none;
+    }
+
+    .landing-page.bad-headline .hero-copy h1 {
+      position: static;
+      max-width: 360px;
+      margin: 42px 0 8px;
+      padding: 0;
+      background: transparent;
+      color: #7a7a7a;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      line-height: 1.2;
+      font-weight: 400;
+      text-transform: none;
+      text-shadow: none;
+    }
+
+    .landing-page.wall-supporting .hero-copy p {
+      max-width: 920px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--gray);
+      font-size: 15px;
+      line-height: 1.18;
+    }
+
+    .landing-page.wall-supporting .hero-copy p::after {
+      content: " We offer many different types of experiences for many different types of people in many different types of locations, and we want every customer to understand every possible option before they make a decision, including route planning, pacing, weather, scenery, equipment, guide experience, destination details, scheduling details, and everything else someone might eventually want to know.";
+    }
+
+    .landing-page.wall-chunks .chunk-grid {
+      display: block;
+      max-width: none;
+    }
+
+    .landing-page.wall-chunks .chunk-grid::before {
+      content: "Our guided mountain adventures include local certified guides who know the mountains, itineraries tailored to your goals and experience, intimate trips for a safer and more personal experience, flexible pacing, scenic routes, safety planning, destination guidance, equipment recommendations, preparation tips, route difficulty notes, trip timing, lodging suggestions, weather considerations, meal planning, transportation options, booking details, cancellation reminders, and many other details that might matter eventually but become harder to understand when they are all placed into one long paragraph without clear visual grouping, short headings, icons, spacing, or scannable sections.";
+      display: block;
+      color: var(--gray);
+      font-size: 16px;
+      line-height: 1.25;
+    }
+
+    .landing-page.wall-chunks .chunk {
+      display: none;
+    }
+
+    .landing-page.wall-chunks .chunk-icon {
+      display: none;
+    }
+
+    .landing-page.bad-cta .cta {
+      min-height: auto;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      color: #6c757d;
+      font-size: 13px;
+      font-weight: 400;
+      text-decoration: underline;
+      box-shadow: none;
+    }
+
+    .landing-page.bad-cta .hero-copy::after {
+      content: "Contact us  |  Download brochure  |  Watch video  |  View pricing  |  Read reviews  |  Subscribe";
+      display: block;
+      max-width: 560px;
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #6c757d;
+      font-size: 14px;
+      line-height: 1.2;
+      text-decoration: underline;
+    }
+
+    .landing-page.bad-whitespace {
+      font-size: 14px;
+    }
+
+    .landing-page.bad-whitespace .site-nav {
+      min-height: 30px;
+      padding: 0 6px;
+      gap: 8px;
+    }
+
+    .landing-page.bad-whitespace .brand {
+      gap: 4px;
+      font-size: 12px;
+    }
+
+    .landing-page.bad-whitespace .brand-mark {
+      width: 30px;
+      height: 22px;
+    }
+
+    .landing-page.bad-whitespace .brand small {
+      font-size: 8px;
+    }
+
+    .landing-page.bad-whitespace .nav-links {
+      gap: 6px;
+      font-size: 11px;
+    }
+
+    .landing-page.bad-whitespace .hero {
+      min-height: 0;
+      padding: 8px;
+      align-items: start;
+    }
+
+    .landing-page.bad-whitespace .hero-copy {
+      max-width: none;
+    }
+
+    .landing-page.bad-whitespace .hero-copy h1 {
+      margin-bottom: 0;
+      font-size: 26px;
+      line-height: 0.95;
+    }
+
+    .landing-page.bad-whitespace.bad-headline .hero-copy h1 {
+      margin: 0 0 2px;
+      font-size: 11px;
+      line-height: 1.05;
+    }
+
+    .landing-page.bad-whitespace .gold-rule {
+      width: 34px;
+      height: 3px;
+      margin-bottom: 2px;
+    }
+
+    .landing-page.bad-whitespace .hero-copy p {
+      margin-bottom: 2px;
+      font-size: 12px;
+      line-height: 1.05;
+    }
+
+    .landing-page.bad-whitespace .cta {
+      min-height: 26px;
+      padding: 0 8px;
+      font-size: 12px;
+    }
+
+    .landing-page.bad-whitespace.bad-cta .hero-copy::after {
+      margin-top: 2px;
+      padding: 2px;
+      font-size: 10px;
+      line-height: 1.05;
+    }
+
+    .landing-page.bad-whitespace.wall-supporting .hero-copy p {
+      max-width: none;
+      padding: 3px;
+      font-size: 10px;
+      line-height: 1.05;
+    }
+
+    .landing-page.bad-whitespace .chunks {
+      padding: 2px;
+    }
+
+    .landing-page.bad-whitespace .chunk-grid {
+      gap: 0;
+      max-width: none;
+    }
+
+    .landing-page.bad-whitespace .chunk {
+      min-height: 0;
+      padding: 2px;
+      border-radius: 0;
+    }
+
+    .landing-page.bad-whitespace .chunk-icon {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 0;
+    }
+
+    .landing-page.bad-whitespace .chunk h2 {
+      margin-bottom: 0;
+      font-size: 12px;
+    }
+
+    .landing-page.bad-whitespace .chunk p {
+      font-size: 10px;
+      line-height: 1.05;
+    }
+
+    .landing-page.bad-whitespace.wall-chunks .chunk-grid::before {
+      font-size: 11px;
+      line-height: 1.05;
+    }
+
+    .feedback-panel {
+      border: 1px solid var(--line);
+      border-top: 7px solid var(--gold);
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: 0 12px 28px rgba(77, 82, 89, 0.08);
+      padding: 20px 22px;
+    }
+
+    .feedback-panel h2 {
+      margin: 0 34px 10px 0;
+      color: var(--teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 25px;
+      line-height: 1.12;
+    }
+
+    .feedback-panel p {
+      margin: 0;
+      color: var(--gray);
+      font-size: 17px;
+    }
+
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 900px) {
+      .activity {
+        padding: 16px;
+      }
+
+      .site-nav {
+        padding: 14px 22px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        min-height: 430px;
+        padding: 52px 30px;
+      }
+
+      .chunk-grid,
+      .side-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .chunks {
+        padding: 34px 24px 44px;
+      }
+    }
+  
+    /* Brightspace iframe sizing overrides */
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      min-height: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+    .activity {
+      min-height: 0;
+      padding: 16px;
+    }
+
+    .side-panel {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .concept-button {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      min-height: 64px;
+      padding: 9px 8px;
+      font-size: 13px;
+      white-space: normal;
+      overflow-wrap: break-word;
+      word-break: normal;
+    }
+
+    .hero {
+      min-height: 360px;
+      padding: 48px 42px;
+    }
+
+    .chunks {
+      padding: 34px 30px 40px;
+    }
+
+    .chunk {
+      min-height: 160px;
+      padding: 18px 16px;
+    }
+
+    .chunk-icon {
+      width: 64px;
+      height: 64px;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 700px) {
+      .side-panel {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero {
+        min-height: 340px;
+        padding: 38px 24px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .side-panel {
+        grid-template-columns: 1fr;
+      }
+
+    }
+  </style>
+</head>
+<body>
+  <main class="activity">
+    <div class="activity-shell">
+      <p class="instruction">Select a label to intentionally break that design element. Select it again to restore that part of the page.</p>
+
+      <div class="side-panel" aria-label="Break or restore landing page concepts">
+        <button class="concept-button" type="button" data-break="no-image" data-break-label="Remove vivid image" data-restore-label="Restore vivid image">Remove vivid image</button>
+        <button class="concept-button" type="button" data-break="bad-headline" data-break-label="Break headline" data-restore-label="Restore headline">Break headline</button>
+        <button class="concept-button" type="button" data-break="wall-supporting" data-break-label="Make supporting text a wall" data-restore-label="Restore supporting text">Make supporting text a wall</button>
+        <button class="concept-button" type="button" data-break="wall-chunks" data-break-label="Unchunk information" data-restore-label="Restore chunks">Unchunk information</button>
+        <button class="concept-button" type="button" data-break="bad-cta" data-break-label="Hide call to action" data-restore-label="Restore call to action">Hide call to action</button>
+        <button class="concept-button" type="button" data-break="bad-whitespace" data-break-label="Remove whitespace" data-restore-label="Restore whitespace">Remove whitespace</button>
+      </div>
+
+      <section class="mock-browser" aria-label="Interactive landing page design mockup">
+        <div class="browser-bar" aria-hidden="true">
+          <span class="dot red"></span>
+          <span class="dot gold"></span>
+          <span class="dot green"></span>
+          <span class="address"></span>
+        </div>
+
+        <div class="landing-page" id="landingPage">
+          <div class="site-nav">
+            <div class="brand" aria-label="Summit Path Adventures">
+              <div class="brand-mark" aria-hidden="true">
+                <svg viewBox="0 0 72 52" width="52" height="38" role="img">
+                  <path d="M4 44 25 8l12 21L47 13l21 31H4Z" fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round"></path>
+                  <path d="M25 8 28 27l9 2M47 13 45 31l8-4" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"></path>
+                </svg>
+              </div>
+              <div>Summit Path<small>Adventures</small></div>
+            </div>
+            <nav class="nav-links" aria-label="Sample navigation">
+              <span>Trips</span>
+              <span>Destinations</span>
+              <span>Why Us</span>
+              <span>About</span>
+            </nav>
+          </div>
+
+          <section class="hero hotspot" tabindex="0" role="button" data-concept="image" aria-label="Vivid, compelling image">
+            <div class="mountains" aria-hidden="true">
+              <svg viewBox="0 0 1200 440" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="sky" x1="0" x2="0" y1="0" y2="1">
+                    <stop offset="0" stop-color="#c6e1e8"></stop>
+                    <stop offset="0.55" stop-color="#83b3bf"></stop>
+                    <stop offset="1" stop-color="#2b5a67"></stop>
+                  </linearGradient>
+                  <linearGradient id="lake" x1="0" x2="1" y1="0" y2="0">
+                    <stop offset="0" stop-color="#3d8aa0"></stop>
+                    <stop offset="1" stop-color="#0f4f62"></stop>
+                  </linearGradient>
+                </defs>
+                <rect width="1200" height="440" fill="url(#sky)"></rect>
+                <circle cx="925" cy="82" r="42" fill="#ffffff" opacity="0.74"></circle>
+                <path d="M610 358 C705 294 806 300 966 356 C844 386 719 395 610 358Z" fill="url(#lake)" opacity="0.92"></path>
+                <path d="M250 360 455 72 612 360Z" fill="#2d5264"></path>
+                <path d="M435 360 676 46 900 360Z" fill="#4d6874"></path>
+                <path d="M674 360 905 90 1170 360Z" fill="#314d5b"></path>
+                <path d="M455 72 415 184 502 150 538 216 612 360Z" fill="#e9eef0" opacity="0.9"></path>
+                <path d="M676 46 624 182 708 142 766 230 900 360Z" fill="#edf2f3" opacity="0.95"></path>
+                <path d="M905 90 850 201 939 162 1000 248 1170 360Z" fill="#f0f4f5" opacity="0.88"></path>
+                <path d="M0 372 C140 332 240 346 388 382 C245 430 90 425 0 402Z" fill="#224038"></path>
+                <path d="M730 372 C840 326 1000 336 1200 386 L1200 440 L730 440Z" fill="#263f38"></path>
+                <g fill="#1d332d">
+                  <path d="M928 360h20v60h-20z"></path>
+                  <path d="M938 294 905 365h66Z"></path>
+                  <path d="M1005 350h18v64h-18z"></path>
+                  <path d="M1014 288 982 360h66Z"></path>
+                  <path d="M1100 364h16v56h-16z"></path>
+                  <path d="M1108 304 1080 370h58Z"></path>
+                </g>
+              </svg>
+            </div>
+            <div class="hero-copy">
+              <h1 class="hotspot" tabindex="0" role="button" data-concept="headline">Guided Mountain Adventures</h1>
+              <div class="gold-rule"></div>
+              <p class="hotspot" tabindex="0" role="button" data-concept="supporting">Expert-led trips with safe routes, local guides, and unforgettable views.</p>
+              <button class="cta hotspot" type="button" data-concept="cta">Start Planning <span aria-hidden="true">→</span></button>
+            </div>
+          </section>
+
+          <section class="chunks hotspot" tabindex="0" role="button" data-concept="chunks" aria-label="Chunked supporting information">
+            <div class="chunk-grid">
+              <article class="chunk">
+                <div class="chunk-icon" aria-hidden="true">
+                  <svg viewBox="0 0 48 48" width="46" height="46">
+                    <path d="M10 34c3-7 8-11 14-11s11 4 14 11" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path>
+                    <circle cx="24" cy="15" r="7" fill="none" stroke="currentColor" stroke-width="3"></circle>
+                    <path d="M7 18h34" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path>
+                  </svg>
+                </div>
+                <h2>Expert Guides</h2>
+                <p>Local, certified guides who know the mountains.</p>
+              </article>
+              <article class="chunk">
+                <div class="chunk-icon" aria-hidden="true">
+                  <svg viewBox="0 0 48 48" width="46" height="46">
+                    <path d="M8 34 20 18l9 11 5-7 8 12H8Z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"></path>
+                    <path d="M17 38c6-8 14-8 21-2" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 4"></path>
+                    <circle cx="34" cy="13" r="4" fill="none" stroke="currentColor" stroke-width="3"></circle>
+                  </svg>
+                </div>
+                <h2>Custom Routes</h2>
+                <p>Itineraries tailored to your goals and experience.</p>
+              </article>
+              <article class="chunk">
+                <div class="chunk-icon" aria-hidden="true">
+                  <svg viewBox="0 0 48 48" width="46" height="46">
+                    <circle cx="24" cy="16" r="6" fill="none" stroke="currentColor" stroke-width="3"></circle>
+                    <circle cx="12" cy="21" r="5" fill="none" stroke="currentColor" stroke-width="3"></circle>
+                    <circle cx="36" cy="21" r="5" fill="none" stroke="currentColor" stroke-width="3"></circle>
+                    <path d="M7 37c2-7 7-10 17-10s15 3 17 10" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"></path>
+                  </svg>
+                </div>
+                <h2>Small Groups</h2>
+                <p>Intimate trips for a safer, more personal experience.</p>
+              </article>
+            </div>
+          </section>
+        </div>
+      </section>
+    </div>
+
+      <aside class="feedback-panel" aria-live="polite">
+        <h2 id="feedbackTitle">Try breaking a design element</h2>
+        <p id="feedbackText">Use the buttons above the mockup to turn design problems on and off. The note for the most recent change will appear here.</p>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    const breakInfo = {
+      "no-image": {
+        title: "Vivid image removed",
+        text: "Without a compelling image, the page loses much of its immediate emotional appeal. Visitors have to work harder to imagine the experience."
+      },
+      "bad-headline": {
+        title: "Headline made hard to notice",
+        text: "The headline no longer catches attention or clearly anchors the page. If the main message is small and misplaced, visitors may miss the purpose of the page."
+      },
+      "wall-supporting": {
+        title: "Supporting information became a wall of text",
+        text: "Supporting copy should quickly clarify who you are or why consumers should buy from you. Too much dense text makes the message harder to scan."
+      },
+      "wall-chunks": {
+        title: "Chunked information was removed",
+        text: "The three clear reasons to choose the company have been flattened into a heavier text block. Chunking helps visitors compare ideas quickly."
+      },
+      "bad-cta": {
+        title: "Call to action is unclear",
+        text: "The page now has too many competing next steps, and the original action is small and easy to overlook. A clear call to action should stand out and tell visitors what to do next."
+      },
+      "bad-whitespace": {
+        title: "Whitespace removed",
+        text: "The page now feels cramped. Whitespace gives each element room to breathe and helps visitors understand what matters most."
+      }
+    };
+
+    const landingPage = document.getElementById("landingPage");
+    const title = document.getElementById("feedbackTitle");
+    const text = document.getElementById("feedbackText");
+    const breakButtons = Array.from(document.querySelectorAll("[data-break]"));
+
+    function showMessage(key) {
+      const info = breakInfo[key];
+      if (!info) return;
+      title.textContent = info.title;
+      text.textContent = info.text;
+    }
+
+    function restoreMessage(button) {
+      const label = button.dataset.restoreLabel || "Restore element";
+      title.textContent = label.replace(/^Restore/, "Restored");
+      text.textContent = "That part of the landing page has been restored. You can turn other broken elements on or off to compare how each design choice affects the page.";
+    }
+
+    function toggleElement(key, button) {
+      const isBroken = landingPage.classList.toggle(key);
+      button.classList.toggle("active", isBroken);
+      button.textContent = isBroken ? button.dataset.restoreLabel : button.dataset.breakLabel;
+      button.setAttribute("aria-pressed", String(isBroken));
+
+      if (isBroken) {
+        showMessage(key);
+      } else {
+        restoreMessage(button);
+      }
+    }
+
+    breakButtons.forEach((button) => {
+      button.setAttribute("aria-pressed", "false");
+      button.addEventListener("click", () => {
+        toggleElement(button.dataset.break, button);
+      });
+    });
+  </script>
+</body>
+</html>
