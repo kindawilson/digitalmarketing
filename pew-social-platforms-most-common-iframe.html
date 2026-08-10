@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Which social media platforms are most common?</title>
+  <style>
+    :root {
+      --blue: #003b71;
+      --gold: #c99700;
+      --ink: #161616;
+      --muted: #646a70;
+      --line: #d9dde2;
+      --paper: #ffffff;
+      --soft: #f4f6f8;
+      --grid: #ebedf0;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .embed {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      color: var(--blue);
+      font-size: clamp(24px, 3vw, 36px);
+      line-height: 1.08;
+      margin: 0 0 8px;
+      text-transform: uppercase;
+      letter-spacing: .01em;
+    }
+
+    .deck {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.45;
+      max-width: 900px;
+      margin: 0 0 16px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 12px 0;
+      margin-bottom: 18px;
+    }
+
+    .button {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--blue);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      padding: 8px 10px;
+      text-transform: uppercase;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      border-color: var(--blue);
+      outline: none;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 16px;
+    }
+
+    .chip {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      line-height: 1;
+      padding: 8px 9px;
+    }
+
+    .chip[aria-pressed="true"] {
+      border-color: var(--blue);
+      box-shadow: inset 0 -2px 0 var(--blue);
+      font-weight: 700;
+    }
+
+    .swatch {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex: 0 0 auto;
+    }
+
+    .chart-wrap {
+      position: relative;
+      border-left: 24px solid var(--blue);
+      padding-left: 22px;
+    }
+
+    svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      min-height: 420px;
+      overflow: visible;
+    }
+
+    .axis text {
+      fill: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .grid {
+      stroke: var(--grid);
+      stroke-width: 1;
+    }
+
+    .line {
+      fill: none;
+      stroke-width: 3;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+    }
+
+    .point {
+      stroke: #fff;
+      stroke-width: 1.5;
+      cursor: crosshair;
+    }
+
+    .label {
+      fill: var(--ink);
+      font-size: 15px;
+      font-weight: 700;
+      paint-order: stroke;
+      stroke: #fff;
+      stroke-width: 5px;
+      stroke-linejoin: round;
+    }
+
+    .mode-note {
+      display: inline-block;
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .tooltip {
+      position: fixed;
+      z-index: 5;
+      pointer-events: none;
+      transform: translate(-50%, calc(-100% - 12px));
+      min-width: 130px;
+      background: #fff;
+      border: 1px solid var(--line);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+      color: var(--ink);
+      padding: 8px 10px;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity .12s ease;
+    }
+
+    .tooltip strong {
+      color: var(--blue);
+      display: block;
+      font-size: 13px;
+      margin-bottom: 2px;
+    }
+
+    .source {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.4;
+      margin-top: 18px;
+      padding-top: 10px;
+    }
+
+    .source a { color: var(--blue); }
+
+    @media (max-width: 720px) {
+      .embed { padding: 18px; }
+      .chart-wrap {
+        border-left-width: 18px;
+        padding-left: 12px;
+        overflow-x: auto;
+      }
+      svg {
+        width: 860px;
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="embed">
+    <div class="eyebrow">Pew Research Center</div>
+    <h1>Which social media platforms are most common?</h1>
+    <p class="deck">YouTube and Facebook remain the broadest-reach platforms among U.S. adults. Use the controls to compare platform adoption over time; unavailable platform-year values are left as gaps.</p>
+
+    <div class="toolbar" aria-label="Chart controls">
+      <button class="button" type="button" id="topButton">Top platforms</button>
+      <button class="button" type="button" id="allButton">All available</button>
+      <button class="button" type="button" id="clearButton">Clear</button>
+      <span class="mode-note">The vertical marker shows Pew's 2023 survey mode change.</span>
+    </div>
+
+    <div class="chip-row" id="chips" aria-label="Platform filters"></div>
+    <section class="chart-wrap">
+      <svg id="chart" viewBox="0 0 1040 520" role="img" aria-label="Line chart of social media platform use among U.S. adults"></svg>
+    </section>
+
+    <p class="source">
+      Source: <a href="https://www.pewresearch.org/internet/fact-sheet/social-media/" target="_blank" rel="noopener">Pew Research Center, Social Media Fact Sheet</a>.
+      Surveys of U.S. adults conducted 2018-2025; 2025 survey conducted Feb. 5-June 18, 2025. Polls from 2018-2021 were conducted via phone; Pew notes a mode change beginning in 2023.
+    </p>
+  </main>
+  <div class="tooltip" id="tooltip" aria-hidden="true"></div>
+
+  <script>
+    const years = [2018, 2019, 2021, 2023, 2024, 2025];
+    const platforms = [
+      { name: "YouTube", color: "#003b71", values: [73, 73, 81, 83, 85, 84] },
+      { name: "Facebook", color: "#c99700", values: [68, 69, 69, 68, 70, 71] },
+      { name: "Instagram", color: "#4f76a8", values: [35, 37, 40, 47, 50, 50] },
+      { name: "Pinterest", color: "#7d858c", values: [29, 28, 31, 35, 36, 37] },
+      { name: "TikTok", color: "#111111", values: [null, null, 21, 33, 33, 32] },
+      { name: "LinkedIn", color: "#6c8fb8", values: [25, 27, 28, 30, 32, 25] },
+      { name: "WhatsApp", color: "#b28a00", values: [22, 20, 23, 29, 30, 21] },
+      { name: "Snapchat", color: "#9fa8b2", values: [27, 24, 25, 27, 27, 26] },
+      { name: "X", color: "#4b4f54", values: [24, 22, 23, 22, 21, null] },
+      { name: "Reddit", color: "#8c6d00", values: [null, 11, 18, 22, 24, null] },
+      { name: "BeReal", color: "#bcc3ca", values: [null, null, null, 3, 3, null] },
+      { name: "Threads", color: "#1d5a96", values: [null, null, null, null, null, 8] },
+      { name: "Bluesky", color: "#75a3d1", values: [null, null, null, null, null, 4] },
+      { name: "Truth Social", color: "#d9b342", values: [null, null, null, null, null, 3] }
+    ];
+
+    const svg = document.getElementById("chart");
+    const chips = document.getElementById("chips");
+    const tooltip = document.getElementById("tooltip");
+    const margin = { top: 26, right: 160, bottom: 58, left: 50 };
+    const width = 1040;
+    const height = 520;
+    const innerW = width - margin.left - margin.right;
+    const innerH = height - margin.top - margin.bottom;
+    let active = new Set(["YouTube", "Facebook", "Instagram", "Pinterest", "TikTok", "Snapchat"]);
+
+    function xScale(year) {
+      const min = Math.min(...years);
+      const max = Math.max(...years);
+      return margin.left + ((year - min) / (max - min)) * innerW;
+    }
+
+    function yScale(value) {
+      return margin.top + (1 - value / 100) * innerH;
+    }
+
+    function pathFor(values) {
+      let d = "";
+      let open = false;
+      values.forEach((value, index) => {
+        if (value == null) {
+          open = false;
+          return;
+        }
+        const command = open ? "L" : "M";
+        d += `${command}${xScale(years[index]).toFixed(1)},${yScale(value).toFixed(1)} `;
+        open = true;
+      });
+      return d.trim();
+    }
+
+    function latestValue(platform) {
+      for (let i = platform.values.length - 1; i >= 0; i--) {
+        if (platform.values[i] != null) return { value: platform.values[i], year: years[i] };
+      }
+      return null;
+    }
+
+    function renderChips() {
+      chips.innerHTML = "";
+      platforms.forEach((platform) => {
+        const button = document.createElement("button");
+        button.className = "chip";
+        button.type = "button";
+        button.setAttribute("aria-pressed", String(active.has(platform.name)));
+        button.innerHTML = `<span class="swatch" style="background:${platform.color}"></span>${platform.name}`;
+        button.addEventListener("click", () => {
+          if (active.has(platform.name)) active.delete(platform.name);
+          else active.add(platform.name);
+          render();
+        });
+        chips.appendChild(button);
+      });
+    }
+
+    function text(x, y, content, className, anchor = "start") {
+      return `<text x="${x}" y="${y}" class="${className}" text-anchor="${anchor}">${content}</text>`;
+    }
+
+    function render() {
+      renderChips();
+      const activePlatforms = platforms.filter((p) => active.has(p.name));
+      let markup = "";
+
+      [0, 20, 40, 60, 80, 100].forEach((tick) => {
+        const y = yScale(tick);
+        markup += `<line class="grid" x1="${margin.left}" y1="${y}" x2="${width - margin.right}" y2="${y}"></line>`;
+        markup += text(margin.left - 10, y + 4, `${tick}%`, "axis", "end");
+      });
+
+      years.forEach((year) => {
+        const x = xScale(year);
+        markup += text(x, height - 28, year, "axis", "middle");
+      });
+
+      const modeX = xScale(2023);
+      markup += `<line x1="${modeX}" y1="${margin.top}" x2="${modeX}" y2="${height - margin.bottom}" stroke="#c99700" stroke-width="1.5" stroke-dasharray="5 5"></line>`;
+      markup += text(modeX + 8, margin.top + 14, "MODE CHANGE", "axis");
+
+      activePlatforms.forEach((platform) => {
+        markup += `<path class="line" d="${pathFor(platform.values)}" stroke="${platform.color}"></path>`;
+        platform.values.forEach((value, index) => {
+          if (value == null) return;
+          const x = xScale(years[index]);
+          const y = yScale(value);
+          markup += `<circle class="point" cx="${x}" cy="${y}" r="4.5" fill="${platform.color}" data-platform="${platform.name}" data-year="${years[index]}" data-value="${value}"></circle>`;
+        });
+        const latest = latestValue(platform);
+        if (latest) {
+          const idx = years.indexOf(latest.year);
+          markup += text(xScale(latest.year) + 12, yScale(latest.value) + 5, platform.name, "label");
+        }
+      });
+
+      if (!activePlatforms.length) {
+        markup += text(width / 2, height / 2, "Select one or more platforms to draw the chart.", "label", "middle");
+      }
+
+      svg.innerHTML = markup;
+      svg.querySelectorAll(".point").forEach((point) => {
+        point.addEventListener("mouseenter", showTooltip);
+        point.addEventListener("mousemove", moveTooltip);
+        point.addEventListener("mouseleave", hideTooltip);
+        point.addEventListener("focus", showTooltip);
+        point.addEventListener("blur", hideTooltip);
+      });
+      requestAnimationFrame(postHeight);
+    }
+
+    function showTooltip(event) {
+      const point = event.currentTarget;
+      tooltip.innerHTML = `<strong>${point.dataset.platform}</strong>${point.dataset.year}: ${point.dataset.value}%`;
+      tooltip.style.opacity = "1";
+      tooltip.setAttribute("aria-hidden", "false");
+      moveTooltip(event);
+    }
+
+    function moveTooltip(event) {
+      const x = event.clientX ?? event.currentTarget.getBoundingClientRect().left;
+      const y = event.clientY ?? event.currentTarget.getBoundingClientRect().top;
+      tooltip.style.left = `${x}px`;
+      tooltip.style.top = `${y}px`;
+    }
+
+    function hideTooltip() {
+      tooltip.style.opacity = "0";
+      tooltip.setAttribute("aria-hidden", "true");
+    }
+
+    function postHeight() {
+      window.parent?.postMessage({
+        type: "pew-social-platforms-common-chart-height",
+        height: document.documentElement.scrollHeight
+      }, "*");
+    }
+
+    document.getElementById("topButton").addEventListener("click", () => {
+      active = new Set(["YouTube", "Facebook", "Instagram", "Pinterest", "TikTok", "Snapchat"]);
+      render();
+    });
+    document.getElementById("allButton").addEventListener("click", () => {
+      active = new Set(platforms.map((p) => p.name));
+      render();
+    });
+    document.getElementById("clearButton").addEventListener("click", () => {
+      active = new Set();
+      render();
+    });
+
+    render();
+    window.addEventListener("resize", postHeight);
+  </script>
+</body>
+</html>
