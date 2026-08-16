@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Digital Marketing History</title>
+  <style>
+    :root {
+      --teal: #1d627b;
+      --gold: #ddaf4b;
+      --red: #b03d19;
+      --sky: #59a4d4;
+      --green: #00a080;
+      --navy: #17324d;
+      --charcoal: #4d5259;
+      --light-gray: #e7e6e6;
+      --soft-gray: #f5f6f7;
+      --white: #ffffff;
+      --black: #111111;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--charcoal);
+      background: var(--white);
+      font-family: "Apex New", "Calibri", "Segoe UI", Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    button { font: inherit; }
+
+    button:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    .interaction {
+      width: 100%;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .intro {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 18px;
+      padding-left: 18px;
+      border-left: 8px solid var(--gold);
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      color: var(--teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: .01em;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
+    h1 { font-size: clamp(28px, 5vw, 42px); }
+
+    .intro p:last-child {
+      max-width: 850px;
+      margin: 0;
+      font-size: 17px;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 22px;
+    }
+
+    .timeline-row {
+      padding: 18px;
+      border: 1px solid var(--light-gray);
+      border-top: 6px solid var(--accent, var(--teal));
+      background: var(--white);
+      box-shadow: 0 12px 28px rgba(77, 82, 89, .08);
+    }
+
+    .timeline-row[data-group="connected"] { --text-accent: var(--black); }
+
+    .row-heading {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: baseline;
+      margin-bottom: 16px;
+    }
+
+    .row-heading h2 { font-size: clamp(18px, 3vw, 24px); }
+    .row-range { color: var(--charcoal); font-size: 13px; font-weight: 700; }
+
+    .milestones {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(var(--count), minmax(0, 1fr));
+      gap: 4px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .milestones::before {
+      content: "";
+      position: absolute;
+      top: 20px;
+      right: 5%;
+      left: 5%;
+      height: 4px;
+      background: var(--accent, var(--teal));
+    }
+
+    .milestone { position: relative; min-width: 0; }
+
+    .milestone-button {
+      position: relative;
+      display: grid;
+      grid-template-rows: 42px auto auto;
+      width: 100%;
+      min-width: 0;
+      padding: 0 3px 5px;
+      border: 0;
+      background: transparent;
+      color: var(--charcoal);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .dot {
+      align-self: center;
+      justify-self: center;
+      width: 22px;
+      height: 22px;
+      border: 4px solid var(--white);
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 0 2px var(--accent, var(--teal));
+      z-index: 1;
+    }
+
+    .milestone-button:hover .dot { background: var(--sky); }
+
+    .milestone-button[aria-pressed="true"] .dot {
+      width: 27px;
+      height: 27px;
+      background: var(--red);
+      box-shadow: 0 0 0 3px var(--gold);
+    }
+
+    .date {
+      color: var(--text-accent, var(--accent, var(--teal)));
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .short-label {
+      margin-top: 4px;
+      color: var(--charcoal);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.15;
+      overflow-wrap: anywhere;
+    }
+
+    .row-detail {
+      display: grid;
+      grid-template-columns: minmax(108px, .23fr) minmax(0, 1fr);
+      margin-top: 16px;
+      border-top: 1px solid var(--light-gray);
+      background: var(--soft-gray);
+    }
+
+    .row-detail-date {
+      display: grid;
+      place-items: center;
+      min-height: 124px;
+      padding: 15px;
+      background: var(--accent, var(--teal));
+      color: var(--detail-foreground, var(--white));
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: clamp(19px, 3.5vw, 27px);
+      font-weight: 700;
+      line-height: 1.05;
+      text-align: center;
+    }
+
+    .timeline-row[data-group="connected"] .row-detail-date { --detail-foreground: var(--black); }
+
+    .row-detail-copy { padding: 17px 19px; }
+    .row-detail-copy h3 { margin-bottom: 7px; font-size: clamp(17px, 2.6vw, 22px); }
+    .row-detail-copy p { margin: 0; font-size: 15px; }
+
+    .instruction {
+      margin: 18px 0 0;
+      padding: 14px 16px;
+      border-left: 8px solid var(--gold);
+      background: var(--soft-gray);
+      font-size: 15px;
+    }
+
+    .instruction strong { color: var(--teal); }
+
+    .source {
+      margin: 18px 0 0;
+      color: #6d737b;
+      font-size: 13px;
+    }
+
+    .source a {
+      color: var(--teal);
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 700px) {
+      .interaction { padding: 18px; }
+      .timeline-row { padding: 16px 10px; }
+      .short-label { font-size: 11px; }
+      .milestone-button { padding-inline: 1px; }
+    }
+
+    @media (max-width: 520px) {
+      .row-detail { grid-template-columns: 1fr; }
+      .row-detail-date { min-height: auto; place-items: start; text-align: left; }
+      .row-heading { align-items: flex-start; flex-direction: column; gap: 2px; }
+      .milestones { grid-template-columns: 1fr; gap: 0; padding-left: 4px; }
+      .milestones::before { top: 12px; bottom: 12px; left: 17px; width: 4px; height: auto; }
+      .milestone-button { grid-template: auto / 38px 82px minmax(0, 1fr); align-items: center; min-height: 52px; text-align: left; }
+      .dot { grid-column: 1; width: 20px; height: 20px; }
+      .date { grid-column: 2; padding-right: 8px; }
+      .short-label { grid-column: 3; margin: 0; font-size: 13px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="interaction">
+    <section class="intro" aria-labelledby="pageTitle">
+      <p class="eyebrow">Interactive timeline</p>
+      <h1 id="pageTitle">Digital Marketing History</h1>
+      <p>Select a milestone to explore how changing media and technology influenced marketing and buyer behavior.</p>
+    </section>
+
+    <section class="timeline" id="timeline" aria-label="Digital marketing history timeline"></section>
+
+    <p class="instruction"><strong>Explore the pattern:</strong> Notice how milestones become much more frequent after 1980 as personal computing, the internet, mobile devices, social platforms, and automation converge.</p>
+
+    <p class="source">Data source: <a href="https://martech.zone/history-of-marketing/" target="_blank" rel="noopener noreferrer">https://martech.zone/history-of-marketing/</a></p>
+  </main>
+
+  <script>
+    (() => {
+      const milestones = [
+        { date: '1450', short: 'Mass printing', title: 'Mass Printing', detail: 'Mass printing enabled wider distribution of printed materials, allowing businesses to reach larger audiences. Buyers gained access to more information, influencing their purchasing decisions.' },
+        { date: '1730–1867', short: 'Magazine ads', title: 'Magazine Advertising', detail: 'Magazines offered a targeted medium for advertising, influencing buyer behavior through visually appealing ads and product information.' },
+        { date: '1922', short: 'Radio ads', title: 'Radio Advertising', detail: 'Radio introduced audio advertising, shaping buyer preferences and creating brand awareness through sound.' },
+        { date: '1941', short: 'Television ads', title: 'Television Advertising', detail: 'Television became a powerful platform for visual advertising, significantly influencing buyer behavior and introducing new products to the masses.' },
+        { date: '1970', short: 'Telemarketing', title: 'Telemarketing', detail: 'Telemarketing allowed direct communication with customers, personalizing sales pitches and influencing buyer decisions over the phone.' },
+        { date: '1973', short: 'Digital age', title: 'The Digital Age', detail: 'The advent of mobile phones initiated mobile marketing and changed how buyers accessed information and engaged with brands.' },
+        { date: '1981–1984', short: 'Personal computers', title: 'Personal Computers', detail: 'Personal computers made desktop publishing accessible, impacting how businesses created and distributed marketing materials. Buyers could access digital content and advertisements.' },
+        { date: '1985', short: 'Print ad boom', title: 'Print Advertising Boom', detail: 'The surge in print advertising revenue expanded brand awareness through newspapers and magazines, significantly affecting buyer behavior.' },
+        { date: '1990–1994', short: 'Mobile + text ads', title: 'Mobile Devices and Text Advertising', detail: 'The proliferation of mobile devices introduced new marketing platforms, including SMS and text-based advertising, which directly reached buyers on their devices.' },
+        { date: '1995–1997', short: 'Search engines', title: 'Search Engines', detail: 'Search engines transformed online marketing, optimizing content visibility and making it easier for buyers to find products and services, influencing their purchase decisions.' },
+        { date: '1995–2002', short: 'Internet + email', title: 'Internet and Emails', detail: 'The introduction of the internet and emails marked the beginning of online marketing, changing how businesses communicated with buyers and enabling e-commerce.' },
+        { date: '1995', short: 'Google + SEO', title: 'Google and SEO', detail: 'Google’s launch and the emergence of search engine optimization (SEO) revolutionized online marketing by improving website visibility and influencing buyer behavior through search results.' },
+        { date: '2000', short: 'Google AdWords', title: 'Google AdWords', detail: 'Google’s introduction of PPC/AdWords provided a powerful online advertising platform, affecting buyer behavior by displaying targeted ads.' },
+        { date: '2003', short: 'Social media', title: 'Social Media', detail: 'The rise of social media in 2003 and subsequent platforms like LinkedIn, Myspace, and Facebook changed how businesses engaged with buyers, influencing their preferences and purchase decisions.' },
+        { date: '2005', short: 'Personalization + analytics', title: 'Google Personalization and Analytics', detail: 'Google’s personalization of search results and the introduction of Google Analytics impacted online marketing strategies and helped businesses understand buyer behavior better.' },
+        { date: '2006', short: 'HubSpot + Twitter', title: 'HubSpot and Twitter', detail: 'The launch of HubSpot and the introduction of Twitter contributed to the growth of social media and e-commerce, providing new channels for businesses to reach buyers.' },
+        { date: '2008', short: 'Online video', title: 'Online Videos', detail: 'The popularity of online videos influenced buyer behavior by providing engaging content and product information.' },
+        { date: '2010', short: 'Smartphones', title: 'Smartphones', detail: 'The widespread adoption of smartphones changed buyer behavior by increasing online activity and reducing TV viewership.' },
+        { date: '2012', short: 'Internet growth', title: 'Internet Growth', detail: 'The growth of internet users and social media engagement in 2012 affected marketing strategies and how businesses connected with buyers.' },
+        { date: '2015', short: 'Mobile shoppers', title: 'Mobile Shoppers', detail: 'The significant increase in mobile shoppers in the UK in 2015 reflected changing buyer habits and emphasized the importance of mobile marketing.' },
+        { date: '2019–present', short: 'AI + automation', title: 'AI and Automation', detail: 'The use of artificial intelligence in digital marketing through automated advertisements and emails transformed marketing strategies and personalized content, impacting buyer behavior through targeted advertising and engagement.' }
+      ];
+
+      const groups = [
+        { id: 'foundations', title: 'Mass media foundations', range: '1450–1973', accent: 'var(--teal)', start: 0, end: 6 },
+        { id: 'connected', title: 'The connected marketplace', range: '1981–2000', accent: 'var(--gold)', start: 6, end: 13 },
+        { id: 'intelligent', title: 'Social, mobile, and intelligent marketing', range: '2003–present', accent: 'var(--navy)', start: 13, end: 21 }
+      ];
+
+      const timeline = document.getElementById('timeline');
+
+      function selectMilestone(group, index) {
+        const item = milestones[index];
+        const row = document.querySelector(`[data-group="${group.id}"]`);
+        row.querySelector('.row-detail-date').textContent = item.date;
+        row.querySelector('.row-detail-title').textContent = item.title;
+        row.querySelector('.row-detail-text').textContent = item.detail;
+        row.querySelectorAll('.milestone-button').forEach((button) => {
+          button.setAttribute('aria-pressed', String(Number(button.dataset.index) === index));
+        });
+      }
+
+      groups.forEach((group) => {
+        const items = milestones.slice(group.start, group.end);
+        const row = document.createElement('section');
+        row.className = 'timeline-row';
+        row.dataset.group = group.id;
+        row.style.setProperty('--accent', group.accent);
+        const heading = document.createElement('div');
+        heading.className = 'row-heading';
+        const title = document.createElement('h2');
+        title.textContent = group.title;
+        const range = document.createElement('span');
+        range.className = 'row-range';
+        range.textContent = group.range;
+        heading.append(title, range);
+
+        const list = document.createElement('ol');
+        list.className = 'milestones';
+        list.style.setProperty('--count', items.length);
+        items.forEach((item, offset) => {
+          const index = group.start + offset;
+          const listItem = document.createElement('li');
+          listItem.className = 'milestone';
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'milestone-button';
+          button.dataset.index = index;
+          button.setAttribute('aria-pressed', String(index === group.start));
+          button.setAttribute('aria-label', `${item.date}: ${item.title}`);
+          button.innerHTML = `<span class="dot" aria-hidden="true"></span><span class="date">${item.date}</span><span class="short-label">${item.short}</span>`;
+          button.addEventListener('click', () => selectMilestone(group, index));
+          listItem.append(button);
+          list.append(listItem);
+        });
+        const first = milestones[group.start];
+        const detail = document.createElement('div');
+        detail.className = 'row-detail';
+        detail.setAttribute('aria-live', 'polite');
+        detail.setAttribute('aria-atomic', 'true');
+        detail.innerHTML = `<div class="row-detail-date">${first.date}</div><div class="row-detail-copy"><h3 class="row-detail-title">${first.title}</h3><p class="row-detail-text">${first.detail}</p></div>`;
+        row.append(heading, list, detail);
+        timeline.append(row);
+      });
+    })();
+  </script>
+</body>
+</html>

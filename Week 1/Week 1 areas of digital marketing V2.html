@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Areas of Digital Marketing</title>
+  <style>
+    :root {
+      --teal: #1d627b;
+      --gold: #ddaf4b;
+      --navy: #17324d;
+      --charcoal: #4d5259;
+      --light-gray: #e7e6e6;
+      --soft-gray: #f5f6f7;
+      --white: #ffffff;
+      --black: #111111;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--charcoal);
+      background: var(--white);
+      font-family: "Apex New", "Calibri", "Segoe UI", Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    button { font: inherit; }
+
+    button:focus-visible {
+      outline: 4px solid var(--gold);
+      outline-offset: 3px;
+    }
+
+    .interaction {
+      width: 100%;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .intro {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 20px;
+      padding-left: 18px;
+      border-left: 8px solid var(--gold);
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--teal);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      color: var(--teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: .01em;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
+    h1 { font-size: clamp(28px, 5vw, 42px); }
+
+    .intro p:last-child {
+      max-width: 850px;
+      margin: 0;
+      font-size: 17px;
+    }
+
+    .puzzle-shell {
+      padding: 18px;
+      border: 1px solid var(--light-gray);
+      border-top: 6px solid var(--teal);
+      background: var(--soft-gray);
+      box-shadow: 0 12px 28px rgba(77, 82, 89, .08);
+    }
+
+    .puzzle-heading {
+      display: grid;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+
+    .puzzle-heading h2 { font-size: clamp(18px, 3vw, 24px); }
+    .puzzle-heading span { color: var(--charcoal); font-size: 13px; font-weight: 700; }
+
+    #puzzleSvg {
+      display: block;
+      width: min(100%, 900px);
+      height: auto;
+      margin: 0 auto;
+      overflow: visible;
+    }
+
+    .puzzle-piece { cursor: pointer; }
+
+    .piece-shape {
+      fill: var(--white);
+      stroke: var(--teal);
+      stroke-width: 6;
+      stroke-linejoin: round;
+      transition: fill .16s ease, stroke-width .16s ease;
+    }
+
+    .puzzle-piece:hover .piece-shape { fill: #edf4f6; }
+
+    .puzzle-piece[aria-pressed="true"] .piece-shape {
+      fill: var(--teal);
+      stroke: var(--teal);
+      stroke-width: 8;
+    }
+
+    .puzzle-piece:focus { outline: none; }
+
+    .puzzle-piece:focus-visible .piece-shape {
+      stroke: var(--gold);
+      stroke-width: 11;
+    }
+
+    .piece-label {
+      fill: var(--navy);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 23px;
+      font-weight: 700;
+      pointer-events: none;
+      text-anchor: middle;
+    }
+
+    .puzzle-piece[aria-pressed="true"] .piece-label { fill: var(--white); }
+
+    .subsets {
+      margin-top: 18px;
+      padding: 18px;
+      border: 1px solid var(--light-gray);
+      border-top: 6px solid var(--navy);
+      background: var(--white);
+      box-shadow: 0 12px 28px rgba(77, 82, 89, .08);
+    }
+
+    .subset-heading {
+      margin: 0 0 12px;
+      color: var(--navy);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: clamp(18px, 3vw, 24px);
+      font-weight: 700;
+      letter-spacing: .01em;
+      text-transform: uppercase;
+    }
+
+    .subset-options {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 670px;
+      margin: 0 auto;
+    }
+
+    .subset-item {
+      padding: 15px 16px;
+      border-left: 7px solid var(--gold);
+      background: var(--soft-gray);
+    }
+
+    .subset-item h3 { margin-bottom: 5px; font-size: 17px; }
+    .subset-item p { margin: 0; font-size: 15px; }
+
+    .detail {
+      display: grid;
+      grid-template-columns: minmax(160px, .28fr) minmax(0, 1fr);
+      margin-top: 18px;
+      border: 1px solid var(--light-gray);
+      border-left: 8px solid var(--gold);
+      background: var(--white);
+      box-shadow: 0 12px 28px rgba(77, 82, 89, .08);
+    }
+
+    .detail-heading {
+      display: grid;
+      align-content: center;
+      padding: 20px;
+      background: var(--teal);
+    }
+
+    .detail-heading h2 { color: var(--white); font-size: clamp(19px, 3vw, 25px); }
+    .detail-copy { padding: 20px 22px; }
+    .detail-copy p { margin: 0; font-size: 16px; }
+
+    @media (max-width: 700px) {
+      .interaction { padding: 18px; }
+      .puzzle-shell { padding: 14px 10px; }
+      .piece-label { font-size: 21px; }
+    }
+
+    @media (max-width: 520px) {
+      .interaction { padding: 14px; }
+      .puzzle-heading { align-items: flex-start; flex-direction: column; gap: 2px; }
+      .piece-label { font-size: 19px; }
+      .subset-options, .detail { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .piece-shape { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="interaction">
+    <section class="intro" aria-labelledby="pageTitle">
+      <p class="eyebrow">Interactive overview</p>
+      <h1 id="pageTitle">Areas of Digital Marketing</h1>
+      <p>Select a puzzle piece to explore how each area contributes to a connected digital marketing strategy.</p>
+    </section>
+
+    <section class="puzzle-shell" aria-label="Interactive digital marketing puzzle">
+      <div class="puzzle-heading">
+        <h2>The connected landscape</h2>
+        <span>Choose a piece to see its full description</span>
+      </div>
+
+      <svg id="puzzleSvg" viewBox="0 0 900 520" role="group" aria-label="Five interlocking digital marketing areas">
+        <g class="puzzle-piece" data-index="0" role="button" tabindex="0" aria-label="Explore Website, UX and UI" aria-pressed="true">
+          <path class="piece-shape" d="M30 20 H310 V90 C350 70 350 170 310 150 V260 H220 C220 310 140 310 140 260 H30 Z"></path>
+          <text class="piece-label" x="165" y="124"><tspan x="165">WEBSITE /</tspan><tspan x="165" dy="31">UX + UI</tspan></text>
+        </g>
+
+        <g class="puzzle-piece" data-index="1" role="button" tabindex="0" aria-label="Explore SEO" aria-pressed="false">
+          <path class="piece-shape" d="M310 20 H590 V90 C630 70 630 170 590 150 V260 H310 V150 C350 170 350 70 310 90 Z"></path>
+          <text class="piece-label" x="450" y="140">SEO</text>
+        </g>
+
+        <g class="puzzle-piece" data-index="2" role="button" tabindex="0" aria-label="Explore Content Marketing" aria-pressed="false">
+          <path class="piece-shape" d="M590 20 H870 V260 H750 C750 210 670 210 670 260 H590 V150 C630 170 630 70 590 90 Z"></path>
+          <text class="piece-label" x="730" y="124"><tspan x="730">CONTENT</tspan><tspan x="730" dy="31">MARKETING</tspan></text>
+        </g>
+
+        <g class="puzzle-piece" data-index="3" role="button" tabindex="0" aria-label="Explore Social Media Marketing" aria-pressed="false">
+          <path class="piece-shape" d="M30 260 H140 C140 310 220 310 220 260 H450 V350 C410 330 410 430 450 410 V500 H30 Z"></path>
+          <text class="piece-label" x="240" y="360"><tspan x="240">SOCIAL MEDIA</tspan><tspan x="240" dy="31">MARKETING</tspan></text>
+        </g>
+
+        <g class="puzzle-piece" data-index="4" role="button" tabindex="0" aria-label="Explore Digital Ads" aria-pressed="false">
+          <path class="piece-shape" d="M450 260 H670 C670 210 750 210 750 260 H870 V500 H450 V410 C410 430 410 330 450 350 Z"></path>
+          <text class="piece-label" x="660" y="385">DIGITAL ADS</text>
+        </g>
+      </svg>
+
+    </section>
+
+    <section class="detail" aria-live="polite" aria-atomic="true">
+      <div class="detail-heading"><h2 id="detailTitle">Website / UX and UI</h2></div>
+      <div class="detail-copy"><p id="detailText"></p></div>
+    </section>
+
+    <section class="subsets" aria-labelledby="subsetHeading">
+      <h2 class="subset-heading" id="subsetHeading">Additional subsets</h2>
+      <div class="subset-options">
+        <article class="subset-item">
+          <h3>Email Marketing</h3>
+          <p>A focus on building email lists and marketing through email distribution.</p>
+        </article>
+        <article class="subset-item">
+          <h3>Mobile Marketing</h3>
+          <p>A focus on marketing in the mobile world, including SMS sendouts.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const areas = [
+        {
+          title: 'Website / UX and UI',
+          detail: 'A website is often a crucial part of a company’s digital landscape, and often includes a point of sale. When we cover the website, we will look at buyer psychology and the way that users interact with webpages. This will include the way that users interpret page elements, colors, and layouts in general. We will look at ways to create effective landing pages and good design principles. Beyond that, you’ll find that the general UX (User Experience) and UI (User Interface) elements that we cover will apply to areas beyond just the website, including ad and email design.'
+        },
+        {
+          title: 'SEO (Search Engine Optimization)',
+          detail: 'Search Engine Optimization is the process of setting up a website and webpages so that search browsers can easily—and accurately—find them, and so that you show up in Search Engine Results Pages (SERP). We will cover things that we can do both on our site and around the web to show up when users search for a topic. This will involve keyword research, which will be applied in other areas as well!'
+        },
+        {
+          title: 'Content Marketing',
+          detail: 'Once we cover keyword research and learn what our users are searching for, we can use this information to create custom content for them. Content marketing is the strategic creation and distribution of content such as videos, blogs, and articles across a brand’s digital landscape. We will look at how to get the most distance from original content and which channels we can use.'
+        },
+        {
+          title: 'Social Media Marketing',
+          detail: 'Social media is a wide topic in itself. Each social media platform has different user demographics, user behavior, and ideal use cases. Part of the social media strategy will be deciding where to post, while the other part of strategy looks at how to post. Within social media marketing, we can look at which channels are a good fit for different types of companies, how we can look at user behavior, an overview of social metrics, and some tips for creating content that gains greater traction.'
+        },
+        {
+          title: 'Digital Ads',
+          detail: 'Digital advertising includes all types of ads that we pay for online. Just as social media marketing is wide and varied, so is the landscape for digital ads. One of the main types of ads that we will focus on is search ads or pay per click (PPC). We will put our keyword research information to use when we strategically choose these ads. Other ads we will cover include display ads, video ads, shopping ads, native ads, and remarketing.'
+        }
+      ];
+
+      const pieces = [...document.querySelectorAll('.puzzle-piece')];
+      const detailTitle = document.getElementById('detailTitle');
+      const detailText = document.getElementById('detailText');
+
+      function selectArea(index) {
+        detailTitle.textContent = areas[index].title;
+        detailText.textContent = areas[index].detail;
+        pieces.forEach(piece => piece.setAttribute('aria-pressed', String(Number(piece.dataset.index) === index)));
+      }
+
+      pieces.forEach(piece => {
+        const activate = () => selectArea(Number(piece.dataset.index));
+        piece.addEventListener('click', activate);
+        piece.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            activate();
+          }
+        });
+      });
+
+      selectArea(0);
+    })();
+  </script>
+</body>
+</html>
