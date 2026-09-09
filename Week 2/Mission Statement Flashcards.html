@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mission Statement Flashcards</title>
+<style>
+:root{--navy:#17324d;--blue:#1d627b;--gold:#d9a62e;--cream:#fff4cf;--paper:#f7f7f5;--ink:#17324d;--line:#a8bac4}
+*{box-sizing:border-box}html,body{margin:0;background:#fff;font-family:Arial,sans-serif;color:var(--ink)}button{font:inherit}
+.interaction{width:min(100%,600px);height:570px;margin:0 auto;padding:14px;background:var(--paper);border:1px solid #cbd3d8;overflow:hidden}
+.header{height:84px;padding:14px 20px;background:var(--navy);border-left:9px solid var(--gold);color:#fff}.header h1{margin:0;font-family:"Century Gothic",Arial,sans-serif;font-size:27px;line-height:1.05;text-transform:uppercase;letter-spacing:.2px}.header p{margin:7px 0 0;color:#f2c75c;font-size:14px;font-weight:700}
+.instruction{margin:10px 0 10px;text-align:center;font-size:18px;font-weight:800;color:var(--navy)}
+.stack{position:relative;height:350px;margin:0 24px}.shadow-card{position:absolute;inset:16px 12px 4px;border:2px solid #8299a8;border-radius:14px;background:#e8edf2;transform:rotate(1.5deg)}.shadow-card.second{inset:8px 6px 10px;background:#edf2f4;border-color:#6f8fa0;transform:rotate(-1deg)}
+.flip-card{position:absolute;inset:0;border:0;padding:0;background:transparent;cursor:pointer;perspective:1200px;text-align:inherit}.flip-card:focus-visible{outline:4px solid var(--gold);outline-offset:5px;border-radius:14px}.inner{position:relative;display:block;width:100%;height:100%;transition:transform .65s cubic-bezier(.2,.75,.25,1);transform-style:preserve-3d}.flip-card.flipped .inner{transform:rotateY(180deg)}.flip-card.no-transition .inner{transition:none}
+.face{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:34px 38px;border:4px solid var(--edge,#1d627b);border-radius:14px;background:var(--face,#e4eff2);box-shadow:0 12px 28px rgba(23,50,77,.16);backface-visibility:hidden;-webkit-backface-visibility:hidden}.front{background:#fff}.kicker{margin:0 0 15px;color:var(--edge,#1d627b);font-size:14px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}.mission{margin:0;max-width:470px;text-align:center;font-family:Georgia,serif;font-size:24px;line-height:1.35;color:#142f49}.mission.medium{font-size:21px}.mission.long{font-size:18px;line-height:1.32}.back{transform:rotateY(180deg);background:var(--back,#d5e6eb);border-color:var(--edge,#1d627b)}.company{margin:0;text-align:center;font-family:"Century Gothic",Arial,sans-serif;font-size:46px;line-height:1.05;font-weight:800;text-transform:uppercase;color:var(--navy)}
+.controls{display:grid;grid-template-columns:118px 1fr 118px;align-items:center;gap:12px;margin:13px 24px 0}.nav{min-height:48px;border:2px solid var(--navy);background:#fff;color:var(--navy);font-weight:800;cursor:pointer}.nav:hover,.nav:focus-visible{background:#e4eff2;outline:3px solid rgba(29,98,123,.22);outline-offset:2px}.nav:disabled{opacity:.4;cursor:not-allowed}.progress{text-align:center}.count{display:block;font-size:16px;font-weight:800}.dots{display:flex;justify-content:center;gap:6px;margin-top:7px}.dot{width:9px;height:9px;border-radius:50%;background:#bdc8ce}.dot.active{background:var(--gold);box-shadow:0 0 0 2px var(--navy)}
+@media(max-width:500px){.interaction{height:580px;padding:9px}.header{height:82px;padding:14px}.header h1{font-size:23px}.stack{margin:0 8px;height:356px}.face{padding:28px 24px}.mission{font-size:21px}.mission.medium{font-size:19px}.mission.long{font-size:17px}.company{font-size:38px}.controls{grid-template-columns:96px 1fr 96px;margin:13px 8px 0}.instruction{font-size:17px}}
+@media(prefers-reduced-motion:reduce){.inner{transition:none}}
+</style>
+</head>
+<body>
+<main class="interaction" aria-labelledby="title">
+ <header class="header"><h1 id="title">Mission Statement Match</h1><p>Can you identify the company behind each mission?</p></header>
+ <p class="instruction">Click to flip card</p>
+ <section class="stack" aria-live="polite">
+  <div class="shadow-card" aria-hidden="true"></div><div class="shadow-card second" aria-hidden="true"></div>
+  <button class="flip-card" id="card" type="button" aria-label="Flip card to reveal the company" aria-pressed="false">
+   <span class="inner"><span class="face front"><span class="kicker">Mission Statement</span><span class="mission" id="mission"></span></span><span class="face back"><span class="company" id="company"></span></span></span>
+  </button>
+ </section>
+ <nav class="controls" aria-label="Flashcard navigation"><button class="nav" id="prev" type="button">Previous</button><div class="progress"><span class="count" id="count"></span><span class="dots" id="dots" aria-hidden="true"></span></div><button class="nav" id="next" type="button">Next</button></nav>
+</main>
+<script>
+const cards=[
+ {mission:'Bring inspiration and innovation to every athlete in the world. If you have a body, you are an athlete.',company:'Nike',edge:'#1d627b',face:'#e4eff2',back:'#d5e6eb'},
+ {mission:'To connect the world’s professionals to make them more productive and successful.',company:'LinkedIn',edge:'#5b7690',face:'#e8edf2',back:'#dce5ea'},
+ {mission:'To give people the power to share and make the world more open and connected.',company:'X / Twitter',edge:'#356f8a',face:'#edf2f4',back:'#dfe9ed'},
+ {mission:'To be one of the world’s leading producers and providers of entertainment and information, using its portfolio of brands to differentiate its content, services and consumer products.',company:'Disney',edge:'#9a7425',face:'#f6ead2',back:'#efdfbd'},
+ {mission:'To organize the world’s information and make it universally accessible and useful.',company:'Google',edge:'#326d80',face:'#e5f0f1',back:'#d6e7e9'},
+ {mission:'Our deepest purpose as an organization is helping support the health, well-being, and healing of people, customers, Team Members, business organizations, and the planet.',company:'Whole Foods',edge:'#6a7e8f',face:'#e9eef1',back:'#dbe4e9'},
+ {mission:'“Keep Commerce Human.” In a time of increasing automation, our mission is to keep human connection at the heart of commerce.',company:'Etsy',edge:'#a07428',face:'#f3ead8',back:'#eadbbd'}
+];
+let index=0;const card=document.getElementById('card'),mission=document.getElementById('mission'),company=document.getElementById('company'),count=document.getElementById('count'),dots=document.getElementById('dots'),prev=document.getElementById('prev'),next=document.getElementById('next');
+function render(){const item=cards[index];card.classList.remove('flipped');card.setAttribute('aria-pressed','false');card.setAttribute('aria-label','Flip card to reveal the company');card.style.setProperty('--edge',item.edge);card.style.setProperty('--face',item.face);card.style.setProperty('--back',item.back);mission.textContent=item.mission;mission.className='mission '+(item.mission.length>145?'long':item.mission.length>95?'medium':'');company.textContent=item.company;count.textContent=`Card ${index+1} of ${cards.length}`;dots.innerHTML=cards.map((_,i)=>`<span class="dot${i===index?' active':''}"></span>`).join('');prev.disabled=index===0;next.disabled=index===cards.length-1}
+card.addEventListener('click',()=>{const flipped=card.classList.toggle('flipped');card.setAttribute('aria-pressed',String(flipped));card.setAttribute('aria-label',flipped?'Flip card to show the mission statement':'Flip card to reveal the company')});
+function move(direction){const target=index+direction;if(target<0||target>=cards.length)return;const wasFlipped=card.classList.contains('flipped');if(wasFlipped){card.classList.add('no-transition');card.classList.remove('flipped');void card.offsetWidth}index=target;render();if(wasFlipped)requestAnimationFrame(()=>card.classList.remove('no-transition'))}
+prev.addEventListener('click',()=>move(-1));next.addEventListener('click',()=>move(1));render();
+</script>
+</body>
+</html>

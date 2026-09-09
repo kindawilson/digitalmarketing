@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Positioning Statement Builder</title>
+<style>
+:root{--navy:#17324d;--blue:#1d627b;--gold:#d9a62e;--pale:#e4eff2;--cream:#fff4cf;--ink:#17324d;--line:#9fb2bd;--paper:#f7f7f5}
+*{box-sizing:border-box}html,body{margin:0;background:#fff;font-family:Arial,sans-serif;color:var(--ink)}
+.builder{width:min(100%,600px);height:485px;margin:0 auto;padding:14px;background:var(--paper);border:1px solid #cbd3d8;overflow:hidden}
+.template{margin:0 0 10px;padding:10px 16px 13px;background:#fff;border:2px solid var(--blue);box-shadow:0 4px 10px rgba(23,50,77,.1)}.template-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:6px}.template-label{color:var(--blue);font-size:13px;font-weight:800;letter-spacing:.8px;text-transform:uppercase}.clear{min-height:32px;padding:5px 10px;border:2px solid var(--blue);background:#fff;color:var(--navy);font-size:13px;font-weight:800;cursor:pointer}.clear:hover,.clear:focus-visible{background:var(--pale);outline:3px solid rgba(29,98,123,.18);outline-offset:1px}.statement{margin:0;font-family:Georgia,serif;font-size:18px;line-height:1.48;color:#17324d}.slot{display:inline;padding:1px 4px;border-bottom:2px solid var(--gold);background:var(--cream);font-family:Arial,sans-serif;font-size:.94em;font-weight:700}.slot.empty{color:#667783;font-weight:400}
+.questions{display:grid;gap:6px}.row{display:grid;grid-template-columns:205px 1fr;align-items:center;gap:10px;min-height:58px;padding:7px 10px;background:#fff;border-left:4px solid var(--blue)}.row:nth-child(even){border-left-color:var(--gold);background:#fbfaf7}.row label{font-size:14px;line-height:1.18;font-weight:800}.row input{width:100%;height:40px;padding:8px 10px;border:2px solid var(--line);background:#fff;color:var(--ink);font:16px Arial,sans-serif}.row input:focus{border-color:var(--blue);outline:3px solid rgba(29,98,123,.18);outline-offset:1px}.row input::placeholder{color:#73818a}
+@media(max-width:500px){.builder{height:545px;padding:9px}.template{padding:11px 12px}.statement{font-size:17px}.row{grid-template-columns:1fr;gap:5px;min-height:76px;padding:7px 9px}.row label{font-size:13px}.row input{height:36px}.questions{gap:5px}}
+</style>
+</head>
+<body>
+<main class="builder" aria-labelledby="title">
+ <section class="template" aria-label="Positioning statement template"><div class="template-head"><span class="template-label" id="title">Your positioning statement</span><button class="clear" id="clear" type="button">↻ Clear answers</button></div><p class="statement" id="statement" aria-live="polite">For <span class="slot empty" data-value="audience">target audience</span>, <span class="slot empty" data-value="product">product or service</span> is <span class="slot empty" data-value="description">concise description</span>. It is ideal for <span class="slot empty" data-value="use">best use or application</span> because <span class="slot empty" data-value="benefit">primary benefit or differentiation</span>.</p></section>
+ <section class="questions" aria-label="Positioning statement questions">
+  <div class="row"><label for="audience">Who is your target audience?</label><input id="audience" data-field="audience" type="text" placeholder="e.g., busy graduate students"></div>
+  <div class="row"><label for="product">What is your product or service?</label><input id="product" data-field="product" type="text" placeholder="e.g., FocusFlow"></div>
+  <div class="row"><label for="description">How would you describe it concisely?</label><input id="description" data-field="description" type="text" placeholder="e.g., a planning and focus app"></div>
+  <div class="row"><label for="use">What is its best use or application?</label><input id="use" data-field="use" type="text" placeholder="e.g., managing a demanding schedule"></div>
+  <div class="row"><label for="benefit">What is its primary benefit or difference?</label><input id="benefit" data-field="benefit" type="text" placeholder="e.g., it creates realistic daily plans"></div>
+ </section>
+</main>
+<script>
+const placeholders={audience:'target audience',product:'product or service',description:'concise description',use:'best use or application',benefit:'primary benefit or differentiation'};
+const inputs=[...document.querySelectorAll('[data-field]')];
+function update(input){const output=document.querySelector(`[data-value="${input.dataset.field}"]`),value=input.value.trim();output.textContent=value||placeholders[input.dataset.field];output.classList.toggle('empty',!value)}
+function resetBuilder(){inputs.forEach(input=>{input.value='';update(input)})}
+inputs.forEach(input=>{input.autocomplete='off';input.addEventListener('input',()=>update(input))});
+document.getElementById('clear').addEventListener('click',()=>{resetBuilder();inputs[0].focus()});
+resetBuilder();window.addEventListener('pageshow',resetBuilder);
+</script>
+</body>
+</html>

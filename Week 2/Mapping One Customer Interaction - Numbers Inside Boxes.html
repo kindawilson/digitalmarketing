@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mapping One Customer Interaction</title>
+<style>
+:root{--navy:#17324d;--blue:#1d627b;--gold:#d9a62e;--gold-light:#fff3c7;--ink:#092f52;--line:#9fb2bd;--paper:#f5f7f8}
+*{box-sizing:border-box}html,body{margin:0;background:#fff;font-family:Arial,sans-serif;color:var(--navy)}button{font:inherit}
+.interaction{position:relative;width:min(100%,600px);height:600px;margin:0 auto;border:1px solid #cbd3d8;background:var(--paper);overflow:hidden}
+.head{position:absolute;left:14px;right:14px;top:14px;height:72px;padding:14px 20px;background:var(--navy);border-left:9px solid var(--gold);color:#fff;z-index:5}
+.head h1{margin:0;font-family:"Century Gothic",Arial,sans-serif;font-size:clamp(20px,4.15vw,25px);line-height:1.05;text-transform:uppercase}.head p{margin:5px 0 0;color:#f2c75c;font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.route{position:absolute;left:0;top:83px;width:100%;height:418px;z-index:1}.under{fill:none;stroke:#fff;stroke-width:22;stroke-linecap:round;stroke-linejoin:round}.line{fill:none;stroke:var(--gold);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:9 8}
+.point{position:absolute;z-index:3;width:230px;min-height:64px;display:grid;grid-template-columns:40px 1fr;gap:8px;align-items:center;padding:7px 9px;background:#fff;border:1px solid var(--line);box-shadow:0 3px 10px rgba(23,50,77,.12);transition:background-color .25s,border-color .25s,box-shadow .25s,transform .25s}
+.dot{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--navy);border:3px solid var(--gold);color:#fff;font-weight:800;font-size:16px}.card{font-size:12px;line-height:1.18}.card strong{display:block;font-size:14px;line-height:1.08;margin-bottom:2px;color:var(--ink)}
+.p1{left:6.5%;top:117px}.p2{right:7%;top:159px}.p3{left:9%;top:245px}.p4{right:8.3%;top:290px}.p5{left:8%;top:382px}.p6{right:6.6%;top:408px}
+.point.selected{background:var(--gold-light);border:3px solid var(--gold);padding:5px 7px;box-shadow:0 0 0 4px rgba(217,166,46,.22),0 5px 14px rgba(23,50,77,.2)}
+.point.flash{animation:pulse .7s ease-in-out 2}@keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 4px rgba(217,166,46,.2)}50%{transform:scale(1.035);box-shadow:0 0 0 10px rgba(217,166,46,.4)}}
+.controls{position:absolute;left:14px;right:14px;bottom:7px;z-index:6;padding-top:7px;border-top:4px solid var(--gold)}.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stage{min-height:48px;padding:7px 5px;border:2px solid var(--navy);background:var(--navy);color:#fff;cursor:pointer;font-weight:800;line-height:1.08;transition:.2s;box-shadow:0 2px 5px rgba(23,50,77,.18)}.stage:hover,.stage:focus-visible{background:var(--blue);border-color:var(--gold);outline:3px solid rgba(217,166,46,.3);outline-offset:2px}.stage[aria-pressed="true"]{background:var(--gold);border-color:var(--navy);color:var(--navy);box-shadow:inset 0 -4px 0 #b48418,0 0 0 3px rgba(217,166,46,.25)}.instruction{margin:8px 0 0;text-align:center;font-size:16px;line-height:1.15;font-weight:700;color:#17324d}
+@media(max-width:520px){.interaction{height:600px}.head{left:8px;right:8px}.head h1{font-size:20px}.point{width:43%;grid-template-columns:34px 1fr;gap:5px;padding:6px}.dot{width:34px;height:34px}.card{font-size:11px}.card strong{font-size:12px}.p1{left:3%}.p2{right:3%}.p3{left:5%}.p4{right:4%}.p5{left:4%}.p6{right:3%}.stage{font-size:12px}.stage span{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.point{transition:none}.point.flash{animation:none}}
+</style>
+</head>
+<body>
+<main class="interaction" aria-labelledby="map-title">
+ <header class="head"><h1 id="map-title">Mapping One Customer Journey</h1><p>One shopper’s digital path to purchase</p></header>
+ <svg class="route" viewBox="0 0 600 418" preserveAspectRatio="none" aria-hidden="true"><path class="under" d="M58 72 C190 27 421 42 347 107 C287 155 116 142 74 200 C45 241 190 253 339 243 C429 238 269 303 69 336 C184 330 286 345 350 344 C424 344 471 369 510 389"/><path class="line" d="M58 72 C190 27 421 42 347 107 C287 155 116 142 74 200 C45 241 190 253 339 243 C429 238 269 303 69 336 C184 330 286 345 350 344 C424 344 471 369 510 389"/></svg>
+ <article class="point p1" data-stage="awareness"><div class="dot">1</div><div class="card"><strong>Sees a sponsored video</strong>A product demonstration earns attention.</div></article>
+ <article class="point p2" data-stage="awareness"><div class="dot">2</div><div class="card"><strong>Looks up the product online</strong>Looks up the product to learn what it is.</div></article>
+ <article class="point p3" data-stage="consideration"><div class="dot">3</div><div class="card"><strong>Visits the product website</strong>Compares models, prices, and battery life.</div></article>
+ <article class="point p4" data-stage="consideration"><div class="dot">4</div><div class="card"><strong>Checks reviews and a demo</strong>Looks for comfort and sound-quality proof.</div></article>
+ <article class="point p5" data-stage="purchase"><div class="dot">5</div><div class="card"><strong>Adds a model to the cart</strong>Selects a color and shipping option.</div></article>
+ <article class="point p6" data-stage="purchase"><div class="dot">6</div><div class="card"><strong>Completes mobile checkout</strong>Pays online and receives confirmation.</div></article>
+ <section class="controls" aria-label="Buyer journey stage controls"><div class="stages">
+  <button class="stage" type="button" data-target="awareness" aria-pressed="false">Stage 1: Awareness</button>
+  <button class="stage" type="button" data-target="consideration" aria-pressed="false">Stage 2: Consideration</button>
+  <button class="stage" type="button" data-target="purchase" aria-pressed="false">Stage 3: Purchase</button>
+ </div><p class="instruction">Click a stage to see which customer actions belong to it.</p></section>
+</main>
+<script>
+const buttons=[...document.querySelectorAll('.stage')],points=[...document.querySelectorAll('.point')];
+function selectStage(stage){buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.target===stage)));points.forEach(p=>{p.classList.remove('selected','flash');if(p.dataset.stage===stage){p.classList.add('selected');void p.offsetWidth;p.classList.add('flash')}});setTimeout(()=>points.forEach(p=>p.classList.remove('flash')),1500)}
+buttons.forEach(b=>b.addEventListener('click',()=>selectStage(b.dataset.target)));
+</script>
+</body></html>
