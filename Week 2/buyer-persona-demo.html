@@ -65,7 +65,16 @@
     const hero=document.querySelector('.hero'),status=document.querySelector('.status');
     const messages={demographics:'Maya steps into focus',goals:'Maya celebrates a clear goal',values:'Her priorities light up',day:'Maya checks the clock',sources:'Maya checks her preferred channels',pain:'The meeting overload hits',brands:'Trusted voices shape Maya’s expectations',message:'A message made for Maya'};
     let timer;
-    document.querySelectorAll('.card').forEach(card=>{const button=card.querySelector('button');card.addEventListener('click',()=>{const opening=!card.classList.contains('open');card.classList.toggle('open');button.setAttribute('aria-expanded',String(opening));if(!opening)return;clearTimeout(timer);const action=card.dataset.action;hero.dataset.action='idle';void hero.offsetWidth;hero.dataset.action=action;status.textContent=messages[action];timer=setTimeout(()=>{hero.dataset.action='idle';status.textContent=''},1600)})});
+    function reportHeight(){
+      const shell=document.querySelector('.shell');
+      const height=Math.ceil(shell.getBoundingClientRect().bottom);
+      window.parent.postMessage({type:'vanderbilt-iframe-height',id:'buyer-persona',height},'*');
+    }
+    document.querySelectorAll('.card').forEach(card=>{const button=card.querySelector('button');card.addEventListener('click',()=>{const opening=!card.classList.contains('open');card.classList.toggle('open');button.setAttribute('aria-expanded',String(opening));reportHeight();setTimeout(reportHeight,450);if(!opening)return;clearTimeout(timer);const action=card.dataset.action;hero.dataset.action='idle';void hero.offsetWidth;hero.dataset.action=action;status.textContent=messages[action];timer=setTimeout(()=>{hero.dataset.action='idle';status.textContent='';reportHeight()},1600)})});
+    if('ResizeObserver' in window){new ResizeObserver(reportHeight).observe(document.body)}
+    window.addEventListener('load',reportHeight);
+    window.addEventListener('resize',reportHeight);
+    reportHeight();
   </script>
 </body>
 </html>
