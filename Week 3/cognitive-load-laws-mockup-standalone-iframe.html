@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cognitive Load Webpage Mockup</title>
+  <style>
+    :root {
+      --ink: #102f3a;
+      --teal: #0f3f52;
+      --teal-2: #1d627b;
+      --gold: #ddaf4b;
+      --gray: #4d5259;
+      --line: #dfe3e6;
+      --soft: #f5f6f7;
+      --green: #557a5b;
+      --blue-soft: #e9f2f5;
+      --gold-soft: #fff6df;
+      --shadow: 0 18px 48px rgba(16, 47, 58, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: var(--ink);
+      font-family: Lato, "Segoe UI", Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    .activity {
+      width: min(1120px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 20px 0 28px;
+    }
+
+    .activity h1 {
+      margin: 0 0 8px;
+      color: var(--teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: clamp(26px, 4vw, 42px);
+      line-height: 1.12;
+    }
+
+    .activity .intro {
+      max-width: 820px;
+      margin: 0 0 18px;
+      color: var(--gray);
+      font-size: 17px;
+    }
+
+    .mock-browser {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #ffffff;
+      box-shadow: var(--shadow);
+    }
+
+    .browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 14px;
+      border-bottom: 1px solid var(--line);
+      background: #eef2f3;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      background: #c8d0d3;
+    }
+
+    .address {
+      min-width: 0;
+      flex: 1;
+      margin-left: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: #ffffff;
+      color: #5c676d;
+      font-size: 13px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .site-shell {
+      position: relative;
+      background:
+        radial-gradient(circle at 86% 22%, rgba(221, 175, 75, 0.18), transparent 24%),
+        linear-gradient(180deg, #ffffff 0%, #f7fafb 100%);
+    }
+
+    .site-nav {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: 16px;
+      align-items: center;
+      padding: 16px clamp(16px, 4vw, 42px);
+      border-bottom: 1px solid rgba(15, 63, 82, 0.12);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-weight: 700;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
+      background: var(--teal);
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    .nav-law-hotspot {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      padding: 9px;
+    }
+
+    .menu-control {
+      display: grid;
+      gap: 4px;
+      place-content: center;
+      width: 40px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #ffffff;
+    }
+
+    .menu-control span {
+      display: block;
+      width: 16px;
+      height: 2px;
+      border-radius: 999px;
+      background: var(--teal);
+    }
+
+    .back-control,
+    .cart-control {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 38px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #ffffff;
+      color: var(--teal);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .cart-icon {
+      position: relative;
+      display: inline-block;
+      width: 19px;
+      height: 14px;
+      border: 2px solid var(--teal);
+      border-top: 0;
+      border-radius: 2px 2px 4px 4px;
+    }
+
+    .cart-icon::before {
+      content: "";
+      position: absolute;
+      left: -4px;
+      top: -6px;
+      width: 9px;
+      height: 7px;
+      border-top: 2px solid var(--teal);
+      border-left: 2px solid var(--teal);
+      transform: skewX(-18deg);
+    }
+
+    .cart-icon span {
+      position: absolute;
+      bottom: -7px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--teal);
+    }
+
+    .cart-icon span:first-child {
+      left: 2px;
+    }
+
+    .cart-icon span:last-child {
+      right: 2px;
+    }
+
+    .cart-svg {
+      width: 24px;
+      height: 24px;
+      flex: 0 0 auto;
+      color: var(--teal);
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 150px;
+      flex: 1;
+      padding: 9px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #ffffff;
+      color: #69757a;
+      font-size: 14px;
+    }
+
+    .search-box.law-note {
+      border-color: var(--gold);
+      background: var(--gold-soft);
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr);
+      gap: clamp(18px, 4vw, 44px);
+      align-items: center;
+      padding: clamp(24px, 5vw, 54px) clamp(18px, 5vw, 58px) 26px;
+    }
+
+    .hero-copy {
+      min-width: 0;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 12px;
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .hero h2 {
+      margin: 0 0 14px;
+      color: var(--teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: clamp(32px, 5.3vw, 62px);
+      line-height: 1.03;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      max-width: 620px;
+      margin: 0 0 22px;
+      color: var(--gray);
+      font-size: 18px;
+    }
+
+    .cta-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .primary-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 18px;
+      border: 2px solid #b8831c;
+      border-radius: 999px;
+      background: var(--gold);
+      color: var(--ink);
+      font-weight: 800;
+      box-shadow: 0 10px 22px rgba(221, 175, 75, 0.32);
+    }
+
+    .primary-cta.hotspot {
+      width: fit-content;
+      padding: 12px 18px;
+      border: 2px solid #b8831c;
+      border-radius: 999px;
+      background: var(--gold);
+      color: var(--ink);
+      font: inherit;
+      font-weight: 800;
+      text-align: center;
+      box-shadow: 0 10px 22px rgba(221, 175, 75, 0.32);
+    }
+
+    .primary-cta.hotspot:hover,
+    .primary-cta.hotspot:focus-visible,
+    .primary-cta.hotspot.active {
+      border-color: var(--gold);
+      outline: 6px solid rgba(221, 175, 75, 0.72);
+      outline-offset: 5px;
+      box-shadow: 0 0 0 2px #ffffff, 0 15px 30px rgba(16, 47, 58, 0.18);
+      transform: translateY(-1px);
+    }
+
+    .secondary-note {
+      color: #657178;
+      font-size: 14px;
+    }
+
+    .hero-visual {
+      min-height: 330px;
+      border-radius: 12px;
+      background:
+        linear-gradient(135deg, rgba(15, 63, 82, 0.9), rgba(29, 98, 123, 0.76)),
+        linear-gradient(45deg, #8fb6bf, #ffffff);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      inset: 24px 24px auto auto;
+      width: 142px;
+      height: 142px;
+      border-radius: 50%;
+      background: rgba(221, 175, 75, 0.82);
+    }
+
+    .hero-visual::after {
+      content: "";
+      position: absolute;
+      inset: auto -20px -38px 28px;
+      height: 170px;
+      border-radius: 45% 55% 0 0;
+      background: #dfeadf;
+      box-shadow: 120px -22px 0 #b9d1c4, 228px 4px 0 #edf4ed;
+    }
+
+    .phone-card {
+      position: absolute;
+      left: 34px;
+      bottom: 34px;
+      width: min(250px, calc(100% - 68px));
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.94);
+      box-shadow: 0 18px 40px rgba(16, 47, 58, 0.22);
+    }
+
+    .phone-card strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--teal);
+      font-size: 20px;
+    }
+
+    .phone-card span {
+      display: block;
+      color: var(--gray);
+      font-size: 14px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+      gap: 22px;
+      padding: 0 clamp(18px, 5vw, 58px) clamp(24px, 5vw, 52px);
+    }
+
+    .hotspot {
+      width: 100%;
+      text-align: left;
+      border: 2px solid rgba(29, 98, 123, 0.34);
+      border-radius: 12px;
+      background: #ffffff;
+      color: inherit;
+      font: inherit;
+      box-shadow: 0 10px 24px rgba(16, 47, 58, 0.08);
+      cursor: pointer;
+      transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    }
+
+    .hotspot:hover,
+    .hotspot:focus-visible,
+    .hotspot.active {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 5px rgba(221, 175, 75, 0.25), 0 14px 30px rgba(16, 47, 58, 0.12);
+      transform: translateY(-1px);
+    }
+
+    .law-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 12px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--blue-soft);
+      color: var(--teal);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .chunk-area {
+      padding: 18px;
+    }
+
+    .chunk-title {
+      margin: 0 0 8px;
+      color: var(--teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .chunk-summary {
+      margin: 0 0 15px;
+      color: var(--gray);
+      font-size: 15px;
+    }
+
+    .mini-cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .mini-card {
+      min-height: 108px;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #f9fbfb;
+    }
+
+    .mini-card strong {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--teal);
+      font-size: 15px;
+    }
+
+    .mini-card span {
+      color: var(--gray);
+      font-size: 13px;
+    }
+
+    .choice-area {
+      padding: 18px;
+    }
+
+    .choice-title {
+      margin: 0 0 12px;
+      color: var(--teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .plans {
+      display: grid;
+      gap: 10px;
+    }
+
+    .plan {
+      display: grid;
+      grid-template-columns: 22px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      background: #ffffff;
+    }
+
+    .radio-dot {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #7d8a90;
+      border-radius: 50%;
+    }
+
+    .plan.recommended {
+      border: 2px solid var(--gold);
+      background: var(--gold-soft);
+    }
+
+    .plan.recommended .radio-dot {
+      border: 5px solid var(--teal);
+      background: #ffffff;
+    }
+
+    .plan strong {
+      display: block;
+      color: var(--teal);
+      font-size: 15px;
+    }
+
+    .plan span {
+      color: var(--gray);
+      font-size: 13px;
+    }
+
+    .badge {
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: var(--teal);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .feedback {
+      margin-top: 18px;
+      padding: 18px 20px;
+      border-top: 7px solid var(--gold);
+      border-radius: 10px;
+      background: #ffffff;
+      box-shadow: 0 10px 28px rgba(16, 47, 58, 0.11);
+    }
+
+    .feedback h2 {
+      margin: 0 0 6px;
+      color: var(--teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+
+    .feedback p {
+      margin: 0;
+      color: var(--gray);
+      font-size: 16px;
+    }
+
+    .source-note {
+      margin: 12px 0 0;
+      color: #657178;
+      font-size: 13px;
+    }
+
+    @media (max-width: 850px) {
+      .hero,
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-visual {
+        min-height: 280px;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .activity {
+        width: min(100% - 18px, 1120px);
+        padding-top: 12px;
+      }
+
+      .site-nav {
+        gap: 10px;
+      }
+
+      .cta-line {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .back-control,
+      .primary-cta,
+      .secondary-note {
+        width: 100%;
+      }
+
+      .primary-cta.hotspot {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .nav-law-hotspot {
+        grid-template-columns: minmax(0, 1fr) auto auto;
+      }
+
+      .cart-label {
+        display: none;
+      }
+
+      .mini-cards {
+        grid-template-columns: 1fr;
+      }
+
+      .plan {
+        grid-template-columns: 22px 1fr;
+      }
+
+      .plan .badge {
+        grid-column: 1 / -1;
+        width: fit-content;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="activity">
+    <h1>Reducing Cognitive Load: Webpage Mockup</h1>
+    <p class="intro">Hover over or tab to the highlighted sections to see how each design choice connects to Miller's Law, Hick's Law, the Von Restorff effect, and Jakob's Law.</p>
+
+    <section class="mock-browser" aria-label="Interactive webpage mockup showing UX laws">
+      <div class="browser-bar" aria-hidden="true">
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="address">example.com/study-plan-kit</span>
+      </div>
+
+      <div class="site-shell">
+        <div class="site-nav">
+          <div class="brand">
+            <span class="brand-mark" aria-hidden="true">S</span>
+            <span>StudyKit</span>
+          </div>
+
+          <button class="hotspot nav-law-hotspot" type="button" data-law="jakob">
+            <span class="search-box" id="jakobSearchText">Search planners, templates, or supplies</span>
+            <span class="cart-control">
+              <svg class="cart-svg" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 5h2l2.2 9.5a2 2 0 0 0 2 1.5h6.9a2 2 0 0 0 1.9-1.4l1.3-5.1H7.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                <circle cx="10" cy="20" r="1.6" fill="currentColor"></circle>
+                <circle cx="18" cy="20" r="1.6" fill="currentColor"></circle>
+              </svg>
+              <span class="cart-label">Cart (2)</span>
+            </span>
+            <span class="menu-control" aria-hidden="true">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </button>
+        </div>
+
+        <section class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow">Simple study systems</p>
+            <h2>Build a weekly plan you can actually follow.</h2>
+            <p>Choose one recommended starter kit, then customize the schedule after you get the basics in place.</p>
+            <div class="cta-line">
+              <button class="hotspot primary-cta" type="button" data-law="von">Start with the recommended kit</button>
+              <span class="secondary-note">Only three starter paths shown here.</span>
+            </div>
+          </div>
+
+          <div class="hero-visual" aria-hidden="true">
+            <div class="phone-card">
+              <strong>Today's plan</strong>
+              <span>Read 20 minutes, quiz 10 minutes, review notes before class.</span>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-grid">
+          <button class="hotspot chunk-area" type="button" data-law="miller">
+            <span class="law-chip">Miller's Law</span>
+            <h3 class="chunk-title">Information is grouped into smaller sections</h3>
+            <p class="chunk-summary">Instead of one long block, the page breaks related information into three clear groups.</p>
+            <div class="mini-cards" aria-hidden="true">
+              <div class="mini-card">
+                <strong>Set the goal</strong>
+                <span>Pick the class, deadline, and weekly target.</span>
+              </div>
+              <div class="mini-card">
+                <strong>Plan the week</strong>
+                <span>Place small study blocks on your calendar.</span>
+              </div>
+              <div class="mini-card">
+                <strong>Track progress</strong>
+                <span>Check off tasks and adjust the next day.</span>
+              </div>
+            </div>
+          </button>
+
+          <button class="hotspot choice-area" type="button" data-law="hick">
+            <span class="law-chip">Hick's Law</span>
+            <h3 class="choice-title">Options are simplified and one is recommended</h3>
+            <div class="plans" aria-hidden="true">
+              <div class="plan">
+                <span class="radio-dot"></span>
+                <span><strong>Light plan</strong><span>For one class</span></span>
+                <span></span>
+              </div>
+              <div class="plan recommended">
+                <span class="radio-dot"></span>
+                <span><strong>Balanced plan</strong><span>Best for most students</span></span>
+                <span class="badge">Recommended</span>
+              </div>
+              <div class="plan">
+                <span class="radio-dot"></span>
+                <span><strong>Intensive plan</strong><span>For exams or big projects</span></span>
+                <span></span>
+              </div>
+            </div>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="feedback" aria-live="polite" aria-atomic="true">
+      <h2 id="feedbackTitle">Hover over a highlighted section</h2>
+      <p id="feedbackText">Each section of the mock webpage demonstrates a way to reduce overwhelm and help users make decisions more easily.</p>
+      <p class="source-note">Concept summaries adapted from Laws of UX, Nielsen Norman Group examples, and the lesson notes provided for this activity.</p>
+    </section>
+  </main>
+
+  <script>
+    const conceptNotes = {
+      miller: {
+        title: "Miller's Law: Reduce cognitive load",
+        text: "Chunking groups related content together with spacing, scale, color, and dividers. This makes information easier to process than a long wall of text, especially when someone first lands on a page."
+      },
+      hick: {
+        title: "Hick's Law: Simplify the choices",
+        text: "The more choices users have to compare, the longer and harder the decision can feel. This example keeps the options limited and highlights the recommended one so the next step is easier to choose."
+      },
+      von: {
+        title: "Von Restorff Effect: Make the important thing stand out",
+        text: "The key action is visually distinctive, so users remember it and know where to look. The design uses restraint, because too many emphasized items would compete with one another or start to look like ads."
+      },
+      jakob: {
+        title: "Jakob's Law: Use familiar website patterns",
+        text: "Users bring expectations from other websites. Familiar elements like a back button, search bar, radio-style choices, and a shopping cart help people predict how the page works without relearning everything."
+      }
+    };
+
+    const title = document.getElementById("feedbackTitle");
+    const text = document.getElementById("feedbackText");
+    const hotspots = document.querySelectorAll("[data-law]");
+    const jakobSearchText = document.getElementById("jakobSearchText");
+    const defaultSearchText = jakobSearchText.textContent;
+    const jakobInlineText = "Jakob's Law: familiar menu, search, and cart patterns help users know what to do.";
+
+    function showConcept(element) {
+      const note = conceptNotes[element.dataset.law];
+      if (!note) return;
+      hotspots.forEach((item) => item.classList.remove("active"));
+      element.classList.add("active");
+      title.textContent = note.title;
+      text.textContent = note.text;
+      if (element.dataset.law === "jakob") {
+        jakobSearchText.textContent = jakobInlineText;
+        jakobSearchText.classList.add("law-note");
+      } else {
+        jakobSearchText.textContent = defaultSearchText;
+        jakobSearchText.classList.remove("law-note");
+      }
+    }
+
+    function restoreSearchLabel(element) {
+      if (element.dataset.law !== "jakob") return;
+      if (document.activeElement === element) return;
+      jakobSearchText.textContent = defaultSearchText;
+      jakobSearchText.classList.remove("law-note");
+    }
+
+    hotspots.forEach((element) => {
+      element.addEventListener("mouseenter", () => showConcept(element));
+      element.addEventListener("mouseleave", () => restoreSearchLabel(element));
+      element.addEventListener("focus", () => showConcept(element));
+      element.addEventListener("blur", () => restoreSearchLabel(element));
+    });
+  </script>
+</body>
+</html>
