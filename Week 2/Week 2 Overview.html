@@ -1,0 +1,446 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Week 2 Overview</title>
+  <link rel="stylesheet" href="https://s.brightspace.com/lib/fonts/0.6.1/fonts.css">
+  <link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css">
+  <link rel="stylesheet" href="/d2l/le/contentstyler/6606/files/View" data-override="override">
+  <style>
+    :root {
+      --teal: #1d627b;
+      --gold: #ddaf4b;
+      --red: #b03d19;
+      --sky: #59a4d4;
+      --green: #00a080;
+      --charcoal: #4d5259;
+      --light-gray: #e7e6e6;
+      --soft-gray: #f5f6f7;
+      --white: #ffffff;
+      --black: #111111;
+      --max-width: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--charcoal);
+      background: var(--white);
+      font-family: "Apex New", "Calibri", "Segoe UI", Arial, sans-serif;
+      line-height: 1.55;
+    }
+
+    a:focus-visible,
+    summary:focus-visible {
+      outline: 4px solid var(--gold);
+      outline-offset: 4px;
+    }
+
+    .page { min-height: 100vh; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 42px 24px 36px;
+      border-bottom: 10px solid var(--gold);
+      background:
+        linear-gradient(135deg, rgba(29, 98, 123, .96), rgba(29, 98, 123, .82)),
+        radial-gradient(circle at 86% 18%, rgba(221, 175, 75, .38), transparent 34%);
+      color: var(--white);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -110px;
+      bottom: -150px;
+      width: 380px;
+      height: 380px;
+      border: 54px solid rgba(255, 255, 255, .14);
+      border-radius: 50%;
+    }
+
+    .hero-inner,
+    .section,
+    .footer-inner {
+      width: min(100%, var(--max-width));
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: var(--gold);
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      color: inherit;
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-weight: 700;
+      letter-spacing: .01em;
+      line-height: 1.08;
+    }
+
+    h1 {
+      max-width: 780px;
+      font-size: clamp(42px, 7vw, 74px);
+      text-transform: uppercase;
+    }
+
+    .section { padding: 48px 24px; }
+    .section + .section { padding-top: 10px; }
+
+    .section-header {
+      display: grid;
+      gap: 9px;
+      max-width: 820px;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      color: var(--teal);
+      font-size: clamp(30px, 4vw, 44px);
+      text-transform: uppercase;
+    }
+
+    .lead { margin: 0; font-size: 18px; }
+
+    .overview-copy {
+      max-width: 920px;
+    }
+
+    .overview-copy p {
+      margin: 0 0 18px;
+      font-size: 18px;
+    }
+
+    .overview-copy p:last-child { margin-bottom: 0; }
+
+    .video-section .video-card {
+      width: min(100%, 350px);
+      margin: 0 auto;
+    }
+
+    .video-card {
+      overflow: hidden;
+      border: 1px solid var(--light-gray);
+      border-top: 7px solid var(--teal);
+      background: var(--white);
+      box-shadow: 0 12px 28px rgba(77, 82, 89, .10);
+    }
+
+    .video-heading {
+      padding: 18px 20px;
+      background: var(--soft-gray);
+    }
+
+    .video-heading h3 {
+      color: var(--teal);
+      font-size: 21px;
+      text-transform: uppercase;
+    }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 350 / 197;
+      background: var(--black);
+    }
+
+    .video-wrap iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .video-link {
+      margin: 0;
+      padding: 10px 16px 12px;
+      text-align: center;
+      background: var(--soft-gray);
+    }
+
+    .video-link a {
+      color: var(--teal);
+      font-weight: 700;
+      text-underline-offset: 3px;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .info-card {
+      border: 1px solid var(--light-gray);
+      border-top: 6px solid var(--accent, var(--teal));
+      padding: 22px;
+      background: var(--white);
+      box-shadow: 0 12px 28px rgba(77, 82, 89, .08);
+    }
+
+    .info-card.full-width { grid-column: 1 / -1; }
+
+    .info-card h3 {
+      margin-bottom: 12px;
+      color: var(--teal);
+      font-size: 22px;
+      text-transform: uppercase;
+    }
+
+    .info-card ul {
+      margin: 0;
+      padding-left: 20px;
+      line-height: 1.4;
+    }
+
+    .info-card li + li { margin-top: 3px; }
+
+    .prep-group + .prep-group { margin-top: 12px; }
+
+    .prep-group h4 {
+      margin: 0 0 3px;
+      color: var(--charcoal);
+      font-family: "Apex New", "Calibri", "Segoe UI", Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.4;
+    }
+
+    .resource-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    details {
+      border: 1px solid var(--light-gray);
+      border-left: 8px solid var(--gold);
+      background: var(--white);
+      box-shadow: 0 8px 22px rgba(77, 82, 89, .07);
+    }
+
+    summary {
+      position: relative;
+      padding: 18px 54px 18px 20px;
+      color: var(--teal);
+      cursor: pointer;
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      list-style: none;
+      text-transform: uppercase;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary::after {
+      content: "+";
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      color: var(--teal);
+      font-size: 28px;
+      font-weight: 400;
+      transform: translateY(-50%);
+    }
+
+    details[open] summary {
+      border-bottom: 1px solid var(--light-gray);
+      background: var(--soft-gray);
+    }
+
+    details[open] summary::after { content: "−"; }
+
+    .resource-content { padding: 17px 20px 19px; }
+
+    .resource-content ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .resource-content li + li { margin-top: 9px; }
+
+    .resource-content a {
+      color: var(--teal);
+      font-weight: 700;
+      overflow-wrap: anywhere;
+    }
+
+    .footer {
+      margin-top: 28px;
+      padding: 30px 24px;
+      background: var(--charcoal);
+      color: var(--white);
+    }
+
+    .footer-inner { font-size: 14px; }
+
+    @media (max-width: 700px) {
+      .hero { padding: 34px 18px 30px; }
+      .section { padding: 38px 18px; }
+      .overview-grid { grid-template-columns: 1fr; }
+      .lead { font-size: 17px; }
+      .video-heading { padding: 15px 17px; }
+      .video-prep-group {
+        padding: 0 !important;
+        border: 0 !important;
+        background: transparent !important;
+      }
+      .video-prep-group .video-card {
+        width: 100% !important;
+      }
+    }
+
+    /* Preserve this custom Vanderbilt layout inside Brightspace templates. */
+    body.template-fallback {
+      color: var(--charcoal) !important;
+      font-family: "Apex New", "Calibri", "Segoe UI", Arial, sans-serif !important;
+      font-size: 16px !important;
+      line-height: 1.55 !important;
+    }
+
+    body.template-fallback .hero h1 {
+      margin: 0 !important;
+      padding: 0 !important;
+      color: var(--white) !important;
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif !important;
+      font-size: clamp(42px, 7vw, 74px) !important;
+      font-weight: 700 !important;
+      line-height: 1.08 !important;
+    }
+
+    body.template-fallback .hero h1::after { content: none !important; }
+
+    body .hero h1::after {
+      background-color: #ddaf4b !important;
+      border-color: #ddaf4b !important;
+    }
+
+    body.template-fallback .video-heading h3,
+    body.template-fallback .info-card h3,
+    body.template-fallback .section-header h2 {
+      margin: 0 !important;
+      padding: 0 !important;
+      color: var(--teal) !important;
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif !important;
+      font-weight: 700 !important;
+      line-height: 1.08 !important;
+    }
+
+    body.template-fallback .info-card ul,
+    body.template-fallback .resource-content ul {
+      margin: 0 !important;
+      font-family: "Apex New", "Calibri", "Segoe UI", Arial, sans-serif !important;
+      font-size: 16px !important;
+      line-height: 1.4 !important;
+    }
+  </style>
+</head>
+<body style="color: rgb(32, 33, 34); font-family: verdana, sans-serif; font-size: 12px;">
+  <main class="page" style="min-height: 100vh; font-family: Lato,Arial,Helvetica,sans-serif; color: #4d5259; line-height: 1.58; background: #ffffff;">
+    <header class="hero" style="position: relative; overflow: hidden; padding: 34px 24px 32px; border-bottom: 7px solid #ddaf4b; background: #0f3f52; color: #ffffff;">
+      <div class="hero-inner" style="width: min(100%,1160px); margin: 0 auto;">
+        <p class="eyebrow" style="margin: 0 0 6px; color: #ddaf4b; font-family: 'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif; font-size: 17px; font-weight: bold; letter-spacing: .12em; line-height: 1.08; text-transform: uppercase;">Week 2</p>
+        <h1 style="max-width: 780px; margin: 0; padding: 0; color: #ffffff; font-family: 'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif; font-size: 44px; font-weight: bold; letter-spacing: .01em; line-height: 1.08; text-transform: uppercase;">Overview</h1>
+      </div>
+    </header>
+
+    <section class="section video-section" aria-labelledby="videoTitle" style="width: min(100%,1160px); margin: 0 auto; padding: 48px 24px 10px;">
+      <div class="video-prep-group" style="display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 24px; align-items: stretch; padding: 24px; border: 1px solid #e7e6e6; background: #f5f6f7;">
+        <div class="video-card" style="width: min(100%,350px); margin: auto; overflow: hidden; border: 0; background: transparent; box-shadow: none;">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/nlEXMHLZ5-E?si=n0DRFAHv_c-s8N0k" title="Week 2 overview video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          </div>
+          <div class="video-heading" style="padding: 14px 16px 3px; text-align: center; background: transparent;">
+            <h3 id="videoTitle" style="margin: 0; padding: 0; color: #1d627b; font-family: 'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif; font-size: 21px; font-weight: bold; letter-spacing: .01em; line-height: 1.08; text-transform: uppercase;">Week 2 Video</h3>
+          </div>
+        </div>
+        <article class="info-card" style="border: 1px solid #e7e6e6; border-top: 6px solid #ddaf4b; padding: 22px; background: #ffffff; box-shadow: 0 8px 20px rgba(77,82,89,.07);">
+          <h3 style="margin: 0 0 12px; padding: 0; color: #1d627b; font-family: 'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif; font-size: 22px; font-weight: bold; letter-spacing: .01em; line-height: 1.08; text-transform: uppercase;"><strong>Class Prep</strong></h3>
+          <div class="prep-group">
+            <h4 style="margin: 0 0 3px; padding: 0; color: #4d5259; font-family: Lato,Arial,Helvetica,sans-serif; font-size: 17px; font-weight: bold; line-height: 1.4;">Tuesday</h4>
+            <ul style="margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.4;"><li>Read Sections 1 and 2</li></ul>
+          </div>
+          <div class="prep-group">
+            <h4 style="margin: 0 0 3px; padding: 0; color: #4d5259; font-family: Lato,Arial,Helvetica,sans-serif; font-size: 17px; font-weight: bold; line-height: 1.4;">Thursday</h4>
+            <ul style="margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.4;"><li>Make your team company decision</li><li style="margin-top:3px;">Prepare for the expert-session discussion</li></ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-label="Week 1 objectives and due items" style="width: min(100%,1160px); margin: 0 auto; padding: 48px 24px 10px;">
+      <div class="overview-grid" style="display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 18px;">
+        <article class="info-card" style="border: 1px solid #e7e6e6; border-top: 6px solid #4d5259; padding: 22px; background: #ffffff; box-shadow: 0 12px 28px rgba(77,82,89,.08);">
+          <h3 style="margin: 0 0 12px; padding: 0; color: #1d627b; font-family: 'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif; font-size: 22px; font-weight: bold; letter-spacing: .01em; line-height: 1.08; text-transform: uppercase;"><strong>Items Due Sunday at Midnight</strong></h3>
+          <ul style="margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.4;">
+            <li style="margin: 0;">Team brand packet and plan</li>
+            
+          </ul>
+        </article>
+
+        <article class="info-card" style="border: 1px solid #e7e6e6; border-top: 6px solid #1d627b; padding: 22px; background: #ffffff; box-shadow: 0 12px 28px rgba(77,82,89,.08);">
+          <h3 style="margin: 0 0 12px; padding: 0; color: #1d627b; font-family: 'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif; font-size: 22px; font-weight: bold; letter-spacing: .01em; line-height: 1.08; text-transform: uppercase;"><strong>Learning Objectives</strong></h3>
+          <ul style="margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.4;">
+            <li style="margin: 0 0 3px;">Identify the foundational information needed before building a digital marketing strategy</li>
+            <li style="margin: 0 0 3px;">Explain how mission, positioning, brand identity, and brand image guide marketing decisions</li>
+            <li style="margin: 0 0 3px;">Use buyer-persona and customer-journey insights to plan digital touchpoints</li><li style="margin: 0;">Select campaign goals that fit the organization, audience, and market context</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="weekOverviewTitle" style="width: min(100%,1160px); margin: 0 auto; padding: 48px 24px 10px;">
+      <div class="section-header" style="display: grid; gap: 9px; max-width: 820px; margin-bottom: 24px;">
+        <h2 id="weekOverviewTitle" style="margin: 0; padding: 0; color: #1d627b; font-family: 'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif; font-size: 36px; font-weight: bold; letter-spacing: .01em; line-height: 1.08; text-transform: uppercase;">Week 2 Overview</h2>
+      </div>
+      <div class="overview-copy" style="max-width: 920px;">
+        <p style="margin: 0 0 18px; font-size: 18px;">Where do we even start when we want to create a digital marketing strategy? It is tempting to dive right in and start running ads and designing websites. However, it is important to compile some necessary foundational work first—and possibly do some background work and research to get you there.</p>
+        <p style="margin: 0; font-size: 18px;">This module will outline the items that need to be fully researched and clarified to develop the best digital marketing strategy possible.</p>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="resourcesTitle" style="width: min(100%,1160px); margin: 0 auto; padding: 48px 24px 10px;">
+      <div class="section-header" style="display: grid; gap: 9px; max-width: 820px; margin-bottom: 24px;">
+        <h2 id="resourcesTitle" style="margin: 0; padding: 0; color: #1d627b; font-family: 'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif; font-size: 36px; font-weight: bold; letter-spacing: .01em; line-height: 1.08; text-transform: uppercase;"><strong>Resources</strong></h2>
+        <p class="lead" style="margin: 0; font-size: 18px;">Select a resource type to view the materials inside.</p>
+      </div>
+
+      <div class="resource-list" style="display: grid; gap: 12px;">
+        <details style="border: 1px solid #e7e6e6; border-left: 8px solid #ddaf4b; background: #ffffff; box-shadow: 0 8px 22px rgba(77,82,89,.07);">
+          <summary style="position: relative; padding: 18px 54px 18px 20px; color: #1d627b; cursor: pointer; font-family: 'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif; font-size: 19px; font-weight: bold; list-style: none; text-transform: uppercase;">Slides</summary>
+          <div class="resource-content" style="padding: 17px 20px 19px;">
+            <ul style="margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.4;">
+              <li><a href="https://www.google.com/url?q=https://docs.google.com/document/d/1TFjDqjZoZBd2vomBma7mV-sLYMTzG1wlzJGKmLh48K8/edit?tab%3Dt.0&amp;sa=D&amp;source=editors&amp;ust=1786907211335725&amp;usg=AOvVaw16hu0Am7CiG0MZyYcdsh6W" target="_blank" rel="noopener noreferrer" style="color: #1d627b; font-weight: bold; overflow-wrap: anywhere;">Week 2 slides placeholder</a></li>
+            </ul>
+          </div>
+        </details>
+
+        <details style="border: 1px solid #e7e6e6; border-left: 8px solid #ddaf4b; background: #ffffff; box-shadow: 0 8px 22px rgba(77,82,89,.07);">
+          <summary style="position: relative; padding: 18px 54px 18px 20px; color: #1d627b; cursor: pointer; font-family: 'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif; font-size: 19px; font-weight: bold; list-style: none; text-transform: uppercase;">Other Resources</summary>
+          <div class="resource-content" style="padding: 17px 20px 19px;">
+            <ul style="margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.4;">
+              <li style="margin: 0 0 9px;"><a href="https://www.google.com/url?q=https://docs.google.com/document/d/1TFjDqjZoZBd2vomBma7mV-sLYMTzG1wlzJGKmLh48K8/edit?tab%3Dt.0&amp;sa=D&amp;source=editors&amp;ust=1786907211335969&amp;usg=AOvVaw2-Se4uHHlPDBuQywHmus2b" target="_blank" rel="noopener noreferrer" style="color: #1d627b; font-weight: bold; overflow-wrap: anywhere;">Additional Week 2 resource placeholder</a></li>
+              
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer mceNonEditable" style="border-top: 7px solid #ddaf4b; margin-top: 28px; padding: 30px 24px; background: #4d5259; color: #ffffff; text-align: center;">
+    <div class="footer-inner" style="width: min(100%,1160px); margin: 0 auto; font-size: 14px;"><img src="/shared/HTML-Template-Library/HTML-Templates-V5/img/Dimensional_V_White_Lockup.png" alt="Vanderbilt University" style="max-width: 260px; width: 100%; height: auto;"></div>
+  </footer>
+
+</body>
+</html>
