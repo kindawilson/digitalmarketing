@@ -107,7 +107,7 @@ overview+='''<article class="content-card"><h2>Learning Objectives</h2><ul><li>E
 write_page('Week 3 Overview.html','Week 3','Website, UX, and UI',plain(2),[],overview,False)
 
 s1=render(18,47,headings=(18,25,36),specials={27:'<div class="excerpt"><span class="excerpt-label">Excerpt from <a href="https://www.amazon.com/Design-Everyday-Things-Revised-Expanded/dp/0465050654" target="_blank" rel="noopener noreferrer"><em>The Design of Everyday Things</em></a></span>',32:'</div>'},skip=(27,32))
-write_page('Week 3 Section 1 Human-Centered Design and Short-Term Memory.html','Section 1',plain(10),'Human-centered design starts by accepting how people actually think, remember, and behave.',[rich(13),rich(14)],s1)
+write_page('Week 3 Section 1 Human-Centered Design and Short-Term Memory.html','Section 1','Human-Centered Design and Short-Term Memory','User eXperience (UX) is the complete experience a person has while using a product, service, or digital space.',[rich(13),rich(14)],s1)
 
 s2_special={
 77:img('Wall of Text Above the Fold.png','A fake webpage with one very large paragraph filling the area above the fold.'),
@@ -119,21 +119,21 @@ s2_special={
 117:frame('Website Mental Model Examples.html','Website mental model examples',610,'iframe-mental'),
 131:frame('cognitive-load-laws-mockup-popup-v2.html','Combined Laws of UX interaction',760,'iframe-laws')}
 s2=render(60,131,headings=(70,86,100,109,127),h3s=(74,91,103,120),list_ranges=((104,107,'ul'),(121,123,'ul')),specials=s2_special,skip=(77,79,82,94,95,117,131))
-write_page('Week 3 Section 2 Short-Term Memory and Related Strategies.html','Section 2',plain(51),'Knowing what we do about short-term memory, we can design digital marketing that is easier to process.',[clean_bullet(i) for i in range(54,58)],s2)
+write_page('Week 3 Section 2 Short-Term Memory and Related Strategies.html','Section 2','Short-Term Memory and Related Strategies','Knowing what we do now about short-term memory, we can start looking at some of the mental shortcuts that humans make, their specific consumer behaviors, and some design elements we can implement to have more effective digital marketing.',[clean_bullet(i) for i in range(54,58)],s2)
 
 s3_special={152:'<div class="action-list">'+''.join(f'<p>{rich(j)}</p>' for j in range(152,158))+'</div>',161:f'<div class="excerpt"><span class="excerpt-label">{rich(161)}</span></div>',167:frame('alignment examples.html','Alignment examples',545,'iframe-carousel'),182:frame('hierarchy examples.html','Hierarchy examples',545,'iframe-carousel'),192:f'<p>{rich(192)}</p>'+img('typography-hierarchy-example.png','An example showing visual hierarchy through typography.',rich(193)),200:frame('white space examples.html','White space examples',545,'iframe-carousel'),223:img('poor-color-contrast-example.jpg','An example with poor color contrast.')}
 s3=render(144,223,headings=(148,163,172,198,206),h3s=(210,),list_ranges=((212,219,'ul'),),specials=s3_special,skip=(153,154,155,156,157,161,167,182,192,193,200,204,221,223))
-write_page('Week 3 Section 3 Design Principles and Layout Terms.html','Section 3',plain(135),'Apply foundational design principles to websites, ads, emails, and other digital materials.',[clean_bullet(139),clean_bullet(140)],s3)
+write_page('Week 3 Section 3 Design Principles and Layout Terms.html','Section 3','Design Principles and Layout Terms','We’re taking those design tactics from earlier and adding some important, overarching design principles.',[clean_bullet(139),clean_bullet(140)],s3)
 
 tip='''<span class="tooltip-wrap"><button class="tooltip-button" type="button" aria-label="What does above the fold mean?" aria-expanded="false">?</button><span class="tooltip-box" role="tooltip">Above the fold refers to information that is showing on the screen when you land on a page. Much like the information that would show on the front page of a news paper when you “fold” it.</span></span>'''
 s4_special={231:frame('website image carousel.html','Website image carousel',620,'iframe-carousel'),250:img('landing-page-three-questions.png','A visual showing the three questions a homepage or landing page needs to answer.'),256:f'<p>For the design “above the fold” {tip} (Remember KISS - Keep It Simple, Stupid):</p>',267:img('landing-page-template-example.png','An example of the recommended above-the-fold page template.'),271:frame('landing-page-elements-break-it-standalone-iframe.html','Break the landing page interaction',780,'iframe-break'),274:f'<div class="geek-out">{rich(274)}</div>'}
 s4=render(229,274,headings=(242,254),h3s=(246,),list_ranges=((247,249,'ul'),(257,263,'ul')),specials=s4_special,skip=(231,250,256,267,271,274))
-write_page('Week 3 Section 4 Putting It All Together A Page Template.html','Section 4',plain(225),'Combine the Laws of UX and design principles into a practical landing-page template.',['A landing page or homepage should quickly answer who you are, why customers should buy, and what to do next.','Use a compelling image, short headline, supporting information, clear call to action, and whitespace.'],s4)
+write_page('Week 3 Section 4 Putting It All Together A Page Template.html','Section 4','Putting It All Together: A Page Template','Look at these examples below from website landing pages. Click through the images in the carousel and compare them. What do you see in common?',['A landing page or homepage should quickly answer who you are, why customers should buy, and what to do next.','Use a compelling image, short headline, supporting information, clear call to action, and whitespace.'],s4)
 
 s5_special={298:img('mobile-holding-positions.png','Common ways people hold and touch a mobile phone.',rich(298)),308:img('mobile-touch-accuracy.jpg','A chart showing touch accuracy for specific parts of a mobile screen.',rich(308)),323:img('touch-friendly-information-design.png','A touch-friendly information-design framework.',rich(323))}
 s5=render(285,323,headings=(290,313),specials=s5_special,skip=(287,298,308,323))
 s5=s5.replace('<article class="content-card">',f'<article class="content-card"><div class="excerpt"><span class="excerpt-label">Excerpt from <a href="https://www.uxmatters.com/mt/archives/2017/03/design-for-fingers-touch-and-people-part-1.php" target="_blank" rel="noopener noreferrer">Design for Fingers, Touch, and People: Part 1</a></span>',1)
 s5=s5.replace('</article>','</div></article>',1)
-write_page('Week 3 Section 5 Mobile Interaction.html','Section 5',plain(276),'Design mobile experiences for real hands, changing grips, and imprecise touch.',[clean_bullet(i) for i in range(279,283)],s5)
+write_page('Week 3 Section 5 Mobile Interaction.html','Section 5','Mobile Interaction','When we discuss design, we can’t leave out mobile usage.',[clean_bullet(i) for i in range(279,283)],s5)
 
 print('Restored source wording in all six Week 3 lesson pages.')
