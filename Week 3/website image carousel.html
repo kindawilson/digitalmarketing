@@ -44,7 +44,7 @@
     }
     h2 { margin: 0; font-size: clamp(1.05rem, 2.2vw, 1.35rem); color: #000; }
     .counter { color: var(--muted); font-size: .92rem; white-space: nowrap; }
-    .viewport { position: relative; background: var(--soft); }
+    .viewport { position: relative; padding: 14px 50px 8px; background: var(--soft); }
     .slide { margin: 0; }
     .image-frame {
       display: grid;
@@ -52,7 +52,7 @@
       width: 100%;
       aspect-ratio: 16 / 8.625;
       overflow: hidden;
-      background: #e9ecef;
+      background: #fff;
     }
     .image-frame img { width: 100%; height: 100%; object-fit: contain; display: block; }
     figcaption {
@@ -75,22 +75,22 @@
       transform: translateY(-50%);
       display: grid;
       place-items: center;
-      width: 46px;
-      height: 46px;
-      border: 2px solid rgba(255,255,255,.92);
-      border-radius: 999px;
-      background: rgba(0,0,0,.72);
+      width: 38px;
+      height: 48px;
+      border: 0;
+      border-radius: 4px;
+      background: #1d627b;
       color: #fff;
       font-size: 1.55rem;
       line-height: 1;
       cursor: pointer;
-      box-shadow: 0 2px 10px rgba(0,0,0,.25);
+      box-shadow: none;
       z-index: 2;
     }
-    .nav-button:hover { background: #000; }
+    .nav-button:hover { background: #0f3f52; }
     .nav-button:focus-visible, .dot:focus-visible, a:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
-    .previous { left: 12px; }
-    .next { right: 12px; }
+    .previous { left: 6px; }
+    .next { right: 6px; }
     .controls {
       display: flex;
       justify-content: center;
@@ -122,9 +122,10 @@
     @media (max-width: 640px) {
       body { padding: 0; }
       .carousel { border-left: 0; border-right: 0; border-radius: 0; box-shadow: none; }
+      .viewport { padding: 10px 42px 6px; }
       .carousel-header, figcaption { padding-left: 14px; padding-right: 14px; }
       .carousel-header { gap: 10px; }
-      .nav-button { width: 44px; height: 44px; font-size: 1.35rem; }
+      .nav-button { width: 34px; height: 46px; font-size: 1.35rem; }
       .previous { left: 7px; }
       .next { right: 7px; }
       figcaption { align-items: flex-start; flex-direction: column; gap: 3px; }
