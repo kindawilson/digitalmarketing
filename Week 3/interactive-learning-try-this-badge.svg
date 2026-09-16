@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 90" role="img" aria-labelledby="title desc">
+  <title id="title">Try this interactive activity</title>
+  <desc id="desc">A Vanderbilt-colored Try This badge gently pulses to invite interaction.</desc>
+  <style>
+    :root { --teal:#1d627b; --gold:#ddaf4b; --white:#fff; --charcoal:#4d5259; }
+    .halo { fill:none; stroke:var(--gold); stroke-width:4; opacity:0; animation:halo 2s ease-out infinite; }
+    .badge { fill:var(--teal); stroke:var(--gold); stroke-width:4; transform-origin:90px 45px; animation:pulse 2s ease-in-out infinite; }
+    .spark { fill:var(--gold); transform-origin:center; animation:spark 2s ease-in-out infinite; }
+    .label { fill:var(--white); font:700 22px "Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif; letter-spacing:.04em; text-anchor:middle; }
+    .arrow { fill:none; stroke:var(--gold); stroke-width:4; stroke-linecap:round; stroke-linejoin:round; }
+    @keyframes pulse {
+      0%,18%,100% { transform:scale(1); filter:none; }
+      38% { transform:scale(1.045); filter:drop-shadow(0 5px 7px rgba(29,98,123,.28)); }
+      58% { transform:scale(1); filter:none; }
+    }
+    @keyframes halo {
+      0%,15% { opacity:0; transform:scale(.92); transform-origin:90px 45px; }
+      32% { opacity:.75; }
+      62%,100% { opacity:0; transform:scale(1.11); transform-origin:90px 45px; }
+    }
+    @keyframes spark {
+      0%,18%,65%,100% { opacity:.45; transform:scale(.75) rotate(0deg); }
+      36% { opacity:1; transform:scale(1.15) rotate(18deg); }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .halo,.badge,.spark { animation:none; }
+      .halo { display:none; }
+      .spark { opacity:1; }
+    }
+  </style>
+  <rect class="halo" x="10" y="13" width="160" height="64" rx="32"/>
+  <rect class="badge" x="14" y="17" width="152" height="56" rx="28"/>
+  <path class="spark" d="M35 27l3 8 8 3-8 3-3 8-3-8-8-3 8-3z"/>
+  <text class="label" x="89" y="53">TRY THIS</text>
+  <path class="arrow" d="M139 38l8 7-8 7M146 45h-13"/>
+</svg>

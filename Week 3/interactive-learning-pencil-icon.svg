@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+  <title id="title">Interactive learning activity</title>
+  <desc id="desc">A gold pencil repeatedly writes a teal line on a sheet of paper.</desc>
+  <style>
+    :root {
+      --vanderbilt-gold: #ddaf4b;
+      --vanderbilt-teal: #1d627b;
+      --paper: #ffffff;
+      --soft-gray: #f5f6f7;
+      --charcoal: #4d5259;
+    }
+
+    .paper-shadow { fill: rgba(77, 82, 89, .14); }
+    .paper { fill: var(--paper); stroke: var(--vanderbilt-teal); stroke-width: 3; }
+    .paper-line { stroke: #c8d2d6; stroke-width: 3; stroke-linecap: round; }
+    .written-line {
+      fill: none;
+      stroke: var(--vanderbilt-teal);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-dasharray: 34;
+      stroke-dashoffset: 34;
+      animation: write-line 2.4s ease-in-out infinite;
+    }
+    .pencil {
+      transform-box: view-box;
+      transform-origin: 0 0;
+      animation: write-pencil 2.4s ease-in-out infinite;
+    }
+    .pencil-body { fill: var(--vanderbilt-gold); stroke: #9c741a; stroke-width: 2; }
+    .pencil-band { fill: var(--vanderbilt-teal); }
+    .pencil-eraser { fill: #ffffff; stroke: var(--vanderbilt-teal); stroke-width: 2; }
+    .pencil-wood { fill: #f2d59d; stroke: #9c741a; stroke-width: 2; }
+    .pencil-tip { fill: var(--charcoal); }
+    .motion-mark {
+      fill: none;
+      stroke: var(--vanderbilt-gold);
+      stroke-width: 3;
+      stroke-linecap: round;
+      opacity: 0;
+      animation: motion-marks 2.4s ease-in-out infinite;
+    }
+
+    @keyframes write-line {
+      0%, 14% { stroke-dashoffset: 34; opacity: 0; }
+      20% { opacity: 1; }
+      68%, 82% { stroke-dashoffset: 0; opacity: 1; }
+      100% { stroke-dashoffset: 0; opacity: 0; }
+    }
+
+    @keyframes write-pencil {
+      0%, 14% { transform: translate(88px, 105px) rotate(220deg) scale(.9); }
+      30% { transform: translate(98px, 108px) rotate(223deg) scale(.9); }
+      46% { transform: translate(109px, 104px) rotate(218deg) scale(.9); }
+      62%, 68% { transform: translate(120px, 105px) rotate(220deg) scale(.9); }
+      78% { transform: translate(118px, 96px) rotate(228deg) scale(.9); }
+      100% { transform: translate(88px, 105px) rotate(220deg) scale(.9); }
+    }
+
+    @keyframes motion-marks {
+      0%, 15%, 72%, 100% { opacity: 0; }
+      24%, 55% { opacity: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pencil, .written-line, .motion-mark { animation: none; }
+      .written-line { stroke-dashoffset: 0; }
+    }
+  </style>
+
+  <rect class="paper-shadow" x="22" y="18" width="76" height="88" rx="7" transform="translate(3 4)"/>
+  <rect class="paper" x="22" y="18" width="76" height="88" rx="7"/>
+  <path class="paper-line" d="M36 40h48M36 54h32M36 82h48M36 94h38"/>
+  <path class="written-line" d="M36 61c7-5 11 5 17 0s9 4 15-1"/>
+
+  <path class="motion-mark" d="M79 24l7-5M85 31l9-2"/>
+
+  <g class="pencil">
+    <rect class="pencil-eraser" x="0" y="0" width="14" height="13" rx="3"/>
+    <rect class="pencil-band" x="12" y="0" width="8" height="13"/>
+    <rect class="pencil-body" x="20" y="0" width="38" height="13"/>
+    <path class="pencil-wood" d="M58 0l17 6.5L58 13z"/>
+    <path class="pencil-tip" d="M69 4.2l6 2.3-6 2.3z"/>
+  </g>
+</svg>
