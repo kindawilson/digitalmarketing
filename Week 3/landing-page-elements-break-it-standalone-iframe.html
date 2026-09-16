@@ -41,6 +41,26 @@
       gap: 12px;
     }
 
+    .interaction-marker {
+      display: flex;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .interaction-marker img {
+      display: block;
+      width: 168px;
+      height: auto;
+      flex: 0 0 auto;
+    }
+
+    .interaction-marker-line {
+      flex: 1 1 auto;
+      height: 4px;
+      margin-top: 8px;
+      background: var(--gold);
+    }
+
     .instruction {
       margin: 0;
       color: var(--gray);
@@ -621,6 +641,10 @@
 <body>
   <main class="activity">
     <div class="activity-shell">
+      <div class="interaction-marker" aria-label="Try this interactive activity">
+        <img src="interactive-learning-try-this-corner-badge.svg" alt="Try this">
+        <span class="interaction-marker-line" aria-hidden="true"></span>
+      </div>
       <p class="instruction">Select a label to intentionally break that design element. Select it again to restore that part of the page.</p>
 
       <div class="side-panel" aria-label="Break or restore landing page concepts">

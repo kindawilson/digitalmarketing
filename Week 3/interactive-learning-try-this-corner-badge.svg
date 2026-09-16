@@ -49,8 +49,8 @@
       .glow { display:none; }
     }
   </style>
-  <rect class="glow" x="5" y="5" width="170" height="48" rx="10"/>
-  <rect class="badge" x="8" y="8" width="164" height="42" rx="8"/>
+  <rect class="glow" x="5" y="5" width="170" height="48" rx="2"/>
+  <rect class="badge" x="8" y="8" width="164" height="42" rx="1"/>
   <text class="label" x="82" y="36">TRY THIS</text>
   <path class="cursor" d="M143 18v22l6-6 5 10 6-3-5-10h9z"/>
 </svg>
