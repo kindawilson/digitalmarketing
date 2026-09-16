@@ -386,6 +386,10 @@
     .landing-page.wall-supporting .hero-copy p::after {
       content: "Expert-led trips with safe routes, local guides, and unforgettable views. We offer many different types of experiences for many different types of people in many different types of locations, and we want every customer to understand every possible option before they make a decision, including route planning, pacing, weather, scenery, equipment, guide experience, destination details, scheduling details, and everything else someone might eventually want to know.";
       display: block;
+      position: static;
+      inset: auto;
+      border: 0;
+      box-shadow: none;
       font-size: 15px;
       line-height: 1.18;
     }
@@ -843,6 +847,7 @@
         toggleElement(button.dataset.break, button);
       });
     });
+
   </script>
 </body>
 </html>
