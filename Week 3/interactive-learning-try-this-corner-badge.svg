@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 58" role="img" aria-labelledby="title desc">
+  <title id="title">Try this interactive activity</title>
+  <desc id="desc">A compact Vanderbilt-colored Try This badge gently pulses in the corner of an interaction.</desc>
+  <style>
+    :root { --teal:#1d627b; --gold:#ddaf4b; --white:#ffffff; }
+    .glow {
+      fill:none;
+      stroke:var(--gold);
+      stroke-width:3;
+      opacity:0;
+      transform-origin:90px 29px;
+      animation:glow 2.2s ease-out infinite;
+    }
+    .badge {
+      fill:var(--teal);
+      stroke:var(--gold);
+      stroke-width:3;
+      transform-origin:90px 29px;
+      animation:pulse 2.2s ease-in-out infinite;
+    }
+    .label {
+      fill:var(--white);
+      font:700 20px "Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;
+      letter-spacing:.045em;
+      text-anchor:middle;
+    }
+    .cursor {
+      fill:var(--gold);
+      transform-origin:151px 29px;
+      animation:cursor 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,20%,100% { transform:scale(1); filter:none; }
+      40% { transform:scale(1.025); filter:drop-shadow(0 4px 5px rgba(29,98,123,.25)); }
+      58% { transform:scale(1); filter:none; }
+    }
+    @keyframes glow {
+      0%,18% { opacity:0; transform:scale(.97); }
+      36% { opacity:.7; }
+      64%,100% { opacity:0; transform:scale(1.045); }
+    }
+    @keyframes cursor {
+      0%,20%,65%,100% { transform:translate(0,0); }
+      36% { transform:translate(3px,2px); }
+      48% { transform:translate(0,0); }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .glow,.badge,.cursor { animation:none; }
+      .glow { display:none; }
+    }
+  </style>
+  <rect class="glow" x="5" y="5" width="170" height="48" rx="10"/>
+  <rect class="badge" x="8" y="8" width="164" height="42" rx="8"/>
+  <text class="label" x="82" y="36">TRY THIS</text>
+  <path class="cursor" d="M143 18v22l6-6 5 10 6-3-5-10h9z"/>
+</svg>
