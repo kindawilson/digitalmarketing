@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Five Google Search Ranking Factors — Light Title Option</title>
+  <title>Five Google Search Ranking Factors — Compact Header Option</title>
   <style>
     :root {
       --ink: #102f3a;
@@ -40,18 +40,23 @@
 
     .activity-header {
       position: relative;
-      z-index: 1;
+      z-index: 4;
+      grid-area: title;
       margin: 0;
-      padding: 16px 0 8px;
+      padding: 4px 0 8px;
       border-left: 0;
-      background: #ffffff;
+      background: transparent;
     }
 
     .top-composition {
       position: relative;
       display: grid;
       grid-template-columns: 180px minmax(0, 1fr);
-      gap: 16px;
+      grid-template-areas:
+        "try eyebrow"
+        "title title";
+      column-gap: 16px;
+      row-gap: 8px;
       align-items: start;
       margin-bottom: 12px;
       padding: 8px 0 8px 16px;
@@ -62,7 +67,7 @@
       content: "";
       position: absolute;
       z-index: 3;
-      top: 16px;
+      top: 8px;
       right: 0;
       left: 170px;
       height: 4px;
@@ -80,11 +85,26 @@
       text-transform: uppercase;
     }
 
+    .masthead-eyebrow {
+      position: relative;
+      z-index: 4;
+      grid-area: eyebrow;
+      align-self: start;
+      margin: 15px 0 0;
+      color: var(--teal-2);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
     h1 {
       margin: 0;
       color: var(--teal-2);
       font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
-      font-size: clamp(23px, 3.2vw, 32px);
+      font-size: clamp(25px, 5vw, 32px);
       font-weight: 700;
       letter-spacing: .01em;
       line-height: 1.08;
@@ -111,6 +131,7 @@
     .try-this-row {
       position: relative;
       z-index: 4;
+      grid-area: try;
       display: flex;
       gap: 4px;
       align-items: flex-start;
@@ -361,9 +382,14 @@
 
     @media (max-width: 700px) {
       .activity { width: min(100% - 18px, 1120px); padding-top: 10px; }
-      .top-composition { grid-template-columns: 1fr; gap: 4px; }
+      .top-composition {
+        grid-template-columns: 1fr;
+        grid-template-areas: "try" "eyebrow" "title";
+        gap: 6px;
+      }
+      .masthead-eyebrow { margin-top: 2px; }
       .try-this-row { margin-top: 0; }
-      .activity-header { margin-top: 0; padding-top: 8px; }
+      .activity-header { margin-top: 0; padding-top: 2px; }
       .workspace { grid-template-columns: 1fr; }
       .factor-list {
         grid-template-columns: repeat(5, minmax(48px, 1fr));
@@ -407,6 +433,7 @@
         <div class="try-this-line" aria-hidden="true"></div>
       </div>
 
+      <p class="masthead-eyebrow">Interactive Learning</p>
       <header class="activity-header">
         <h1>How Google Ranks Search Results</h1>
         <p class="intro">Select each factor to see how it helps Google determine which results may be the most relevant and useful.</p>
