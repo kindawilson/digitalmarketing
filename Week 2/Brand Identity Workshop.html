@@ -30,7 +30,17 @@ document.querySelectorAll('input,select').forEach(el=>{el.autocomplete='off';el.
 </script><script>
 (function(){
   var raf=0,last=0;
-  function report(){cancelAnimationFrame(raf);raf=requestAnimationFrame(function(){var h=Math.ceil(Math.max(document.body.scrollHeight,document.documentElement.scrollHeight));if(h!==last){last=h;window.parent.postMessage({type:'vanderbilt-iframe-height',id:'brand-identity-workshop',height:h},'*');}});}
+  function measuredContentHeight(){
+    var bodyTop=document.body.getBoundingClientRect().top;
+    var bottom=0;
+    Array.prototype.forEach.call(document.body.children,function(el){
+      if(el.tagName==='SCRIPT'||getComputedStyle(el).position==='fixed')return;
+      var rect=el.getBoundingClientRect();
+      bottom=Math.max(bottom,rect.bottom-bodyTop);
+    });
+    return Math.max(280,Math.ceil(bottom));
+  }
+  function report(){cancelAnimationFrame(raf);raf=requestAnimationFrame(function(){var h=measuredContentHeight();if(h!==last){last=h;window.parent.postMessage({type:'vanderbilt-iframe-height',id:'brand-identity-workshop',height:h},'*');}});}
   window.addEventListener('load',report);window.addEventListener('resize',report);document.addEventListener('click',function(){setTimeout(report,30);setTimeout(report,450);});
   if('ResizeObserver'in window)new ResizeObserver(report).observe(document.body);
   setTimeout(report,100);setTimeout(report,700);
