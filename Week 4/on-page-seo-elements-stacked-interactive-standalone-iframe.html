@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>On-Page SEO Elements Interactive — Stacked Layout</title>
+  <style>
+    :root {
+      --ink:#102f3a;
+      --teal:#0f3f52;
+      --teal-2:#1d627b;
+      --gold:#ddaf4b;
+      --gold-soft:#fff6df;
+      --blue-soft:#e9f2f5;
+      --gray:#4d5259;
+      --line:#dfe3e6;
+      --soft:#f5f6f7;
+      --white:#ffffff;
+      --danger:#a83b2b;
+      --shadow:0 18px 48px rgba(16,47,58,.14);
+    }
+
+    * { box-sizing:border-box; }
+    html { background:#ffffff; }
+    body { margin:0; background:#ffffff; color:var(--ink); font-family:Arial,Helvetica,sans-serif; line-height:1.5; }
+    button, a { font:inherit; }
+
+    .activity { width:min(1120px,calc(100% - 28px)); margin:0 auto; padding:20px 0 18px; }
+
+    .activity-header {
+      position:relative;
+      z-index:4;
+      grid-area:title;
+      margin:0;
+      padding:1px 0 0;
+      background:transparent;
+    }
+
+    .integrated-header {
+      display:grid;
+      grid-template-columns:170px minmax(0,1fr);
+      grid-template-areas:"try title" "subtitle subtitle";
+      column-gap:18px;
+      row-gap:10px;
+      align-items:start;
+      padding:16px 18px 14px;
+      border:1px solid var(--line);
+      border-top:6px solid var(--gold);
+      border-radius:12px 12px 0 0;
+      background:linear-gradient(135deg,#f5f6f7 0%,#ffffff 72%);
+    }
+
+    .eyebrow { margin:0 0 3px; color:var(--teal-2); font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif; font-size:13px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; }
+    h1 { margin:0; color:var(--teal-2); font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif; font-size:clamp(25px,5vw,32px); font-weight:700; letter-spacing:.01em; line-height:1.08; text-transform:uppercase; }
+    .masthead-subtitle { position:relative; z-index:4; grid-area:subtitle; margin:0; color:var(--gray); font-size:15px; font-weight:700; line-height:1.4; }
+
+    .try-row { position:relative; z-index:4; grid-area:try; display:flex; align-items:flex-start; margin:0; }
+    .try-badge { display:inline-flex; align-items:center; gap:13px; min-height:54px; padding:8px 13px 8px 20px; border:4px solid var(--gold); border-radius:4px; background:var(--teal-2); color:#fff; box-shadow:0 2px 0 rgba(16,47,58,.16); font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif; font-size:18px; font-weight:700; letter-spacing:.08em; line-height:1; text-transform:uppercase; transform-origin:center; animation:badgePulse 2.2s ease-in-out infinite; }
+    .try-cursor { width:22px; height:27px; color:var(--gold); filter:drop-shadow(1px 1px 0 rgba(16,47,58,.32)); animation:cursorTap 2.2s ease-in-out infinite; }
+    @keyframes badgePulse { 0%,20%,100%{transform:scale(1)} 40%{transform:scale(1.025);box-shadow:0 5px 10px rgba(29,98,123,.25)} 58%{transform:scale(1)} }
+    @keyframes cursorTap { 0%,20%,65%,100%{transform:translate(0,0)} 36%{transform:translate(3px,2px)} 48%{transform:translate(0,0)} }
+
+    .mock-browser { position:relative; overflow:hidden; border:1px solid var(--line); border-top:0; border-radius:0 0 12px 12px; background:#fff; box-shadow:var(--shadow); }
+    .browser-bar { display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:12px; align-items:center; padding:10px 14px; border-bottom:1px solid var(--line); background:#eef2f3; }
+    .browser-dots { display:flex; gap:7px; }
+    .browser-dot { width:10px; height:10px; border-radius:50%; background:#c4ced1; }
+    .address { position:relative; min-width:0; padding:7px 12px; border:1px solid #d7dfe2; border-radius:999px; background:#fff; color:#5c676d; font-size:13px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .browser-brand { color:var(--teal); font-size:13px; font-weight:700; white-space:nowrap; }
+
+    .site { min-height:470px; background:linear-gradient(180deg,#fff 0%,#f8fafb 100%); }
+    .site-nav { display:flex; align-items:center; justify-content:space-between; gap:18px; padding:12px 24px; border-bottom:1px solid var(--line); background:#fff; }
+    .logo { display:flex; align-items:center; gap:9px; color:var(--teal); font-family:"Century Gothic","Segoe UI",Arial,sans-serif; font-weight:700; letter-spacing:.04em; }
+    .logo-mark { display:grid; place-items:center; width:32px; height:32px; border-radius:8px; background:var(--teal); color:#fff; }
+    .nav-links { display:flex; gap:18px; color:#516067; font-size:13px; font-weight:700; }
+
+    .page-grid { display:grid; grid-template-columns:minmax(0,1fr); gap:18px; padding:20px 24px 24px; }
+    .hero-copy { min-width:0; }
+    .topic { margin:0 0 5px; color:var(--teal-2); font-size:12px; font-weight:700; letter-spacing:.13em; text-transform:uppercase; }
+    .page-title { margin:0; color:var(--teal); font-family:"Century Gothic","Segoe UI",Arial,sans-serif; font-size:clamp(27px,4vw,43px); line-height:1.05; }
+    .lead { margin:12px 0 15px; color:#45545b; font-size:16px; line-height:1.5; }
+    .content-row { display:grid; grid-template-columns:150px minmax(0,1fr); gap:16px; align-items:center; margin-top:14px; }
+    .image-card { position:relative; min-height:120px; overflow:hidden; border-radius:10px; background:linear-gradient(145deg,#8fc3cf,#2f7082); }
+    .mountain { position:absolute; bottom:-1px; width:0; height:0; border-left:75px solid transparent; border-right:75px solid transparent; border-bottom:105px solid #dce7e9; }
+    .mountain::after { content:""; position:absolute; left:-45px; top:43px; width:0; height:0; border-left:45px solid transparent; border-right:45px solid transparent; border-bottom:62px solid #315b69; }
+    .sun { position:absolute; right:16px; top:14px; width:31px; height:31px; border-radius:50%; background:#fff4cc; }
+    .body-copy h2 { margin:0 0 7px; color:var(--teal-2); font-family:"Century Gothic","Segoe UI",Arial,sans-serif; font-size:21px; }
+    .body-copy p { margin:0 0 10px; color:#45545b; font-size:16px; }
+    .body-copy a { color:var(--teal-2); font-weight:700; text-underline-offset:2px; }
+    .broken-link { color:var(--danger)!important; text-decoration:line-through wavy; }
+
+    .search-card { width:100%; padding:18px 22px; border:1px solid var(--line); border-top:5px solid var(--teal-2); background:#fff; box-shadow:0 10px 24px rgba(16,47,58,.09); }
+    .search-label { margin:0 0 10px; color:#68747a; font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+    .search-url { margin:0 0 4px; color:#2b6b3e; font-size:12px; }
+    .search-title { margin:0 0 5px; color:#1a4da1; font-size:18px; line-height:1.2; }
+    .search-description { margin:0 0 12px; color:#4d5156; font-size:13px; line-height:1.42; }
+    .schema-chip { display:inline-flex; align-items:center; gap:6px; padding:6px 9px; border-radius:999px; background:var(--blue-soft); color:var(--teal); font-size:12px; font-weight:700; }
+    .search-card .schema-chip { display:flex; width:100%; border-radius:7px; }
+
+    .hotspot { position:relative; border:2px solid rgba(221,175,75,.8); border-radius:7px; cursor:pointer; outline:0; box-shadow:0 0 0 0 rgba(221,175,75,.5); transition:background .18s ease,border-color .18s ease,box-shadow .18s ease,transform .18s ease; animation:softGlow 2.3s ease-in-out infinite; }
+    .hotspot:hover,.hotspot:focus-visible,.hotspot[aria-pressed="true"] { border-color:var(--gold); background:var(--gold-soft); box-shadow:0 0 0 5px rgba(221,175,75,.23); transform:translateY(-1px); }
+    .hotspot-inline { display:inline-block; padding:2px 5px; }
+    .hotspot-block { padding:8px; }
+    .hotspot-address { padding-right:38px; }
+    .hotspot-title { padding:5px 7px; }
+    .hotspot-number { position:absolute; z-index:3; display:grid; place-items:center; width:24px; height:24px; border-radius:50%; background:var(--gold); color:var(--teal); font-size:12px; font-weight:800; box-shadow:0 2px 7px rgba(16,47,58,.2); }
+    .address .hotspot-number { right:5px; top:3px; }
+    .page-title .hotspot-number,.body-copy .hotspot-number,.search-card .hotspot-number,.image-card .hotspot-number { right:-10px; top:-12px; }
+    .image-card .hotspot-number { right:6px; top:6px; }
+    @keyframes softGlow { 0%,100%{box-shadow:0 0 0 0 rgba(221,175,75,.25)} 50%{box-shadow:0 0 0 4px rgba(221,175,75,.17)} }
+
+    .instruction { display:flex; align-items:center; gap:8px; margin:0; padding:9px 16px; border-top:1px solid var(--line); background:#fff; color:var(--teal-2); font-size:13px; font-weight:700; }
+    .instruction-icon { display:grid; place-items:center; width:22px; height:22px; border-radius:50%; background:var(--gold); color:var(--teal); }
+
+    .info-popover { position:absolute; z-index:20; top:72px; right:18px; width:min(400px,calc(100% - 36px)); padding:17px 18px 16px; border:2px solid var(--gold); border-radius:10px; background:#fff; box-shadow:0 18px 45px rgba(16,47,58,.25); }
+    .info-popover[hidden] { display:none; }
+    .popover-top { display:flex; justify-content:space-between; gap:14px; align-items:flex-start; }
+    .popover-kicker { margin:0 0 4px; color:var(--teal-2); font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+    .info-popover h2 { margin:0; color:var(--teal); font-family:"Century Gothic","Segoe UI",Arial,sans-serif; font-size:23px; line-height:1.12; }
+    .popover-close { flex:0 0 auto; display:grid; place-items:center; width:31px; height:31px; border:1px solid var(--line); border-radius:50%; background:#fff; color:var(--teal); cursor:pointer; font-size:20px; line-height:1; }
+    .popover-close:hover,.popover-close:focus-visible { border-color:var(--gold); outline:3px solid rgba(221,175,75,.3); }
+    .popover-text { margin:12px 0 0; color:#45545b; font-size:15px; line-height:1.5; }
+    .popover-tip { margin:12px 0 0; padding:9px 11px; border-left:5px solid var(--gold); background:var(--gold-soft); color:var(--ink); font-size:13px; line-height:1.4; }
+    .popover-code { display:block; margin-top:10px; padding:9px; border-radius:6px; background:#102f3a; color:#fff; font:12px/1.45 Consolas,"Courier New",monospace; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .popover-code[hidden] { display:none; }
+
+    .source { margin:10px 2px 0; color:#596369; font-size:12px; text-align:right; }
+    .source a { color:var(--teal-2); font-weight:700; text-underline-offset:2px; }
+
+    @media (max-width:760px) {
+      .activity { width:min(100% - 18px,1120px); padding-top:10px; }
+      .integrated-header { grid-template-columns:1fr; grid-template-areas:"try" "title" "subtitle"; gap:6px; }
+      .page-grid { grid-template-columns:1fr; padding:16px; }
+      .site { min-height:650px; }
+      .nav-links { display:none; }
+      .info-popover { top:68px; right:10px; width:calc(100% - 20px); }
+    }
+
+    @media (max-width:470px) {
+      .browser-brand { display:none; }
+      .browser-bar { grid-template-columns:auto minmax(0,1fr); gap:8px; }
+      .content-row { grid-template-columns:1fr; }
+      .image-card { min-height:135px; }
+      .page-grid { gap:14px; }
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+      *,*::before,*::after { transition:none!important; animation:none!important; scroll-behavior:auto!important; }
+    }
+  </style>
+</head>
+<body>
+  <main class="activity">
+    <div class="integrated-header">
+      <div class="try-row" aria-label="Try this interactive activity">
+        <div class="try-badge">
+          <span>Try This</span>
+          <svg class="try-cursor" viewBox="0 0 24 30" aria-hidden="true"><path fill="currentColor" d="M2 1.3v24.4l6.2-5 4.4 8.1 4.2-2.3-4.4-8.1 7.8-1.2L2 1.3Z"/></svg>
+        </div>
+      </div>
+      <header class="activity-header">
+        <p class="eyebrow">Interactive Learning</p>
+        <h1>On-Page SEO Essentials</h1>
+      </header>
+      <p class="masthead-subtitle">Hover over or select each numbered webpage element to see how it supports search visibility and usability.</p>
+    </div>
+
+    <section class="mock-browser" aria-label="Interactive mock webpage showing on-page SEO elements">
+      <div class="browser-bar">
+        <div class="browser-dots" aria-hidden="true"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span></div>
+        <div class="address hotspot hotspot-address" tabindex="0" role="button" aria-pressed="false" data-topic="slug">https://trailwise.example/guides/<strong>beginner-hiking-checklist</strong><span class="hotspot-number">1</span></div>
+        <div class="browser-brand">Trailwise</div>
+      </div>
+
+      <div class="site">
+        <nav class="site-nav" aria-label="Mock website navigation">
+          <div class="logo"><span class="logo-mark">T</span> TRAILWISE</div>
+          <div class="nav-links" aria-hidden="true"><span>Guides</span><span>Gear</span><span>Destinations</span></div>
+        </nav>
+
+        <div class="page-grid">
+          <section class="hero-copy" aria-label="Mock article content">
+            <p class="topic">Beginner hiking guide</p>
+            <div class="hotspot hotspot-title" tabindex="0" role="button" aria-pressed="false" data-topic="heading">
+              <h2 class="page-title">Your First Hike: A Simple Trail Checklist</h2><span class="hotspot-number">2</span>
+            </div>
+            <div class="hotspot hotspot-block" tabindex="0" role="button" aria-pressed="false" data-topic="text">
+              <p class="lead">Pack smart, stay comfortable and enjoy the trail. This readable introduction uses clear contrast and a mobile-friendly text size.</p><span class="hotspot-number">3</span>
+            </div>
+
+            <div class="content-row">
+              <div class="image-card hotspot" tabindex="0" role="button" aria-pressed="false" data-topic="alt" aria-label="Illustrated mountain image with alt-text hotspot">
+                <span class="sun"></span><span class="mountain"></span><span class="hotspot-number">4</span>
+              </div>
+              <div class="body-copy">
+                <h2>Build confidence before you go</h2>
+                <p>Start with our <span class="hotspot hotspot-inline" tabindex="0" role="button" aria-pressed="false" data-topic="anchor">beginner trail-planning guide<span class="hotspot-number">5</span></span> and choose a route that matches your experience.</p>
+                <p>Avoid dead ends such as this <span class="hotspot hotspot-inline broken-link" tabindex="0" role="button" aria-pressed="false" data-topic="broken">outdated gear list<span class="hotspot-number">6</span></span>.</p>
+              </div>
+            </div>
+          </section>
+
+          <aside class="search-card" aria-label="Mock search result preview">
+            <p class="search-label">Search result preview</p>
+            <p class="search-url">trailwise.example › guides</p>
+            <div class="hotspot hotspot-block" tabindex="0" role="button" aria-pressed="false" data-topic="title"><p class="search-title">Beginner Hiking Checklist | Trailwise</p><span class="hotspot-number">7</span></div>
+            <div class="hotspot hotspot-block" tabindex="0" role="button" aria-pressed="false" data-topic="meta"><p class="search-description">Plan your first hike with a simple checklist covering gear, safety, comfort and trail preparation.</p><span class="hotspot-number">8</span></div>
+            <div class="schema-chip hotspot hotspot-inline" tabindex="0" role="button" aria-pressed="false" data-topic="schema">✓ Article · How-to markup<span class="hotspot-number">9</span></div>
+          </aside>
+        </div>
+      </div>
+
+      <p class="instruction"><span class="instruction-icon" aria-hidden="true">↗</span>Hover to preview. Click or press Enter to keep an explanation open.</p>
+
+      <aside class="info-popover" id="infoPopover" role="dialog" aria-modal="false" aria-labelledby="popoverTitle" hidden>
+        <div class="popover-top">
+          <div><p class="popover-kicker" id="popoverKicker">SEO element</p><h2 id="popoverTitle">Title tag</h2></div>
+          <button class="popover-close" id="popoverClose" type="button" aria-label="Close explanation">×</button>
+        </div>
+        <p class="popover-text" id="popoverText"></p>
+        <p class="popover-tip" id="popoverTip"></p>
+        <code class="popover-code" id="popoverCode" hidden></code>
+      </aside>
+    </section>
+
+    <p class="source">Sources: <a href="https://neilpatel.com/blog/title-tags-seo/" target="_blank" rel="noopener noreferrer">Neil Patel</a> and <a href="https://moz.com/learn/seo/anchor-text" target="_blank" rel="noopener noreferrer">Moz</a></p>
+  </main>
+
+  <script>
+    const topics = {
+      title:{number:"7 of 9",title:"Title tag",text:"The title tag tells search engines what the page is about and commonly appears as the clickable headline in search results.",tip:"Write a specific, accurate title that includes the page's main topic and helps a searcher understand what they will find."},
+      meta:{number:"8 of 9",title:"Meta description",text:"The meta description summarizes the page for search engines and may appear below the title in search results. It is not itself a ranking factor.",tip:"Use a clear, persuasive summary that matches the page and gives searchers a reason to click."},
+      schema:{number:"9 of 9",title:"Schema markup",text:"Schema is structured markup that gives search engines added context about a page, such as whether it contains an article, event, product or how-to.",tip:"Choose schema that accurately represents visible page content; structured data should clarify, not mislead."},
+      heading:{number:"2 of 9",title:"Heading tags",text:"H1, H2, H3 and other heading tags organize the page into a meaningful hierarchy for readers, screen readers and search engines.",tip:"Use one descriptive main heading, then nest subheadings logically rather than choosing heading levels only for their appearance."},
+      alt:{number:"4 of 9",title:"Image alt text",text:"Alt text describes an image for screen readers and helps search engines understand the image's purpose and subject.",tip:"Describe the useful information the image contributes. Decorative images can use empty alt text.",code:'alt="Illustration of a mountain trail at sunrise"'},
+      slug:{number:"1 of 9",title:"URL slug",text:"The slug is the final, page-specific portion of a URL. A descriptive slug gives people and search engines a quick clue about the page topic.",tip:"Keep it short, readable and relevant. Use meaningful words separated by hyphens.",code:"/guides/beginner-hiking-checklist"},
+      anchor:{number:"5 of 9",title:"Anchor text",text:"Anchor text is the visible text used for a hyperlink. Descriptive wording helps readers and search engines understand where the link leads.",tip:"Prefer meaningful language over vague phrases such as 'click here.'",code:'<a href="/trail-planning">Beginner trail-planning guide</a>'},
+      broken:{number:"6 of 9",title:"Fix broken links",text:"Broken links send users and search crawlers to missing or unavailable pages, interrupting navigation and weakening trust in the site.",tip:"Check links regularly, update changed destinations and remove links that no longer have a useful target."},
+      text:{number:"3 of 9",title:"Readable text size and color",text:"Legible text supports mobile usability and accessibility. Tiny type and weak color contrast force users to work harder to read the page.",tip:"Use approximately 16px or larger for body copy, allow comfortable line spacing and maintain strong contrast against the background."}
+    };
+
+    const hotspots = [...document.querySelectorAll('.hotspot[data-topic]')];
+    const popover = document.getElementById('infoPopover');
+    const closeButton = document.getElementById('popoverClose');
+    const kicker = document.getElementById('popoverKicker');
+    const popoverTitle = document.getElementById('popoverTitle');
+    const popoverText = document.getElementById('popoverText');
+    const popoverTip = document.getElementById('popoverTip');
+    const popoverCode = document.getElementById('popoverCode');
+    let pinned = null;
+
+    function renderTopic(element, pin = false) {
+      const item = topics[element.dataset.topic];
+      kicker.textContent = item.number;
+      popoverTitle.textContent = item.title;
+      popoverText.textContent = item.text;
+      popoverTip.textContent = item.tip;
+      popoverCode.hidden = !item.code;
+      popoverCode.textContent = item.code || '';
+      popover.hidden = false;
+      if (pin) {
+        pinned = element;
+        hotspots.forEach(hotspot => hotspot.setAttribute('aria-pressed', String(hotspot === element)));
+      }
+    }
+
+    function closePopover(returnFocus = false) {
+      const previous = pinned;
+      pinned = null;
+      popover.hidden = true;
+      hotspots.forEach(hotspot => hotspot.setAttribute('aria-pressed','false'));
+      if (returnFocus && previous) previous.focus();
+    }
+
+    hotspots.forEach(hotspot => {
+      hotspot.addEventListener('mouseenter', () => { if (!pinned) renderTopic(hotspot); });
+      hotspot.addEventListener('mouseleave', () => { if (!pinned) popover.hidden = true; });
+      hotspot.addEventListener('focus', () => { if (!pinned) renderTopic(hotspot); });
+      hotspot.addEventListener('blur', () => { if (!pinned) popover.hidden = true; });
+      hotspot.addEventListener('click', event => {
+        event.preventDefault();
+        if (pinned === hotspot) closePopover(true); else renderTopic(hotspot,true);
+      });
+      hotspot.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          if (pinned === hotspot) closePopover(true); else renderTopic(hotspot,true);
+        }
+      });
+    });
+
+    closeButton.addEventListener('click', () => closePopover(true));
+    document.addEventListener('keydown', event => { if (event.key === 'Escape' && !popover.hidden) closePopover(true); });
+  </script>
+</body>
+</html>
