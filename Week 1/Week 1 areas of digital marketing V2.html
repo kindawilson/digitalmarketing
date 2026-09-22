@@ -193,7 +193,127 @@
     .detail-copy { padding: 20px 22px; }
     .detail-copy p { margin: 0; font-size: 16px; }
 
+
+    .top-composition {
+      position: relative;
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr);
+      grid-template-areas:
+        "try title"
+        "subtitle subtitle";
+      column-gap: 18px;
+      row-gap: 10px;
+      align-items: start;
+      margin-bottom: 18px;
+      padding: 16px 18px 14px;
+      border: 1px solid var(--light-gray);
+      border-top: 6px solid var(--gold);
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--soft-gray) 0%, var(--white) 72%);
+    }
+
+    .activity-header {
+      position: relative;
+      z-index: 4;
+      grid-area: title;
+      margin: 0;
+      padding: 1px 0 0;
+    }
+
+    .activity-header .eyebrow {
+      margin: 0 0 3px;
+      color: var(--teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .activity-header h1 {
+      margin: 0;
+      color: var(--teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: clamp(25px, 5vw, 32px);
+      font-weight: 700;
+      letter-spacing: .01em;
+      line-height: 1.08;
+      text-transform: uppercase;
+    }
+
+    .masthead-subtitle {
+      position: relative;
+      z-index: 4;
+      grid-area: subtitle;
+      width: 100%;
+      margin: 0;
+      color: var(--charcoal);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .try-this-row {
+      position: relative;
+      z-index: 4;
+      grid-area: try;
+      display: flex;
+      align-items: flex-start;
+      margin: 0;
+      padding: 0 2px 0 0;
+    }
+
+    .try-this-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+      min-height: 54px;
+      padding: 8px 13px 8px 20px;
+      border: 4px solid var(--gold);
+      border-radius: 4px;
+      background: var(--teal);
+      box-shadow: 0 2px 0 rgba(16, 47, 58, .16);
+      color: var(--white);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      line-height: 1;
+      text-transform: uppercase;
+      transform-origin: center;
+      animation: tryBadgePulse 2.2s ease-in-out infinite;
+    }
+
+    .try-this-cursor {
+      width: 22px;
+      height: 27px;
+      color: var(--gold);
+      filter: drop-shadow(1px 1px 0 rgba(16, 47, 58, .32));
+      animation: tryCursorTap 2.2s ease-in-out infinite;
+    }
+
+    @keyframes tryBadgePulse {
+      0%, 20%, 100% { transform: scale(1); box-shadow: 0 2px 0 rgba(16, 47, 58, .16); }
+      40% { transform: scale(1.025); box-shadow: 0 5px 10px rgba(29, 98, 123, .25); }
+      58% { transform: scale(1); box-shadow: 0 2px 0 rgba(16, 47, 58, .16); }
+    }
+
+    @keyframes tryCursorTap {
+      0%, 20%, 65%, 100% { transform: translate(0, 0); }
+      36% { transform: translate(3px, 2px); }
+      48% { transform: translate(0, 0); }
+    }
+
+
     @media (max-width: 700px) {
+      .top-composition {
+        grid-template-columns: 1fr;
+        grid-template-areas: "try" "title" "subtitle";
+        gap: 6px;
+      }
+      .try-this-row { margin-top: 0; }
+      .activity-header { padding-top: 2px; }
+
       .interaction { padding: 18px; }
       .puzzle-shell { padding: 14px 10px; }
       .piece-label { font-size: 21px; }
@@ -208,16 +328,27 @@
 
     @media (prefers-reduced-motion: reduce) {
       .piece-shape { transition: none; }
+      .try-this-badge, .try-this-cursor { animation: none !important; }
     }
   </style>
 </head>
 <body>
   <main class="interaction">
-    <section class="intro" aria-labelledby="pageTitle">
-      <p class="eyebrow">Interactive overview</p>
-      <h1 id="pageTitle">Areas of Digital Marketing</h1>
-      <p>Select a puzzle piece to explore how each area contributes to a connected digital marketing strategy.</p>
-    </section>
+    <div class="top-composition">
+      <div class="try-this-row" aria-label="Try this interactive activity">
+        <div class="try-this-badge">
+          <span>Try This</span>
+          <svg class="try-this-cursor" viewBox="0 0 24 30" aria-hidden="true">
+            <path fill="currentColor" d="M2 1.3v24.4l6.2-5 4.4 8.1 4.2-2.3-4.4-8.1 7.8-1.2L2 1.3Z"/>
+          </svg>
+        </div>
+      </div>
+      <header class="activity-header">
+        <p class="eyebrow">Interactive Learning</p>
+        <h1 id="pageTitle">Areas of Digital Marketing</h1>
+      </header>
+      <p class="masthead-subtitle">Select a puzzle piece to explore how each area contributes to a connected digital marketing strategy.</p>
+    </div>
 
     <section class="puzzle-shell" aria-label="Interactive digital marketing puzzle">
       <div class="puzzle-heading">
