@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Funnel Categories of Keywords</title>
+  <style>
+    :root{--ink:#102f3a;--teal:#0f3f52;--teal2:#1d627b;--gold:#ddaf4b;--gold2:#f4d17d;--gray:#4d5259;--line:#dfe3e6;--soft:#f5f6f7;--shadow:0 18px 48px rgba(16,47,58,.14)}
+    *{box-sizing:border-box} html{background:#fff} body{margin:0;background:#fff;color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.45}
+    button{font:inherit}.activity{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:20px 0 18px}
+    .top-composition{display:grid;grid-template-columns:170px minmax(0,1fr);grid-template-areas:"try title" "subtitle subtitle";column-gap:18px;row-gap:10px;align-items:start;padding:16px 18px 14px;border:1px solid var(--line);border-top:6px solid var(--gold);border-radius:12px 12px 0 0;background:linear-gradient(135deg,#f5f6f7 0%,#fff 72%)}
+    .title-block{grid-area:title}.eyebrow{margin:0 0 3px;color:var(--teal2);font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+    h1{margin:0;color:var(--teal2);font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:clamp(25px,5vw,32px);font-weight:700;letter-spacing:.01em;line-height:1.08;text-transform:uppercase}
+    .masthead-subtitle{grid-area:subtitle;width:100%;margin:0;color:var(--gray);font-size:15px;font-weight:700;line-height:1.4}
+    .try-this-row{grid-area:try;display:flex;align-items:flex-start}.try-this-badge{display:inline-flex;align-items:center;gap:13px;min-height:54px;padding:8px 13px 8px 20px;border:4px solid var(--gold);border-radius:4px;background:var(--teal2);box-shadow:0 2px 0 rgba(16,47,58,.16);color:#fff;font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:18px;font-weight:700;letter-spacing:.08em;line-height:1;text-transform:uppercase;transform-origin:center;animation:badgePulse 2.2s ease-in-out infinite}
+    .cursor{width:22px;height:27px;color:var(--gold);filter:drop-shadow(1px 1px 0 rgba(16,47,58,.32));animation:cursorTap 2.2s ease-in-out infinite}
+    @keyframes badgePulse{0%,20%,100%{transform:scale(1)}40%{transform:scale(1.025);box-shadow:0 5px 10px rgba(29,98,123,.25)}58%{transform:scale(1)}}
+    @keyframes cursorTap{0%,20%,65%,100%{transform:translate(0,0)}36%{transform:translate(3px,2px)}48%{transform:translate(0,0)}}
+    .explorer{overflow:hidden;border:1px solid var(--line);border-top:0;border-radius:0 0 12px 12px;background:#fff;box-shadow:var(--shadow)}
+    .explorer-bar{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:10px 18px;border-bottom:1px solid var(--line);background:#eef2f3;color:var(--gray);font-size:14px;font-weight:700}
+    .journey{display:flex;align-items:center;gap:7px}.journey-dot{width:9px;height:9px;border-radius:50%;background:#bfcbd0}.journey-dot.active{background:var(--gold);box-shadow:0 0 0 4px rgba(221,175,75,.18)}
+    .workspace{display:grid;grid-template-columns:minmax(390px,.95fr) minmax(380px,1.05fr);min-height:430px}
+    .funnel-area{display:flex;align-items:center;justify-content:center;padding:24px 24px 26px;background:linear-gradient(145deg,#f7f8f8,#edf2f3);border-right:1px solid var(--line)}
+    .funnel{width:min(100%,430px);display:flex;flex-direction:column;align-items:center;filter:drop-shadow(0 10px 12px rgba(16,47,58,.12))}
+    .stage{position:relative;width:100%;border:0;color:#fff;cursor:pointer;text-align:center;transition:transform .18s ease,filter .18s ease;isolation:isolate}
+    .stage + .stage{margin-top:4px}.stage::after{content:"";position:absolute;inset:6px 10%;border:2px solid transparent;clip-path:inherit;pointer-events:none;transition:border-color .18s ease,box-shadow .18s ease}
+    .stage:hover,.stage:focus-visible,.stage.active{transform:scale(1.018);filter:brightness(1.06)}.stage:hover::after,.stage:focus-visible::after,.stage.active::after{border-color:var(--gold2);box-shadow:inset 0 0 16px rgba(255,255,255,.22)}
+    .stage:focus-visible{outline:3px solid var(--gold);outline-offset:3px}.stage.tofu{height:126px;background:#1d627b;clip-path:polygon(0 0,100% 0,88% 100%,12% 100%)}
+    .stage.mofu{width:76%;height:116px;background:#155268;clip-path:polygon(0 0,100% 0,84% 100%,16% 100%)}
+    .stage.bofu{width:48%;height:106px;background:#0f3f52;clip-path:polygon(0 0,100% 0,76% 100%,24% 100%)}
+    .stage-content{position:absolute;z-index:1;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:10px 42px}.stage-code{font-family:"Century Gothic","Segoe UI",Arial,sans-serif;font-size:24px;font-weight:800;letter-spacing:.08em;line-height:1}.stage-name{margin-top:5px;font-size:15px;font-weight:700}.stage-short{margin-top:5px;max-width:310px;font-size:12px;line-height:1.3;color:#eef7fa}
+    .details{position:relative;padding:28px 34px 24px;background:linear-gradient(135deg,#fff 70%,#fff9eb);overflow:hidden}.details::after{content:"";position:absolute;width:190px;height:190px;right:-90px;bottom:-95px;border:20px solid rgba(29,98,123,.06);border-radius:50%;pointer-events:none}
+    .detail-kicker{margin:0 0 4px;color:var(--teal2);font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.details h2{margin:0;color:var(--teal);font-family:"Century Gothic","Segoe UI",Arial,sans-serif;font-size:clamp(25px,3.1vw,35px);line-height:1.12}.intent{display:inline-block;margin:10px 0 13px;padding:5px 10px;border-radius:999px;background:#fff3d5;color:#754f00;font-size:13px;font-weight:700}
+    .definition{margin:0 0 15px;color:#343a40;font-size:16px;line-height:1.5}.examples-label{margin:0 0 7px;color:var(--teal2);font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}.examples{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0;padding:0;list-style:none}.examples li{position:relative;padding:9px 10px 9px 30px;border:1px solid #dfe7e9;border-radius:7px;background:#f7f9f9;color:#33454d;font-size:14px;font-weight:600;line-height:1.3}.examples li::before{content:"✓";position:absolute;left:10px;top:9px;color:#a16b00;font-weight:900}
+    .details.flash .detail-inner{animation:detailIn .23s ease}@keyframes detailIn{from{opacity:.55;transform:translateX(5px)}to{opacity:1;transform:none}}
+    @media(max-width:780px){.workspace{grid-template-columns:1fr}.funnel-area{border-right:0;border-bottom:1px solid var(--line);padding:20px}.details{padding:24px}.stage.tofu{height:112px}.stage.mofu{height:105px}.stage.bofu{height:98px}.stage-short{display:none}}
+    @media(max-width:560px){.activity{width:min(100% - 16px,1120px);padding-top:8px}.top-composition{grid-template-columns:1fr;grid-template-areas:"try" "title" "subtitle";padding:14px}.try-this-badge{min-height:48px;font-size:16px}.explorer-bar{align-items:flex-start;flex-direction:column}.examples{grid-template-columns:1fr}.funnel-area{padding:16px 10px}.stage-content{padding-inline:25px}.stage-name{font-size:13px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <main class="activity">
+    <header class="top-composition">
+      <div class="try-this-row" aria-hidden="true"><div class="try-this-badge">Try This
+        <svg class="cursor" viewBox="0 0 24 29" aria-hidden="true"><path fill="currentColor" d="M2 1.5v22.2l5.6-5.2 4.5 9.2 4-2-4.4-8.9 7.7-.7L2 1.5Z"/></svg>
+      </div></div>
+      <div class="title-block"><p class="eyebrow">Interactive Learning</p><h1>Funnel Categories of Keywords</h1></div>
+      <p class="masthead-subtitle">Hover over a funnel stage to preview its keyword intent and examples. Click a stage—or focus it and press Enter—to keep it selected.</p>
+    </header>
+
+    <section class="explorer" aria-label="Keyword funnel interaction">
+      <div class="explorer-bar"><span>Move from broad discovery to high-intent decisions.</span><div class="journey" aria-hidden="true"><span class="journey-dot active"></span><span class="journey-dot"></span><span class="journey-dot"></span><span>Awareness → decision</span></div></div>
+      <div class="workspace">
+        <div class="funnel-area">
+          <div class="funnel" aria-label="Three keyword funnel stages">
+            <button class="stage tofu active" type="button" data-stage="tofu" aria-pressed="true"><span class="stage-content"><span class="stage-code">TOFU</span><span class="stage-name">Top of Funnel</span><span class="stage-short">Discovering a problem or exploring an idea</span></span></button>
+            <button class="stage mofu" type="button" data-stage="mofu" aria-pressed="false"><span class="stage-content"><span class="stage-code">MOFU</span><span class="stage-name">Middle of Funnel</span><span class="stage-short">Looking for ways to solve the problem</span></span></button>
+            <button class="stage bofu" type="button" data-stage="bofu" aria-pressed="false"><span class="stage-content"><span class="stage-code">BOFU</span><span class="stage-name">Bottom of Funnel</span><span class="stage-short">Evaluating a specific solution</span></span></button>
+          </div>
+        </div>
+        <aside class="details" aria-live="polite"><div class="detail-inner"><p class="detail-kicker" id="detailKicker">Top of Funnel · TOFU</p><h2 id="detailTitle">Discovery and awareness</h2><p class="intent" id="detailIntent">Problem-aware or idea-seeking queries</p><p class="definition" id="detailDefinition"></p><p class="examples-label">Keyword patterns and examples</p><ul class="examples" id="detailExamples"></ul></div></aside>
+      </div>
+    </section>
+  </main>
+  <script>
+    const stages={
+      tofu:{kicker:'Top of Funnel · TOFU',title:'Discovery and awareness',intent:'Problem-aware or idea-seeking queries',definition:'People at this stage may recognize a problem—or may simply be exploring ideas without knowing yet that they need a solution.',examples:['Ideas, inspiration, examples and trends','“What is…,” “why…” and “benefits of…”','Conceptual tutorials','Educational or exploratory searches']},
+      mofu:{kicker:'Middle of Funnel · MOFU',title:'Solution exploration',intent:'Solution-aware, how-to or process queries',definition:'People at this stage know they have a problem and are researching approaches, processes and strategies for solving it.',examples:['How to do a job','Frameworks, strategies and templates','Checklists and workflows','Implementation-focused queries','“How to improve…,” “how to build…” and “how to optimize…”']},
+      bofu:{kicker:'Bottom of Funnel · BOFU',title:'Evaluation and decision',intent:'Product-aware, high-intent queries',definition:'People at this stage understand how to solve their problem and are evaluating a specific product, service or provider to do it for them.',examples:['Best software, tools or services','Comparisons such as “X vs. Y”','Alternatives and reviews','Pricing','Specific service pages']}
+    };
+    const buttons=[...document.querySelectorAll('.stage')],panel=document.querySelector('.details');let pinned='tofu';
+    function render(key,animate=true){const d=stages[key];document.getElementById('detailKicker').textContent=d.kicker;document.getElementById('detailTitle').textContent=d.title;document.getElementById('detailIntent').textContent=d.intent;document.getElementById('detailDefinition').textContent=d.definition;document.getElementById('detailExamples').innerHTML=d.examples.map(x=>`<li>${x}</li>`).join('');document.querySelectorAll('.journey-dot').forEach((dot,i)=>dot.classList.toggle('active',i===['tofu','mofu','bofu'].indexOf(key)));if(animate){panel.classList.remove('flash');void panel.offsetWidth;panel.classList.add('flash')}}
+    function pin(key){pinned=key;buttons.forEach(b=>{const on=b.dataset.stage===key;b.classList.toggle('active',on);b.setAttribute('aria-pressed',String(on))});render(key)}
+    buttons.forEach((button,index)=>{button.addEventListener('mouseenter',()=>render(button.dataset.stage));button.addEventListener('mouseleave',()=>render(pinned,false));button.addEventListener('focus',()=>render(button.dataset.stage));button.addEventListener('blur',()=>render(pinned,false));button.addEventListener('click',()=>pin(button.dataset.stage));button.addEventListener('keydown',e=>{if(e.key==='ArrowDown'||e.key==='ArrowRight'){e.preventDefault();buttons[(index+1)%buttons.length].focus()}if(e.key==='ArrowUp'||e.key==='ArrowLeft'){e.preventDefault();buttons[(index-1+buttons.length)%buttons.length].focus()}})});
+    render('tofu',false);
+  </script>
+</body>
+</html>

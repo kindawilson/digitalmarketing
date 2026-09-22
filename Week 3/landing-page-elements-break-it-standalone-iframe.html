@@ -22,7 +22,6 @@
 
     body {
       margin: 0;
-      min-height: 100vh;
       background: #f7f8f9;
       color: var(--gray);
       font-family: Lato, Arial, Helvetica, sans-serif;
@@ -30,7 +29,6 @@
     }
 
     .activity {
-      min-height: 100vh;
       padding: 18px;
     }
 
@@ -41,30 +39,77 @@
       gap: 12px;
     }
 
-    .interaction-marker {
-      display: flex;
-      align-items: flex-start;
-      width: 100%;
+    .integrated-top-composition {
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr);
+      grid-template-areas:
+        "try title"
+        "subtitle subtitle";
+      column-gap: 18px;
+      row-gap: 10px;
+      align-items: start;
+      padding: 16px 18px 14px;
+      border: 1px solid var(--line);
+      border-top: 6px solid var(--gold);
+      border-radius: 12px 12px 0 0;
+      background: linear-gradient(135deg, #f5f6f7 0%, #ffffff 72%);
     }
 
-    .interaction-marker img {
-      display: block;
-      width: 168px;
-      height: auto;
-      flex: 0 0 auto;
+    .integrated-try-row { grid-area: try; }
+
+    .integrated-try-badge {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+      padding: 8px 48px 8px 18px;
+      border: 3px solid var(--gold);
+      background: var(--teal-2);
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: .11em;
+      line-height: 1;
+      text-transform: uppercase;
     }
 
-    .interaction-marker-line {
-      flex: 1 1 auto;
-      height: 4px;
-      margin-top: 8px;
-      background: var(--gold);
+    .integrated-cursor {
+      position: absolute;
+      right: 9px;
+      top: 8px;
+      width: 28px;
+      height: 32px;
+      fill: var(--gold);
+      filter: drop-shadow(0 2px 1px rgba(16, 47, 58, .24));
+      transform-origin: 8px 8px;
+      animation: pointer-nudge 1.8s ease-in-out infinite;
     }
 
-    .instruction {
+    .integrated-title-wrap { grid-area: title; min-width: 0; }
+    .integrated-eyebrow {
+      margin: 0 0 2px;
+      color: var(--teal-2);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .integrated-title {
+      margin: 0;
+      color: var(--teal);
+      font-size: clamp(25px, 3vw, 36px);
+      line-height: 1.08;
+    }
+    .integrated-subtitle {
+      grid-area: subtitle;
       margin: 0;
       color: var(--gray);
       font-size: 17px;
+    }
+
+    @keyframes pointer-nudge {
+      0%, 100% { transform: translate(0, 0) rotate(-5deg); }
+      50% { transform: translate(4px, 3px) rotate(1deg); }
     }
 
     .mock-browser {
@@ -643,16 +688,45 @@
         font-size: 13px;
       }
     }
+
+    @media (max-width: 700px) {
+      .integrated-top-composition {
+        grid-template-columns: 1fr;
+        grid-template-areas: "try" "title" "subtitle";
+        padding: 13px 14px 12px;
+      }
+
+      .integrated-try-badge {
+        min-height: 44px;
+        padding: 7px 44px 7px 15px;
+        font-size: 17px;
+      }
+
+      .integrated-title { font-size: 27px; }
+      .integrated-subtitle { font-size: 15px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .integrated-cursor { animation: none; }
+    }
   </style>
 </head>
 <body>
   <main class="activity">
     <div class="activity-shell">
-      <div class="interaction-marker" aria-label="Try this interactive activity">
-        <img src="interactive-learning-try-this-corner-badge.svg" alt="Try this">
-        <span class="interaction-marker-line" aria-hidden="true"></span>
-      </div>
-      <p class="instruction">Select a label to intentionally break that design element. Select it again to restore that part of the page.</p>
+      <header class="integrated-top-composition">
+        <div class="integrated-try-row" aria-label="Try this interactive activity">
+          <div class="integrated-try-badge">
+            <span>Try This</span>
+            <svg class="integrated-cursor" viewBox="0 0 32 38" aria-hidden="true"><path d="M3 2v27l7.1-6.7 5.6 13.1 5.6-2.4-5.5-12.8H27L3 2z"></path></svg>
+          </div>
+        </div>
+        <div class="integrated-title-wrap">
+          <p class="integrated-eyebrow">Interactive Learning</p>
+          <h1 class="integrated-title">Break the Landing Page</h1>
+        </div>
+        <p class="integrated-subtitle">Select a label to intentionally break that design element. Select it again to restore that part of the page.</p>
+      </header>
 
       <div class="side-panel" aria-label="Break or restore landing page concepts">
         <button class="concept-button" type="button" data-break="no-image" data-break-label="Remove vivid image" data-restore-label="Restore vivid image">Remove vivid image</button>
@@ -848,6 +922,43 @@
       });
     });
 
+  </script>
+  <script>
+    (function () {
+      var pendingFrame = 0;
+      var lastHeight = 0;
+
+      function measuredContentHeight() {
+        var bodyTop = document.body.getBoundingClientRect().top;
+        var bottom = 0;
+        Array.prototype.forEach.call(document.body.children, function (element) {
+          if (element.tagName === 'SCRIPT' || getComputedStyle(element).position === 'fixed') return;
+          bottom = Math.max(bottom, element.getBoundingClientRect().bottom - bodyTop);
+        });
+        return Math.max(280, Math.ceil(bottom));
+      }
+
+      function reportHeight() {
+        cancelAnimationFrame(pendingFrame);
+        pendingFrame = requestAnimationFrame(function () {
+          var height = measuredContentHeight();
+          if (height === lastHeight) return;
+          lastHeight = height;
+          window.parent.postMessage({ type: 'vanderbilt-iframe-height', id: 'landing-page-break-it', height: height }, '*');
+        });
+      }
+
+      window.addEventListener('load', reportHeight);
+      window.addEventListener('resize', reportHeight);
+      document.addEventListener('click', function () {
+        reportHeight();
+        setTimeout(reportHeight, 80);
+        setTimeout(reportHeight, 300);
+      });
+      if ('ResizeObserver' in window) new ResizeObserver(reportHeight).observe(document.body);
+      setTimeout(reportHeight, 150);
+      setTimeout(reportHeight, 700);
+    })();
   </script>
 </body>
 </html>

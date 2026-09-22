@@ -234,7 +234,7 @@ body h1::after{background-color:#ddaf4b!important;border-color:#ddaf4b!important
 </figure>
 <p>Still not convinced about how effective these design elements and template are? Try out the interaction below. Click any design element to “break” or remove it on the site. “Break” as many as you like together, and click the elements again to add them back onto the page.</p>
 <div class="embed-card">
-<iframe class="section-iframe iframe-break" src="https://kindawilson.github.io/digitalmarketing/Week%203/landing-page-elements-break-it-standalone-iframe.html" title="Break the landing page interaction" width="100%" height="1000" scrolling="no" loading="lazy" allow="fullscreen" style="display:block;width:100%;border:0">
+<iframe class="section-iframe iframe-break" src="https://kindawilson.github.io/digitalmarketing/Week%203/landing-page-elements-break-it-standalone-iframe.html" data-resize-id="landing-page-break-it" title="Break the landing page interaction" width="100%" height="1000" scrolling="no" loading="lazy" allow="fullscreen" style="display:block;width:100%;border:0">
 </iframe>
 </div>
 <div class="geek-out">
@@ -248,7 +248,9 @@ body h1::after{background-color:#ddaf4b!important;border-color:#ddaf4b!important
 <img src="https://kindawilson.github.io/digitalmarketing/Week%203/Dimensional_V_White_Lockup.png" alt="Vanderbilt University" style="max-width:260px;width:100%;height:auto;">
 </div>
 </footer>
-<script>document.querySelectorAll('.tooltip-button').forEach(function(button){button.addEventListener('click',function(){var wrap=button.closest('.tooltip-wrap');var open=!wrap.classList.contains('open');document.querySelectorAll('.tooltip-wrap.open').forEach(function(item){item.classList.remove('open');item.querySelector('button').setAttribute('aria-expanded','false')}
+<script>window.addEventListener('message',function(event){var data=event.data;if(!data||data.type!=='vanderbilt-iframe-height'||data.id!=='landing-page-break-it')return;var frame=document.querySelector('iframe[data-resize-id="landing-page-break-it"]');if(!frame||event.source!==frame.contentWindow)return;var height=Math.max(700,Math.min(2600,Number(data.height)||0));if(height)frame.style.setProperty('height',(height+8)+'px','important')});
+
+document.querySelectorAll('.tooltip-button').forEach(function(button){button.addEventListener('click',function(){var wrap=button.closest('.tooltip-wrap');var open=!wrap.classList.contains('open');document.querySelectorAll('.tooltip-wrap.open').forEach(function(item){item.classList.remove('open');item.querySelector('button').setAttribute('aria-expanded','false')}
 
 );wrap.classList.toggle('open',open);button.setAttribute('aria-expanded',String(open))}
 
