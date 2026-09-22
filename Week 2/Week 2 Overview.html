@@ -342,7 +342,18 @@
       font-size: 16px !important;
       line-height: 1.4 !important;
     }
-  </style>
+  
+/* Week 2 responsive lesson safeguards */
+.inner,.hero-inner,.course-content,.footer-inner{min-width:0!important}
+h1,h2,h3,p,li{overflow-wrap:anywhere}
+.course-page a,.page a{overflow-wrap:anywhere}
+.full-link{margin:0 0 22px;font-size:16px}
+.footer{border-top:7px solid #ddaf4b!important;margin-top:28px!important;padding:30px 24px!important;background:#4d5259!important;color:#fff!important;text-align:center!important}
+.footer-inner{width:min(100%,1160px)!important;margin:0 auto!important}
+.footer img{display:block!important;max-width:260px!important;width:100%!important;height:auto!important;margin:0 auto!important}
+
+@media(max-width:900px){.tooltip-box{position:fixed!important;left:20px!important;right:20px!important;bottom:20px!important;width:auto!important;transform:none!important}}
+</style>
 </head>
 <body style="color: rgb(32, 33, 34); font-family: verdana, sans-serif; font-size: 12px;">
   <main class="page" style="min-height: 100vh; font-family: Lato,Arial,Helvetica,sans-serif; color: #4d5259; line-height: 1.58; background: #ffffff;">
@@ -351,7 +362,7 @@
         <p class="eyebrow" style="margin: 0 0 6px; color: #ddaf4b; font-family: 'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif; font-size: 17px; font-weight: bold; letter-spacing: .12em; line-height: 1.08; text-transform: uppercase;">Week 2</p>
         <h1 style="max-width: 780px; margin: 0; padding: 0; color: #ffffff; font-family: 'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif; font-size: 44px; font-weight: bold; letter-spacing: .01em; line-height: 1.08; text-transform: uppercase;">Overview</h1>
       </div>
-    </header>
+    </header><div class="hero-inner" style="width:min(100%,1160px);margin:18px auto 0;padding:0 24px"><p class="full-link"><a href="https://kindawilson.github.io/digitalmarketing/Week%202/Week%202%20Overview.html" target="_blank" rel="noopener noreferrer">Open this lesson full screen</a></p></div>
 
     <section class="section video-section" aria-labelledby="videoTitle" style="width: min(100%,1160px); margin: 0 auto; padding: 48px 24px 10px;">
       <div class="video-prep-group" style="display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 24px; align-items: stretch; padding: 24px; border: 1px solid #e7e6e6; background: #f5f6f7;">
@@ -439,8 +450,20 @@
   </main>
 
   <footer class="footer mceNonEditable" style="border-top: 7px solid #ddaf4b; margin-top: 28px; padding: 30px 24px; background: #4d5259; color: #ffffff; text-align: center;">
-    <div class="footer-inner" style="width: min(100%,1160px); margin: 0 auto; font-size: 14px;"><img src="https://kindawilson.github.io/digitalmarketing/Week%203/Dimensional_V_White_Lockup.png" alt="Vanderbilt University" style="max-width: 260px; width: 100%; height: auto;"></div>
+    <div class="footer-inner" style="width: min(100%,1160px); margin: 0 auto; font-size: 14px;"><img src="https://kindawilson.github.io/digitalmarketing/Week%203/Dimensional_V_White_Lockup.png" alt="Vanderbilt University" style="display:block;max-width:260px;width:100%;height:auto;margin:0 auto;"></div>
   </footer>
 
+
+<script>
+(function(){
+  window.addEventListener('message',function(event){
+    var data=event.data;
+    if(!data||data.type!=='vanderbilt-iframe-height'||!Number.isFinite(Number(data.height)))return;
+    document.querySelectorAll('iframe.section-iframe').forEach(function(frame){
+      if(frame.contentWindow===event.source){frame.style.height=Math.max(280,Math.ceil(Number(data.height))+4)+'px';}
+    });
+  });
+})();
+</script>
 </body>
 </html>
