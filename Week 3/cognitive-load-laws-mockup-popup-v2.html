@@ -64,6 +64,20 @@
       background: var(--teal);
     }
 
+    /* Integrated Try This header */
+    .integrated-top-composition{display:grid;grid-template-columns:170px minmax(0,1fr);grid-template-areas:"try title" "subtitle subtitle";column-gap:18px;row-gap:10px;align-items:start;margin-bottom:12px;padding:16px 18px 14px;border:1px solid #dfe3e6;border-top:6px solid var(--gold);border-radius:12px 12px 0 0;background:linear-gradient(135deg,#f5f6f7 0%,#fff 72%)}
+    .integrated-try-row{grid-area:try;display:flex;align-items:flex-start;margin:0;padding:0 2px 0 0}
+    .integrated-try-badge{display:inline-flex;align-items:center;gap:13px;min-height:54px;padding:8px 13px 8px 20px;border:4px solid var(--gold);border-radius:4px;background:var(--teal-2);box-shadow:0 2px 0 rgba(16,47,58,.16);color:#fff;font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:18px;font-weight:700;letter-spacing:.08em;line-height:1;text-transform:uppercase;animation:integratedBadgePulse 2.2s ease-in-out infinite}
+    .integrated-cursor{width:22px;height:27px;color:var(--gold);filter:drop-shadow(1px 1px 0 rgba(16,47,58,.32));animation:integratedCursorTap 2.2s ease-in-out infinite}
+    .integrated-title-wrap{grid-area:title;min-width:0;padding-top:1px}
+    .integrated-eyebrow{margin:0 0 3px;color:var(--teal-2);font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.15em;line-height:1.2;text-transform:uppercase}
+    .activity .integrated-title{margin:0!important;padding:0!important;color:var(--teal-2)!important;font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif!important;font-size:clamp(25px,5vw,32px)!important;font-weight:700!important;letter-spacing:.01em!important;line-height:1.08!important;text-transform:uppercase!important;overflow-wrap:anywhere}
+    .integrated-subtitle{grid-area:subtitle;width:100%;margin:0;color:var(--gray);font-size:15px;font-weight:700;line-height:1.4;overflow-wrap:anywhere}
+    @keyframes integratedBadgePulse{0%,20%,100%{transform:scale(1)}40%{transform:scale(1.025)}58%{transform:scale(1)}}
+    @keyframes integratedCursorTap{0%,20%,65%,100%{transform:translate(0,0)}36%{transform:translate(3px,2px)}48%{transform:translate(0,0)}}
+    @media(max-width:700px){.activity{width:min(100% - 18px,1120px);padding-top:10px}.integrated-top-composition{grid-template-columns:1fr;grid-template-areas:"try" "title" "subtitle";gap:6px;padding:12px 14px}.activity .integrated-title{font-size:clamp(24px,7vw,30px)!important}.integrated-subtitle{font-size:14px}.integrated-try-badge{min-height:48px;padding:7px 11px 7px 16px;font-size:16px}}
+    @media(prefers-reduced-motion:reduce){.integrated-try-badge,.integrated-cursor{animation:none!important}}
+
     .mock-browser {
       overflow: hidden;
       border: 1px solid var(--line);
@@ -964,9 +978,12 @@
 </head>
 <body>
   <main class="activity">
-    <header class="activity-header">
-      <h1>Reducing Cognitive Load</h1>
-      <p class="intro">Hover over or tab to the highlighted sections to explore four UX laws.</p>
+    <header class="integrated-top-composition">
+      <div class="integrated-try-row" aria-label="Try this interactive activity">
+        <div class="integrated-try-badge"><span>Try This</span><svg class="integrated-cursor" viewBox="0 0 24 30" aria-hidden="true"><path fill="currentColor" d="M2 1.3v24.4l6.2-5 4.4 8.1 4.2-2.3-4.4-8.1 7.8-1.2L2 1.3Z"></path></svg></div>
+      </div>
+      <div class="integrated-title-wrap"><p class="integrated-eyebrow">Interactive Learning</p><h1 class="integrated-title">Reducing Cognitive Load</h1></div>
+      <p class="integrated-subtitle">Hover over, select, or tab to the highlighted sections to explore four UX laws.</p>
     </header>
 
     <section class="mock-browser" aria-label="Interactive webpage mockup showing UX laws">
@@ -1160,6 +1177,25 @@
       const active = document.querySelector("[data-law].active");
       if (active && active.dataset.law !== "jakob") positionPopover(active);
     });
+  </script>
+  <script>
+    (function(){
+      var raf=0,last=0;
+      function measuredContentHeight(){
+        var bodyTop=document.body.getBoundingClientRect().top;
+        var bottom=0;
+        Array.prototype.forEach.call(document.body.children,function(el){
+          if(el.tagName==='SCRIPT'||getComputedStyle(el).position==='fixed')return;
+          var rect=el.getBoundingClientRect();
+          bottom=Math.max(bottom,rect.bottom-bodyTop);
+        });
+        return Math.max(280,Math.ceil(bottom));
+      }
+      function report(){cancelAnimationFrame(raf);raf=requestAnimationFrame(function(){var h=measuredContentHeight();if(h!==last){last=h;window.parent.postMessage({type:'vanderbilt-iframe-height',id:'cognitive-load-laws',height:h},'*');}});}
+      window.addEventListener('load',report);window.addEventListener('resize',report);document.addEventListener('click',function(){setTimeout(report,30);setTimeout(report,450);});
+      if('ResizeObserver'in window)new ResizeObserver(report).observe(document.body);
+      setTimeout(report,100);setTimeout(report,700);
+    })();
   </script>
 </body>
 </html>

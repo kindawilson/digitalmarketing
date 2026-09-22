@@ -199,7 +199,7 @@ body h1::after{background-color:#ddaf4b!important;border-color:#ddaf4b!important
 </h2>
 <p>Now that we’ve covered several Laws of UX and the action items that we can take, let’s combine them on a page. Hover/click/tab through the items below to see the ways that these strategies are implemented together.</p>
 <div class="embed-card">
-<iframe class="section-iframe iframe-laws" src="https://kindawilson.github.io/digitalmarketing/Week%203/cognitive-load-laws-mockup-popup-v2.html" title="Combined Laws of UX interaction" width="100%" height="1240" scrolling="no" loading="lazy" allow="fullscreen" style="display:block;width:100%;border:0">
+<iframe class="section-iframe iframe-laws" src="https://kindawilson.github.io/digitalmarketing/Week%203/cognitive-load-laws-mockup-popup-v2.html" title="Combined Laws of UX interaction" data-resize-id="cognitive-load-laws" width="100%" height="1240" scrolling="no" loading="lazy" allow="fullscreen" style="display:block;width:100%;border:0">
 </iframe>
 </div>
 </article>
@@ -210,6 +210,16 @@ body h1::after{background-color:#ddaf4b!important;border-color:#ddaf4b!important
 <img src="https://kindawilson.github.io/digitalmarketing/Week%203/Dimensional_V_White_Lockup.png" alt="Vanderbilt University" style="max-width:260px;width:100%;height:auto;">
 </div>
 </footer>
+<script>
+window.addEventListener('message',function(event){
+  var data=event.data;
+  if(!data||data.type!=='vanderbilt-iframe-height'||data.id!=='cognitive-load-laws')return;
+  var frame=document.querySelector('iframe[data-resize-id="cognitive-load-laws"]');
+  if(!frame||event.source!==frame.contentWindow)return;
+  var height=Math.max(560,Math.min(2600,Number(data.height)||0));
+  if(height)frame.style.setProperty('height',(height+8)+'px','important');
+});
+</script>
 <script>document.querySelectorAll('.tooltip-button').forEach(function(button){button.addEventListener('click',function(){var wrap=button.closest('.tooltip-wrap');var open=!wrap.classList.contains('open');document.querySelectorAll('.tooltip-wrap.open').forEach(function(item){item.classList.remove('open');item.querySelector('button').setAttribute('aria-expanded','false')}
 );wrap.classList.toggle('open',open);button.setAttribute('aria-expanded',String(open))}
 )}
