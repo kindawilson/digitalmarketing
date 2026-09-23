@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Rise of Digital Advertising Spending — Animated Timeline</title>
+  <style>
+    :root {
+      --teal: #1d627b;
+      --dark: #0f3f52;
+      --gold: #ddaf4b;
+      --green: #00a080;
+      --sky: #59a4d4;
+      --rust: #b03d19;
+      --ink: #30343b;
+      --muted: #5d646b;
+      --soft: #f5f6f7;
+      --line: #d5dce0;
+      --white: #fff;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: transparent; }
+    body {
+      padding: 8px;
+      color: var(--ink);
+      font-family: Lato, Arial, sans-serif;
+    }
+
+    .activity {
+      width: 100%;
+      max-width: 940px;
+      margin: 0 auto;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-top: 7px solid var(--teal);
+      border-radius: 5px;
+      background: var(--white);
+      box-shadow: 0 7px 22px rgba(15, 63, 82, .11);
+    }
+
+    .header {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 16px;
+      padding: 15px 18px 12px;
+      background: var(--white);
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--dark);
+      font-family: "Century Gothic", Arial, sans-serif;
+      font-size: clamp(20px, 3.6vw, 30px);
+      line-height: 1.13;
+    }
+
+    .subtitle {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .play {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-width: 106px;
+      min-height: 52px;
+      padding: 10px 16px;
+      border: 3px solid var(--dark);
+      border-radius: 4px;
+      background: var(--gold);
+      color: var(--dark);
+      font-family: "Century Gothic", Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 0 var(--dark), 0 7px 14px rgba(15, 63, 82, .18);
+      transition: background .15s, transform .15s, box-shadow .15s;
+    }
+
+    .play:hover {
+      background: #edc76e;
+      transform: translateY(-1px);
+      box-shadow: 0 5px 0 var(--dark), 0 8px 16px rgba(15, 63, 82, .2);
+    }
+    .play:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0 var(--dark), 0 3px 8px rgba(15, 63, 82, .18);
+    }
+    .play:focus-visible,
+    .timeline-button:focus-visible {
+      outline: 4px solid rgba(221, 175, 75, .7);
+      outline-offset: 3px;
+    }
+
+    .play-icon { font-size: 18px; line-height: 1; }
+
+    .chart-shell {
+      position: relative;
+      padding: 12px 18px 8px;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--soft);
+    }
+
+    .summary {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 7px;
+    }
+
+    .year {
+      color: var(--teal);
+      font-family: "Century Gothic", Arial, sans-serif;
+      font-size: clamp(30px, 6vw, 52px);
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .total {
+      text-align: right;
+      color: var(--dark);
+      font-family: "Century Gothic", Arial, sans-serif;
+      font-size: clamp(18px, 3vw, 25px);
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .total small {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--muted);
+      font-family: Lato, Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .chart {
+      position: relative;
+      height: 330px;
+      padding: 0 0 38px 55px;
+    }
+
+    .grid {
+      position: absolute;
+      inset: 0 0 38px 55px;
+      border-left: 2px solid var(--dark);
+      border-bottom: 2px solid var(--dark);
+    }
+
+    .grid-line {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      border-top: 1px dashed #bac4c9;
+    }
+
+    .grid-line span {
+      position: absolute;
+      top: -10px;
+      left: -52px;
+      width: 43px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .axis-title {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(-39%, -50%) rotate(-90deg);
+      color: var(--dark);
+      font-size: 13px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .bar-stage {
+      position: absolute;
+      inset: 0 0 38px 55px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 0 10%;
+    }
+
+    .bar {
+      display: flex;
+      flex-direction: column-reverse;
+      width: min(42%, 250px);
+      height: 0;
+      overflow: hidden;
+      border-radius: 5px 5px 0 0;
+      box-shadow: 0 3px 10px rgba(15, 63, 82, .18);
+      transition: height 760ms cubic-bezier(.2, .75, .25, 1);
+    }
+
+    .segment {
+      position: relative;
+      width: 100%;
+      min-height: 0;
+      transition: height 760ms cubic-bezier(.2, .75, .25, 1);
+    }
+
+    .segment span {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, .35);
+    }
+
+    .segment.search { background: var(--teal); }
+    .segment.digital { background: var(--teal); }
+    .segment.tv { background: var(--gold); }
+    .segment.newspaper { background: var(--rust); }
+    .segment.magazine { background: #7c6aa6; }
+    .segment.radio { background: var(--sky); }
+    .segment.ooh { background: var(--green); }
+
+    .milestone {
+      min-height: 41px;
+      margin-top: -28px;
+      padding: 8px 10px;
+      border-left: 5px solid var(--gold);
+      background: var(--white);
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .milestone strong { color: var(--dark); }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 4px;
+      padding: 15px 18px 13px;
+      background: var(--white);
+    }
+
+    .timeline-button {
+      position: relative;
+      min-width: 0;
+      min-height: 42px;
+      padding: 17px 1px 3px;
+      border: 0;
+      border-radius: 3px;
+      background: transparent;
+      color: var(--muted);
+      font-family: Lato, Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .timeline-button::before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      width: 10px;
+      height: 10px;
+      transform: translateX(-50%);
+      border: 3px solid var(--teal);
+      border-radius: 50%;
+      background: var(--white);
+      z-index: 2;
+    }
+
+    .timeline-button::after {
+      content: "";
+      position: absolute;
+      top: 11px;
+      left: -55%;
+      width: 110%;
+      height: 2px;
+      background: #b8c5ca;
+      z-index: 1;
+    }
+
+    .timeline-button:first-child::after { display: none; }
+    .timeline-button.active {
+      color: var(--dark);
+      background: #eef5f7;
+    }
+    .timeline-button.active::before {
+      border-color: var(--gold);
+      background: var(--gold);
+    }
+    .timeline-button.visited::after { background: var(--teal); }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 15px;
+      padding: 0 18px 13px;
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .legend span { display: inline-flex; align-items: center; gap: 5px; }
+    .swatch { width: 13px; height: 13px; border-radius: 2px; }
+
+    .source {
+      margin: 0 18px 16px;
+      padding: 12px 14px 12px 16px;
+      border-left: 6px solid var(--gold);
+      background: var(--soft);
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .source strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--dark);
+      font-family: "Century Gothic", Arial, sans-serif;
+      font-size: 13px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .source a { color: var(--teal); font-weight: 700; }
+
+    @media (max-width: 600px) {
+      body { padding: 5px; }
+      .header { padding: 12px; }
+      .chart-shell { padding: 10px 12px 7px; }
+      .chart { height: 300px; padding-left: 48px; }
+      .grid, .bar-stage { left: 48px; }
+      .grid-line span { left: -47px; }
+      .bar { width: min(52%, 220px); }
+      .timeline { padding: 12px 8px 10px; gap: 1px; }
+      .timeline-button { font-size: 10px; }
+      .legend { gap: 7px 10px; padding: 0 10px 11px; }
+      .source { margin: 0 10px 12px; }
+    }
+
+    @media (max-width: 430px) {
+      .header { grid-template-columns: 1fr; }
+      .play { width: 100%; }
+      .chart { height: 280px; }
+      .timeline {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        row-gap: 7px;
+      }
+      .timeline-button:nth-child(6)::after { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .bar, .segment { transition-duration: 1ms; }
+    }
+  </style>
+</head>
+<body>
+  <main class="activity" aria-labelledby="activity-title">
+    <header class="header">
+      <button class="play" id="play" type="button" aria-label="Play spending timeline">
+        <span class="play-icon" aria-hidden="true">▶</span>
+        <span id="play-label">Play</span>
+      </button>
+      <div>
+        <h1 id="activity-title">The Rise of Digital Advertising Spending</h1>
+        <p class="subtitle">How U.S. advertising shifted from traditional media toward digital, 2000–2025</p>
+      </div>
+    </header>
+
+    <section class="chart-shell" aria-label="Animated stacked bar chart comparing U.S. advertising spending across digital and traditional media">
+      <div class="summary">
+        <div class="year" id="year">2000</div>
+        <div class="total"><small>Total shown spending</small><span id="total">$154.1 billion</span></div>
+      </div>
+
+      <div class="chart">
+        <div class="axis-title">U.S. dollars (billions)</div>
+        <div class="grid" aria-hidden="true">
+          <div class="grid-line" style="bottom:0%"><span>$0</span></div>
+          <div class="grid-line" style="bottom:25%"><span>$100</span></div>
+          <div class="grid-line" style="bottom:50%"><span>$200</span></div>
+          <div class="grid-line" style="bottom:75%"><span>$300</span></div>
+          <div class="grid-line" style="bottom:100%"><span>$400</span></div>
+        </div>
+        <div class="bar-stage">
+          <div class="bar" id="bar" aria-hidden="true">
+            <div class="segment digital" data-key="digital"><span></span></div>
+            <div class="segment tv" data-key="tv"><span></span></div>
+            <div class="segment newspaper" data-key="newspaper"><span></span></div>
+            <div class="segment magazine" data-key="magazine"><span></span></div>
+            <div class="segment radio" data-key="radio"><span></span></div>
+            <div class="segment ooh" data-key="ooh"><span></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="milestone" id="milestone" role="status" aria-live="polite" aria-atomic="true"></div>
+    </section>
+
+    <nav class="timeline" id="timeline" aria-label="Choose a year"></nav>
+
+    <div class="legend" aria-label="Advertising categories">
+      <span><i class="swatch" style="background:#1d627b"></i>Digital</span>
+      <span><i class="swatch" style="background:#ddaf4b"></i>Television</span>
+      <span><i class="swatch" style="background:#b03d19"></i>Newspapers</span>
+      <span><i class="swatch" style="background:#7c6aa6"></i>Magazines</span>
+      <span><i class="swatch" style="background:#59a4d4"></i>Radio</span>
+      <span><i class="swatch" style="background:#00a080"></i>Out-of-home</span>
+    </div>
+
+    <p class="source">
+      <strong>Data source</strong>
+      Digital totals: <a href="https://www.iab.com/insights/internet-advertising-report-archive/" target="_blank" rel="noopener">IAB/PwC Internet Advertising Revenue Reports</a>.
+      Cross-media historical estimates: <a href="https://www.pewresearch.org/journalism/media-indicators/digital-news-revenue-u-s-advertising-by-media/" target="_blank" rel="noopener">Pew Research Center</a>.
+      2025 traditional-media estimate: EMARKETER; 2025 out-of-home total: OAAA.
+      Selected years and rounded values are shown for directional comparison. Definitions and measurement methods differ somewhat by source and year.
+    </p>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var MAX = 400;
+      var STEP_MS = 1900;
+      var data = [
+        { year: 2000, digital: 8.1, tv: 54.5, newspaper: 48.7, magazine: 17.7, radio: 19.6, ooh: 5.5,
+          note: "<strong>Traditional media dominated.</strong> Television and newspapers together received far more spending than the young digital category." },
+        { year: 2005, digital: 12.5, tv: 63.3, newspaper: 47.4, magazine: 23.1, radio: 20.0, ooh: 6.3,
+          note: "<strong>Digital was growing, but still small.</strong> Television and print remained the largest destinations for advertising dollars." },
+        { year: 2010, digital: 26.0, tv: 59.0, newspaper: 22.8, magazine: 18.5, radio: 17.3, ooh: 6.1,
+          note: "<strong>Digital caught newspapers.</strong> Search, online display, and emerging video formats changed how marketers reached customers." },
+        { year: 2015, digital: 59.6, tv: 70.6, newspaper: 16.6, magazine: 16.5, radio: 17.5, ooh: 7.3,
+          note: "<strong>Digital approached television.</strong> Mobile devices and social platforms accelerated the shift away from print." },
+        { year: 2020, digital: 139.8, tv: 61.0, newspaper: 8.8, magazine: 8.5, radio: 10.3, ooh: 6.1,
+          note: "<strong>Digital became the dominant category.</strong> Online shopping, streaming, and pandemic-era media habits widened the gap." },
+        { year: 2025, digital: 294.7, tv: 49.0, newspaper: 4.5, magazine: 4.6, radio: 10.4, ooh: 9.5,
+          note: "<strong>Digital now leads by a wide margin.</strong> Traditional media remains important, but most U.S. advertising investment is digital." }
+      ];
+
+      data.forEach(function (item) {
+        item.total = +(item.digital + item.tv + item.newspaper + item.magazine + item.radio + item.ooh).toFixed(1);
+      });
+
+      var labels = {
+        digital: "Digital",
+        tv: "TV",
+        newspaper: "Newspapers",
+        magazine: "Magazines",
+        radio: "Radio",
+        ooh: "Out-of-home"
+      };
+      var keys = ["digital", "tv", "newspaper", "magazine", "radio", "ooh"];
+      var index = 0;
+      var timer = null;
+      var isPlaying = false;
+      var playButton = document.getElementById("play");
+      var playLabel = document.getElementById("play-label");
+      var playIcon = playButton.querySelector(".play-icon");
+      var yearEl = document.getElementById("year");
+      var totalEl = document.getElementById("total");
+      var milestoneEl = document.getElementById("milestone");
+      var barEl = document.getElementById("bar");
+      var timelineEl = document.getElementById("timeline");
+
+      data.forEach(function (item, itemIndex) {
+        var button = document.createElement("button");
+        button.type = "button";
+        button.className = "timeline-button";
+        button.textContent = item.year;
+        button.setAttribute("aria-label", "Show " + item.year);
+        button.addEventListener("click", function () {
+          pause();
+          index = itemIndex;
+          update(true);
+        });
+        timelineEl.appendChild(button);
+      });
+
+      function money(value) {
+        return "$" + value.toFixed(1) + " billion";
+      }
+
+      function update(announce) {
+        var item = data[index];
+        var barPercent = Math.min(100, item.total / MAX * 100);
+        var buttons = timelineEl.querySelectorAll(".timeline-button");
+
+        yearEl.textContent = item.year;
+        totalEl.textContent = money(item.total);
+        milestoneEl.innerHTML = item.note;
+        barEl.style.height = barPercent + "%";
+        barEl.setAttribute("aria-label", item.year + " total: " + money(item.total));
+
+        keys.forEach(function (key) {
+          var segment = barEl.querySelector('[data-key="' + key + '"]');
+          var portion = item.total ? item[key] / item.total * 100 : 0;
+          segment.style.height = portion + "%";
+          segment.querySelector("span").textContent =
+            item[key] >= 16 ? labels[key] + " $" + item[key].toFixed(1) + "B" : "";
+        });
+
+        buttons.forEach(function (button, buttonIndex) {
+          button.classList.toggle("active", buttonIndex === index);
+          button.classList.toggle("visited", buttonIndex <= index);
+          if (buttonIndex === index) button.setAttribute("aria-current", "step");
+          else button.removeAttribute("aria-current");
+        });
+
+        if (announce) {
+          milestoneEl.setAttribute("aria-label", item.year + ". Total " + money(item.total) + ". " + milestoneEl.textContent);
+        }
+      }
+
+      function pause() {
+        isPlaying = false;
+        if (timer) window.clearTimeout(timer);
+        timer = null;
+        playLabel.textContent = index === data.length - 1 ? "Replay" : "Play";
+        playIcon.textContent = "▶";
+        playButton.setAttribute("aria-label", index === data.length - 1 ? "Replay spending timeline" : "Play spending timeline");
+      }
+
+      function advance() {
+        if (!isPlaying) return;
+        if (index >= data.length - 1) {
+          pause();
+          return;
+        }
+        index += 1;
+        update(true);
+        timer = window.setTimeout(advance, STEP_MS);
+      }
+
+      function play() {
+        if (index >= data.length - 1) {
+          index = 0;
+          update(true);
+        }
+        isPlaying = true;
+        playLabel.textContent = "Pause";
+        playIcon.textContent = "Ⅱ";
+        playButton.setAttribute("aria-label", "Pause spending timeline");
+        timer = window.setTimeout(advance, STEP_MS);
+      }
+
+      playButton.addEventListener("click", function () {
+        if (isPlaying) pause();
+        else play();
+      });
+
+      update(false);
+    }());
+  </script>
+</body>
+</html>
