@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parts of a Search Ad Interactive</title>
+  <style>
+    :root{
+      --ink:#102f3a;--teal:#0f3f52;--teal-2:#1d627b;--gold:#ddaf4b;--gold-soft:#fff6df;
+      --gray:#4d5259;--line:#dfe3e6;--soft:#f5f6f7;--white:#fff;--blue:#1a4da1;
+      --green:#28733d;--shadow:0 18px 48px rgba(16,47,58,.14)
+    }
+    *{box-sizing:border-box}
+    html{background:#fff}
+    body{margin:0;background:#fff;color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.5}
+    button,a{font:inherit}
+    .activity{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:20px 0 18px}
+    .integrated-header{display:grid;grid-template-columns:170px minmax(0,1fr);grid-template-areas:"try title" "subtitle subtitle";column-gap:18px;row-gap:10px;align-items:start;padding:16px 18px 14px;border:1px solid var(--line);border-top:6px solid var(--gold);border-radius:12px 12px 0 0;background:linear-gradient(135deg,#f5f6f7 0%,#fff 72%)}
+    .try-row{grid-area:try;display:flex;align-items:flex-start}
+    .try-badge{display:inline-flex;align-items:center;gap:13px;min-height:54px;padding:8px 13px 8px 20px;border:4px solid var(--gold);border-radius:4px;background:var(--teal-2);box-shadow:0 2px 0 rgba(16,47,58,.16);color:#fff;font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:18px;font-weight:700;letter-spacing:.08em;line-height:1;text-transform:uppercase;transform-origin:center;animation:badgePulse 2.2s ease-in-out infinite}
+    .try-cursor{width:22px;height:27px;color:var(--gold);filter:drop-shadow(1px 1px 0 rgba(16,47,58,.32));animation:cursorTap 2.2s ease-in-out infinite}
+    @keyframes badgePulse{0%,20%,100%{transform:scale(1)}40%{transform:scale(1.025);box-shadow:0 5px 10px rgba(29,98,123,.25)}58%{transform:scale(1)}}
+    @keyframes cursorTap{0%,20%,65%,100%{transform:translate(0,0)}36%{transform:translate(3px,2px)}48%{transform:translate(0,0)}}
+    .activity-header{grid-area:title;margin:0;padding:1px 0 0}
+    .eyebrow{margin:0 0 3px;color:var(--teal-2);font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:13px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}
+    h1{margin:0;color:var(--teal-2);font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:clamp(25px,5vw,32px);font-weight:700;letter-spacing:.01em;line-height:1.08;text-transform:uppercase}
+    .masthead-subtitle{grid-area:subtitle;margin:0;color:var(--gray);font-size:15px;font-weight:700;line-height:1.4}
+
+    .explorer{overflow:hidden;border:1px solid var(--line);border-top:0;border-radius:0 0 12px 12px;background:#fff;box-shadow:var(--shadow)}
+    .search-bar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:11px 15px;border-bottom:1px solid var(--line);background:#eef2f3}
+    .brand-mark{display:grid;place-items:center;width:33px;height:33px;border-radius:50%;background:var(--teal);color:#fff;font-family:Georgia,serif;font-size:18px;font-weight:700}
+    .query{min-width:0;padding:8px 14px;border:1px solid #cfd9dd;border-radius:999px;background:#fff;color:#4c575d;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .results-note{color:#647178;font-size:12px;font-weight:700;white-space:nowrap}
+    .workspace{display:grid;grid-template-columns:minmax(420px,1.2fr) minmax(300px,.8fr);min-height:550px}
+    .serp{padding:24px 30px 28px;border-right:1px solid var(--line);background:linear-gradient(180deg,#fff,#f9fbfb)}
+    .result-count{margin:0 0 17px;color:#707980;font-size:12px}
+    .ad-card{max-width:680px;padding:5px 4px 8px;background:#fff}
+    .part{position:relative;margin:0;padding:4px 5px;border:2px solid transparent;border-radius:5px;cursor:pointer;transition:background .18s ease,border-color .18s ease,box-shadow .18s ease}
+    .part:last-child{margin-bottom:0}
+    .part:hover,.part:focus-visible,.part[aria-pressed="true"]{border-color:var(--gold);background:var(--gold-soft);box-shadow:0 0 0 3px rgba(221,175,75,.13);outline:0}
+    .sponsored-line{display:flex;align-items:center;gap:8px;color:#3f494e;font-size:13px}
+    .sponsored-label{font-weight:700}.ad-icon{display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:var(--teal);color:#fff;font-size:12px;font-weight:700}
+    .display-url{color:#3f494e;font-size:14px;overflow-wrap:anywhere}.display-url strong{font-weight:700}
+    .headlines{color:var(--blue);font-family:Arial,Helvetica,sans-serif;font-size:clamp(21px,3vw,28px);line-height:1.22}.headlines strong{font-weight:500}
+    .description{color:#4d5156;font-size:15px;line-height:1.5}
+    .callouts{display:flex;flex-wrap:wrap;gap:6px 14px;color:#3f494e;font-size:13px;font-weight:700}.callouts span::before{content:"·";margin-right:5px;color:#3f494e}
+    .sitelinks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px}.sitelink{min-width:0}.sitelink strong{display:block;color:var(--blue);font-size:15px}.sitelink span{display:block;margin-top:2px;color:#5a6368;font-size:12px;line-height:1.35}
+    .assets{display:flex;flex-wrap:wrap;gap:8px 16px;color:#4d5156;font-size:13px}.asset{display:inline-flex;align-items:center;gap:6px}.asset-icon{color:var(--teal-2);font-weight:900}
+
+    .details{position:relative;padding:28px 30px 24px;background:linear-gradient(145deg,#fff 68%,#fff8e7)}
+    .detail-kicker{margin:0 0 4px;color:var(--teal-2);font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    .details h2{margin:0;color:var(--teal);font-family:"Century Gothic","Segoe UI",Arial,sans-serif;font-size:clamp(24px,3vw,33px);line-height:1.12}
+    .definition{margin:13px 0 17px;color:#3f4c52;font-size:16px;line-height:1.55}
+    .tips-title{margin:0 0 8px;color:var(--teal-2);font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+    .tips{display:grid;gap:9px;margin:0;padding:0;list-style:none}
+    .tips li{position:relative;padding:10px 11px 10px 34px;border:1px solid #dfe7e9;border-radius:7px;background:#f7f9f9;color:#34464e;font-size:14px;line-height:1.4}
+    .tips li::before{content:"✓";position:absolute;left:12px;top:10px;color:#9a6900;font-weight:900}
+    .pin-note{margin:18px 0 0;padding:10px 12px;border-left:5px solid var(--gold);background:var(--gold-soft);color:#4b4f52;font-size:13px;line-height:1.4}
+    .status{margin:12px 0 0;color:#647178;font-size:12px;font-weight:700}
+    .source{margin:10px 2px 0;color:#596369;font-size:12px;text-align:right;line-height:1.5}.source a{color:var(--teal-2);font-weight:700;text-underline-offset:2px}
+
+    @media(max-width:790px){.workspace{grid-template-columns:1fr;min-height:0}.serp{border-right:0;border-bottom:1px solid var(--line);padding:20px}.details{padding:24px}.results-note{display:none}}
+    @media(max-width:560px){.activity{width:min(100% - 16px,1120px);padding-top:8px}.integrated-header{grid-template-columns:1fr;grid-template-areas:"try" "title" "subtitle";gap:6px;padding:14px}.try-badge{min-height:48px;font-size:16px}.search-bar{grid-template-columns:auto minmax(0,1fr);gap:8px}.serp{padding:14px 10px 18px}.ad-card{padding:3px 0 6px}.sitelinks{grid-template-columns:1fr}.part{padding:5px}.headlines{font-size:21px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <main class="activity">
+    <div class="integrated-header">
+      <div class="try-row" aria-label="Try this interactive activity">
+        <div class="try-badge"><span>Try This</span><svg class="try-cursor" viewBox="0 0 24 30" aria-hidden="true"><path fill="currentColor" d="M2 1.3v24.4l6.2-5 4.4 8.1 4.2-2.3-4.4-8.1 7.8-1.2L2 1.3Z"/></svg></div>
+      </div>
+      <header class="activity-header"><p class="eyebrow">Interactive Learning</p><h1>Anatomy of a Search Ad</h1></header>
+      <p class="masthead-subtitle">Hover over or focus on part of the search ad to identify it and preview best practices. Click a part—or press Enter—to keep it selected.</p>
+    </div>
+
+    <section class="explorer" aria-label="Interactive example showing the parts of a search advertisement">
+      <div class="search-bar">
+        <div class="brand-mark" aria-hidden="true">V</div>
+        <div class="query">same-day bike repair near me</div>
+        <div class="results-note">Search results</div>
+      </div>
+
+      <div class="workspace">
+        <section class="serp" aria-label="Example search results page">
+          <p class="result-count">Example paid search result</p>
+          <article class="ad-card" aria-label="Fictional search ad for Veloworks Bike Repair">
+            <div class="part" tabindex="0" role="button" aria-pressed="false" data-part="sponsored">
+              <div class="sponsored-line"><span class="ad-icon">V</span><span><strong class="sponsored-label">Sponsored</strong> · Veloworks Bike Repair</span></div>
+            </div>
+
+            <div class="part" tabindex="0" role="button" aria-pressed="false" data-part="url">
+              <div class="display-url"><strong>veloworksbikes.example</strong> › repairs › same-day-service</div>
+            </div>
+
+            <div class="part" tabindex="0" role="button" aria-pressed="false" data-part="headlines">
+              <div class="headlines"><strong>Same-Day Bike Repair</strong> | Nashville Tune-Ups | Book Online</div>
+            </div>
+
+            <div class="part" tabindex="0" role="button" aria-pressed="false" data-part="description">
+              <div class="description">Get back on the road with friendly local service, clear pricing and expert repairs. Reserve your appointment today.</div>
+            </div>
+
+            <div class="part" tabindex="0" role="button" aria-pressed="false" data-part="callouts">
+              <div class="callouts"><span>Free Safety Check</span><span>Locally Owned</span><span>Transparent Pricing</span></div>
+            </div>
+
+            <div class="part" tabindex="0" role="button" aria-pressed="false" data-part="sitelinks">
+              <div class="sitelinks">
+                <div class="sitelink"><strong>Book a Repair</strong><span>Choose a convenient service time.</span></div>
+                <div class="sitelink"><strong>Repair Services</strong><span>See tune-ups, tires and brake work.</span></div>
+                <div class="sitelink"><strong>Current Offers</strong><span>View available service specials.</span></div>
+                <div class="sitelink"><strong>Meet the Mechanics</strong><span>Learn about the local repair team.</span></div>
+              </div>
+            </div>
+
+            <div class="part" tabindex="0" role="button" aria-pressed="false" data-part="contact">
+              <div class="assets"><span class="asset"><span class="asset-icon">●</span>0.6 miles away</span><span class="asset"><span class="asset-icon">☎</span>(615) 555-0142</span><span class="asset"><span class="asset-icon">⌂</span>Midtown Nashville</span></div>
+            </div>
+          </article>
+        </section>
+
+        <aside class="details" aria-live="polite" aria-atomic="true">
+          <p class="detail-kicker" id="detailKicker">Search ad part · 1 of 7</p>
+          <h2 id="detailTitle">Sponsored label</h2>
+          <p class="definition" id="detailDefinition">This disclosure identifies the result as paid advertising and helps users distinguish an ad from an organic search result.</p>
+          <p class="tips-title">Best practices</p>
+          <ul class="tips" id="detailTips"><li>Keep the surrounding business information accurate and recognizable.</li><li>Earn trust with ad copy that clearly matches the landing-page experience.</li></ul>
+          <p class="pin-note">Tip: Hover or focus to preview another part. Click or press Enter to pin your selection.</p>
+          <p class="status" id="selectionStatus">Sponsored label is selected.</p>
+        </aside>
+      </div>
+    </section>
+
+    <p class="source">General guidance adapted and paraphrased from <a href="https://hibu.com/blog/marketing-tips/anatomy-of-.-a-search-ad" target="_blank" rel="noopener noreferrer">Hibu</a>, <a href="https://cleverclicksdigital.com/blog/anatomy-adwords-ad-ad-copy-best-practices/" target="_blank" rel="noopener noreferrer">CleverClicks Digital</a>, <a href="https://searchengineland.com/the-anatomy-of-compelling-search-ad-copy-12086" target="_blank" rel="noopener noreferrer">Search Engine Land</a>, and <a href="https://eternitymarketing.com/blog/the-anatomy-of-a-google-search-ad" target="_blank" rel="noopener noreferrer">Eternity</a>. Ad formats and available assets can vary.</p>
+  </main>
+
+  <script>
+    const parts={
+      sponsored:{number:"1 of 7",title:"Sponsored label",definition:"This disclosure identifies the result as paid advertising and helps users distinguish an ad from an organic search result.",tips:["Keep the surrounding business information accurate and recognizable.","Earn trust with ad copy that clearly matches the landing-page experience."]},
+      url:{number:"2 of 7",title:"Display URL and paths",definition:"The display URL shows the advertiser's domain and may include readable path text that previews the page topic. It helps set expectations before the click.",tips:["Use short path words that reinforce the searcher's goal.","Keep the domain recognizable and make sure the destination page fulfills the promise."]},
+      headlines:{number:"3 of 7",title:"Headlines",definition:"Headlines are the most prominent copy in the ad. Search platforms may combine eligible headline options in different orders.",tips:["Reflect the searcher's intent with specific, natural wording.","Use each headline to contribute a benefit, differentiator or useful action instead of repeating the same phrase."]},
+      description:{number:"4 of 7",title:"Description",definition:"The description expands on the headline by explaining the offer, its value and the next step a searcher can take.",tips:["Lead with benefits and concrete information rather than vague claims.","End with a clear action that matches what users can do on the landing page."]},
+      callouts:{number:"5 of 7",title:"Callout assets",definition:"Callouts are brief, non-clickable phrases that add useful selling points or service details without crowding the main description.",tips:["Use scannable facts such as service features, guarantees or availability.","Avoid repeating claims already stated in the headlines or description."]},
+      sitelinks:{number:"6 of 7",title:"Sitelink assets",definition:"Sitelinks provide additional clickable routes to useful pages, allowing searchers to move directly toward a specific need.",tips:["Choose distinct destinations such as services, pricing, offers or contact pages.","Give every sitelink a clear label and send it to the most relevant page—not automatically to the homepage."]},
+      contact:{number:"7 of 7",title:"Location and call assets",definition:"Contact-oriented assets can surface a phone number, location or nearby-distance information so high-intent searchers can act with less friction.",tips:["Keep phone numbers, locations and business hours current.","Use these assets when calls or in-person visits are meaningful conversion actions."]}
+    };
+
+    const controls=[...document.querySelectorAll('.part[data-part]')];
+    const kicker=document.getElementById('detailKicker');
+    const title=document.getElementById('detailTitle');
+    const definition=document.getElementById('detailDefinition');
+    const tips=document.getElementById('detailTips');
+    const status=document.getElementById('selectionStatus');
+    let pinned='sponsored';
+
+    function render(key,announce=false){
+      const item=parts[key];
+      kicker.textContent=`Search ad part · ${item.number}`;
+      title.textContent=item.title;
+      definition.textContent=item.definition;
+      tips.replaceChildren(...item.tips.map(text=>{const li=document.createElement('li');li.textContent=text;return li}));
+      if(announce)status.textContent=`${item.title} is selected.`;
+    }
+
+    function setPinned(key){
+      pinned=key;
+      controls.forEach(control=>control.setAttribute('aria-pressed',String(control.dataset.part===key)));
+      render(key,true);
+    }
+
+    controls.forEach(control=>{
+      const key=control.dataset.part;
+      control.addEventListener('mouseenter',()=>render(key));
+      control.addEventListener('mouseleave',()=>render(pinned));
+      control.addEventListener('focus',()=>render(key));
+      control.addEventListener('blur',()=>render(pinned));
+      control.addEventListener('click',()=>setPinned(key));
+      control.addEventListener('keydown',event=>{
+        if(event.key==='Enter'||event.key===' '){event.preventDefault();setPinned(key)}
+      });
+    });
+
+    setPinned('sponsored');
+  </script>
+</body>
+</html>
