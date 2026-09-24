@@ -23,10 +23,19 @@ h1,h2,h3,p,li{overflow-wrap:anywhere}
 <script>
 window.addEventListener('message',function(event){
   var data=event.data;
-  if(!data||data.type!=='vanderbilt-iframe-height'||data.id!=='buyer-persona')return;
-  var frame=document.querySelector('iframe[data-resize-id="buyer-persona"]');
+  if(!data||data.type!=='vanderbilt-iframe-height')return;
+  var selectors={
+    'buyer-persona':'.iframe-persona',
+    'buyer-persona-demo':'.iframe-persona',
+    'customer-journey-stages-simple':'.iframe-journey-simple',
+    'customer-journey-to-funnel':'.iframe-funnel',
+    'mapping-one-customer-interaction-numbers-inside-boxes':'.iframe-map'
+  };
+  var selector=selectors[data.id];
+  if(!selector)return;
+  var frame=document.querySelector(selector);
   if(!frame||event.source!==frame.contentWindow)return;
-  var height=Math.max(560,Math.min(2600,Number(data.height)||0));
+  var height=Math.max(280,Math.min(3000,Number(data.height)||0));
   if(height)frame.style.setProperty('height',(height+8)+'px','important');
 });
 </script>
