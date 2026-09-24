@@ -242,7 +242,23 @@
     const popoverText = document.getElementById('popoverText');
     const popoverTip = document.getElementById('popoverTip');
     const popoverCode = document.getElementById('popoverCode');
+    const mockBrowser = document.querySelector('.mock-browser');
     let pinned = null;
+
+    function positionPopover(element) {
+      const isSearchPreviewItem = ['title','meta','schema'].includes(element.dataset.topic);
+      if (!isSearchPreviewItem) {
+        popover.style.top = '';
+        return;
+      }
+
+      const searchCard = element.closest('.search-card');
+      const browserRect = mockBrowser.getBoundingClientRect();
+      const searchRect = searchCard.getBoundingClientRect();
+      const spaceAboveSearch = searchRect.top - browserRect.top;
+      const closerTop = Math.max(72, spaceAboveSearch - popover.offsetHeight - 14);
+      popover.style.top = `${closerTop}px`;
+    }
 
     function renderTopic(element, pin = false) {
       const item = topics[element.dataset.topic];
@@ -253,6 +269,7 @@
       popoverCode.hidden = !item.code;
       popoverCode.textContent = item.code || '';
       popover.hidden = false;
+      positionPopover(element);
       if (pin) {
         pinned = element;
         hotspots.forEach(hotspot => hotspot.setAttribute('aria-pressed', String(hotspot === element)));
