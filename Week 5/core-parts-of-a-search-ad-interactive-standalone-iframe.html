@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Parts of a Search Ad Interactive</title>
+  <title>Core Parts of a Search Ad Interactive</title>
   <style>
     :root{
       --ink:#102f3a;--teal:#0f3f52;--teal-2:#1d627b;--gold:#ddaf4b;--gold-soft:#fff6df;
@@ -51,8 +51,6 @@
     .detail-kicker{margin:0 0 4px;color:var(--teal-2);font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
     .details h2{margin:0;color:var(--teal);font-family:"Century Gothic","Segoe UI",Arial,sans-serif;font-size:clamp(24px,3vw,33px);line-height:1.12}
     .definition{margin:13px 0 17px;color:#3f4c52;font-size:16px;line-height:1.55}
-    .optional-note{margin:0 0 17px;padding:10px 12px;border-left:5px solid var(--gold);background:var(--gold-soft);color:#4b4f52;font-size:14px;font-weight:700;line-height:1.45}
-    .optional-note[hidden]{display:none}
     .tips-title{margin:0 0 8px;color:var(--teal-2);font-size:13px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
     .tips{display:grid;gap:9px;margin:0;padding:0;list-style:none}
     .tips li{position:relative;padding:10px 11px 10px 34px;border:1px solid #dfe7e9;border-radius:7px;background:#f7f9f9;color:#34464e;font-size:14px;line-height:1.4}
@@ -72,7 +70,7 @@
       <div class="try-row" aria-label="Try this interactive activity">
         <div class="try-badge"><span>Try This</span><svg class="try-cursor" viewBox="0 0 24 30" aria-hidden="true"><path fill="currentColor" d="M2 1.3v24.4l6.2-5 4.4 8.1 4.2-2.3-4.4-8.1 7.8-1.2L2 1.3Z"/></svg></div>
       </div>
-      <header class="activity-header"><p class="eyebrow">Interactive Learning</p><h1>Anatomy of a Search Ad</h1></header>
+      <header class="activity-header"><p class="eyebrow">Interactive Learning</p><h1>Core Parts of a Search Ad</h1></header>
       <p class="masthead-subtitle">Hover over or focus on part of the search ad to identify it and preview best practices. Click a part—or press Enter—to keep it selected.</p>
     </div>
 
@@ -103,30 +101,13 @@
               <div class="description">Get back on the road with friendly local service, clear pricing and expert repairs. Reserve your appointment today.</div>
             </div>
 
-            <div class="part" tabindex="0" role="button" aria-pressed="false" data-part="callouts">
-              <div class="callouts"><span>Free Safety Check</span><span>Locally Owned</span><span>Transparent Pricing</span></div>
-            </div>
-
-            <div class="part" tabindex="0" role="button" aria-pressed="false" data-part="sitelinks">
-              <div class="sitelinks">
-                <div class="sitelink"><strong>Book a Repair</strong><span>Choose a convenient service time.</span></div>
-                <div class="sitelink"><strong>Repair Services</strong><span>See tune-ups, tires and brake work.</span></div>
-                <div class="sitelink"><strong>Current Offers</strong><span>View available service specials.</span></div>
-                <div class="sitelink"><strong>Meet the Mechanics</strong><span>Learn about the local repair team.</span></div>
-              </div>
-            </div>
-
-            <div class="part" tabindex="0" role="button" aria-pressed="false" data-part="contact">
-              <div class="assets"><span class="asset"><span class="asset-icon">●</span>0.6 miles away</span><span class="asset"><span class="asset-icon">☎</span>(615) 555-0142</span><span class="asset"><span class="asset-icon">⌂</span>Midtown Nashville</span></div>
-            </div>
           </article>
         </section>
 
         <aside class="details" aria-live="polite" aria-atomic="true">
-          <p class="detail-kicker" id="detailKicker">Search ad part · 1 of 7</p>
+          <p class="detail-kicker" id="detailKicker">Search ad part · 1 of 4</p>
           <h2 id="detailTitle">Sponsored label</h2>
           <p class="definition" id="detailDefinition">This disclosure identifies the result as paid advertising and helps users distinguish an ad from an organic search result.</p>
-          <p class="optional-note" id="optionalNote" hidden>Optional asset: This element is not shown on every ad. The platform's algorithm decides when it is likely to be helpful for a particular search.</p>
           <p class="tips-title">Best practices</p>
           <ul class="tips" id="detailTips"><li>Keep the surrounding business information accurate and recognizable.</li><li>Earn trust with ad copy that clearly matches the landing-page experience.</li></ul>
           <p class="pin-note">Tip: Hover or focus to preview another part. Click or press Enter to pin your selection.</p>
@@ -140,20 +121,16 @@
 
   <script>
     const parts={
-      sponsored:{number:"1 of 7",title:"Sponsored label",definition:"This disclosure identifies the result as paid advertising and helps users distinguish an ad from an organic search result.",tips:["Keep the surrounding business information accurate and recognizable.","Earn trust with ad copy that clearly matches the landing-page experience."]},
-      url:{number:"2 of 7",title:"Display URL and paths",definition:"The display URL shows the advertiser's domain and may include readable path text that previews the page topic. It helps set expectations before the click.",tips:["Use short path words that reinforce the searcher's goal.","Keep the domain recognizable and make sure the destination page fulfills the promise."]},
-      headlines:{number:"3 of 7",title:"Headlines",definition:"Headlines are the most prominent copy in the ad. Search platforms may combine eligible headline options in different orders.",tips:["Reflect the searcher's intent with specific, natural wording.","Use each headline to contribute a benefit, differentiator or useful action instead of repeating the same phrase."]},
-      description:{number:"4 of 7",title:"Description",definition:"The description expands on the headline by explaining the offer, its value and the next step a searcher can take.",tips:["Lead with benefits and concrete information rather than vague claims.","End with a clear action that matches what users can do on the landing page."]},
-      callouts:{number:"5 of 7",title:"Callout assets",optional:true,definition:"Callouts are brief, non-clickable phrases that add useful selling points or service details without crowding the main description.",tips:["Use scannable facts such as service features, guarantees or availability.","Avoid repeating claims already stated in the headlines or description."]},
-      sitelinks:{number:"6 of 7",title:"Sitelink assets",optional:true,definition:"Sitelinks provide additional clickable routes to useful pages, allowing searchers to move directly toward a specific need.",tips:["Choose distinct destinations such as services, pricing, offers or contact pages.","Give every sitelink a clear label and send it to the most relevant page—not automatically to the homepage."]},
-      contact:{number:"7 of 7",title:"Location and call assets",optional:true,definition:"Contact-oriented assets can surface a phone number, location or nearby-distance information so high-intent searchers can act with less friction.",tips:["Keep phone numbers, locations and business hours current.","Use these assets when calls or in-person visits are meaningful conversion actions."]}
+      sponsored:{number:"1 of 4",title:"Sponsored label",definition:"This disclosure identifies the result as paid advertising and helps users distinguish an ad from an organic search result.",tips:["Keep the surrounding business information accurate and recognizable.","Earn trust with ad copy that clearly matches the landing-page experience."]},
+      url:{number:"2 of 4",title:"Display URL and paths",definition:"The display URL shows the advertiser's domain and may include readable path text that previews the page topic. It helps set expectations before the click.",tips:["Use short path words that reinforce the searcher's goal.","Keep the domain recognizable and make sure the destination page fulfills the promise."]},
+      headlines:{number:"3 of 4",title:"Headlines",definition:"Headlines are the most prominent copy in the ad. Search platforms may combine eligible headline options in different orders.",tips:["Reflect the searcher's intent with specific, natural wording.","Use each headline to contribute a benefit, differentiator or useful action instead of repeating the same phrase."]},
+      description:{number:"4 of 4",title:"Description",definition:"The description expands on the headline by explaining the offer, its value and the next step a searcher can take.",tips:["Lead with benefits and concrete information rather than vague claims.","End with a clear action that matches what users can do on the landing page."]}
     };
 
     const controls=[...document.querySelectorAll('.part[data-part]')];
     const kicker=document.getElementById('detailKicker');
     const title=document.getElementById('detailTitle');
     const definition=document.getElementById('detailDefinition');
-    const optionalNote=document.getElementById('optionalNote');
     const tips=document.getElementById('detailTips');
     const status=document.getElementById('selectionStatus');
     let pinned='sponsored';
@@ -163,7 +140,6 @@
       kicker.textContent=`Search ad part · ${item.number}`;
       title.textContent=item.title;
       definition.textContent=item.definition;
-      optionalNote.hidden=!item.optional;
       tips.replaceChildren(...item.tips.map(text=>{const li=document.createElement('li');li.textContent=text;return li}));
       if(announce)status.textContent=`${item.title} is selected.`;
     }
