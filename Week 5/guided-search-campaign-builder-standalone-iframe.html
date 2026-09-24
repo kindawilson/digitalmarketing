@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guided Search Campaign Builder</title>
+  <style>
+    :root{--navy:#0f3f52;--teal:#1d627b;--gold:#ddaf4b;--ink:#102f3a;--text:#4d5259;--muted:#6c757d;--line:#d7dde1;--soft:#f5f6f7;--pale:#e4eff2;--green:#247747;--red:#a63a2b;--blue:#1a5bb8}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--text);font-family:Lato,Arial,Helvetica,sans-serif;line-height:1.45}button,input,textarea,select{font:inherit}button{cursor:pointer}
+    .activity{width:min(100%,1180px);margin:0 auto;padding:14px}
+    .try-header{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"badge title" "subtitle subtitle";gap:10px 22px;padding:20px 22px 18px;border:1px solid var(--line);border-top:7px solid var(--gold);background:#fff}
+    .try-badge{grid-area:badge;display:flex;align-items:center;gap:12px;align-self:center;padding:14px 18px;border:4px solid var(--gold);background:var(--teal);color:#fff;font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:19px;font-weight:700;letter-spacing:.09em;line-height:1;text-transform:uppercase;box-shadow:0 3px 8px rgba(16,47,58,.18)}
+    .cursor{color:var(--gold);font-size:28px;transform:rotate(-8deg)}.title-wrap{grid-area:title;align-self:center}.eyebrow{margin:0 0 2px;color:var(--teal);font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}.title{margin:0;color:var(--teal);font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:clamp(25px,3vw,36px);font-weight:700;letter-spacing:.01em;line-height:1.08;text-transform:uppercase}.subtitle{grid-area:subtitle;margin:0;color:var(--text);font-size:17px}
+    .layout{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(310px,.72fr);gap:18px;margin-top:18px}.workspace,.side{min-width:0;border:1px solid var(--line);background:#fff}.workspace{padding:20px}.side{position:sticky;top:10px;align-self:start;padding:18px;background:var(--soft)}
+    .progress{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:20px}.progress button{min-height:56px;padding:7px 5px;border:2px solid var(--line);border-radius:4px;background:#fff;color:var(--muted);font-size:12px;font-weight:700}.progress button span{display:block;margin-bottom:2px;color:inherit;font-family:"Century Gothic","Segoe UI",sans-serif;font-size:18px}.progress button.active{border-color:var(--teal);background:var(--pale);color:var(--teal)}.progress button.complete{border-color:var(--gold);color:var(--ink)}
+    .step{display:none}.step.active{display:block}.step-label{margin:0 0 4px;color:#9b6a00;font-weight:800;letter-spacing:.1em;text-transform:uppercase}.step h2,.side h2{margin:0 0 8px;color:var(--teal);font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-weight:700;line-height:1.15;text-transform:uppercase}.helper{margin:0 0 18px}.choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.choice{position:relative;min-height:118px;padding:15px;border:2px solid var(--line);border-radius:5px;background:#fff;text-align:left}.choice:hover{border-color:var(--gold)}.choice.selected{border-color:var(--teal);background:var(--pale);box-shadow:inset 5px 0 var(--gold)}.choice strong{display:block;margin-bottom:6px;color:var(--ink);font-family:"Century Gothic","Segoe UI",sans-serif;font-size:18px}.choice small{color:var(--text)}
+    .fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field.full{grid-column:1/-1}label{display:block;margin-bottom:5px;color:var(--ink);font-weight:700}.hint{display:block;margin-top:4px;color:var(--muted);font-size:12px}.counter{float:right;color:var(--muted);font-size:12px;font-weight:400}input,textarea,select{width:100%;padding:10px 11px;border:2px solid #bfc8ce;border-radius:4px;background:#fff;color:var(--ink)}textarea{min-height:76px;resize:vertical}input:focus,textarea:focus,select:focus,button:focus-visible{outline:4px solid rgba(221,175,75,.62);outline-offset:2px;border-color:var(--teal)}
+    .keyword-set{display:grid;gap:8px}.keyword{display:flex;gap:10px;align-items:flex-start;padding:11px;border:2px solid var(--line);border-radius:4px}.keyword:has(input:checked){border-color:var(--teal);background:var(--pale)}.keyword input{width:auto;margin-top:4px}.keyword strong{display:block;color:var(--ink)}.keyword small{display:block;color:var(--muted)}
+    .advanced{margin-top:16px;border:1px solid var(--line)}.advanced summary{padding:11px 13px;background:var(--soft);color:var(--teal);font-weight:800;cursor:pointer}.advanced>div{padding:14px}.checkline{display:flex;gap:9px;margin:9px 0}.checkline input{width:auto}
+    .nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}.btn{padding:10px 15px;border:2px solid var(--navy);border-radius:3px;background:#fff;color:var(--navy);font-weight:800}.btn.primary{background:var(--navy);color:#fff}.btn.gold{border-color:#a97200;background:var(--gold);color:#102f3a}.btn[disabled]{opacity:.42;cursor:not-allowed}
+    .side h2{font-size:20px}.summary{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0}.summary div{padding:9px;background:#fff;border:1px solid var(--line)}.summary span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase}.summary strong{color:var(--ink)}.preview-label{margin:16px 0 6px;color:var(--teal);font-weight:800;text-transform:uppercase}.ad-preview{padding:15px;border:1px solid #d9dce0;border-radius:7px;background:#fff}.sponsored{font-size:12px;font-weight:700;color:#30343b}.url{margin:4px 0;color:#26733e;font-size:13px;overflow-wrap:anywhere}.headline{color:#1558b0;font-size:20px;line-height:1.2}.description{margin-top:5px;color:#4d5156;font-size:13px}.assets{margin-top:6px;color:#1558b0;font-size:12px;font-weight:700}.review{display:grid;gap:8px;margin-top:14px}.notice{padding:10px 11px;border-left:5px solid var(--gold);background:#fff;font-size:13px}.notice.good{border-left-color:var(--green)}.notice.problem{border-left-color:var(--red)}.final{display:none;margin-top:16px;padding:15px;border:2px solid var(--green);background:#eef8f1;color:#234e32}.final.show{display:block}.source{margin:16px 0 0;color:var(--muted);font-size:12px}.source a{color:var(--teal);font-weight:700}
+    @media(max-width:760px){.layout{grid-template-columns:minmax(0,1fr)}.side{position:static;order:-1}.choice-grid{grid-template-columns:1fr}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.progress{grid-template-columns:repeat(5,minmax(0,1fr))}.progress button{font-size:0}.progress button span{font-size:17px;margin:0}.try-header{grid-template-columns:minmax(0,1fr);grid-template-areas:"badge" "title" "subtitle"}.try-badge{justify-self:start}.title,.subtitle,.headline,.description,.source{overflow-wrap:anywhere}.summary{grid-template-columns:1fr}}
+    @media(max-width:600px){.activity{padding:7px}.workspace,.side{padding:13px}.try-header{padding:15px 14px}.progress{gap:3px}.progress button{min-height:44px;padding:3px}.nav{flex-wrap:wrap}.btn{flex:1 1 120px}.headline{font-size:18px}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+<main class="activity" id="activity">
+  <header class="try-header">
+    <div class="try-badge">Try This <span class="cursor" aria-hidden="true">➤</span></div>
+    <div class="title-wrap"><p class="eyebrow">Interactive Learning</p><h1 class="title">Create a Search Campaign</h1></div>
+    <p class="subtitle">Guide a fictional Nashville repair shop from campaign goal to a ready-to-review search ad.</p>
+  </header>
+
+  <div class="layout">
+    <section class="workspace" aria-label="Campaign builder">
+      <nav class="progress" aria-label="Campaign steps">
+        <button class="active" data-go="0"><span>1</span>Goal</button><button data-go="1"><span>2</span>Settings</button><button data-go="2"><span>3</span>Ad group</button><button data-go="3"><span>4</span>Ad</button><button data-go="4"><span>5</span>Review</button>
+      </nav>
+
+      <section class="step active" data-step="0">
+        <p class="step-label">Step 1 of 5</p><h2>Choose the campaign goal</h2>
+        <p class="helper">The goal should reflect the action the business values most. Select one.</p>
+        <div class="choice-grid" data-choice="goal">
+          <button class="choice" data-value="Sales"><strong>Sales</strong><small>Encourage purchases or booked services.</small></button>
+          <button class="choice" data-value="Leads"><strong>Leads</strong><small>Generate calls, forms, or appointment requests.</small></button>
+          <button class="choice" data-value="Website traffic"><strong>Website traffic</strong><small>Bring relevant visitors to the website.</small></button>
+        </div>
+      </section>
+
+      <section class="step" data-step="1">
+        <p class="step-label">Step 2 of 5</p><h2>Define audience and settings</h2>
+        <p class="helper">Choose settings that match where customers are and what the campaign should optimize.</p>
+        <div class="fields">
+          <div class="field"><label for="location">Location</label><select id="location"><option value="">Choose a location</option><option>Midtown Nashville + 10 miles</option><option>Davidson County</option><option>Middle Tennessee</option></select></div>
+          <div class="field"><label for="language">Language</label><select id="language"><option>English</option><option>English and Spanish</option></select></div>
+          <div class="field full"><label for="bidding">Bidding focus</label><select id="bidding"><option value="">Choose a focus</option><option>Conversions</option><option>Clicks</option><option>Conversion value</option><option>Impression share</option></select><span class="hint">A lead-focused campaign usually benefits from conversion tracking.</span></div>
+        </div>
+        <details class="advanced"><summary>Explore optional network and scheduling settings</summary><div><label class="checkline"><input type="checkbox" id="partners"> Include Google search partners</label><label class="checkline"><input type="checkbox" id="schedule"> Run ads only during business hours</label></div></details>
+      </section>
+
+      <section class="step" data-step="2">
+        <p class="step-label">Step 3 of 5</p><h2>Create a focused ad group</h2>
+        <p class="helper">Select three closely related searches for one service. Avoid mixing unrelated customer needs.</p>
+        <div class="field"><label for="group-name">Ad group name</label><input id="group-name" maxlength="40" placeholder="Example: Same-day bike repair"></div>
+        <div class="keyword-set" aria-label="Keyword options">
+          <label class="keyword"><input type="checkbox" value="same day bike repair"><span><strong>same day bike repair</strong><small>Strong local service intent</small></span></label>
+          <label class="keyword"><input type="checkbox" value="bike repair near me"><span><strong>bike repair near me</strong><small>Strong location intent</small></span></label>
+          <label class="keyword"><input type="checkbox" value="Nashville bicycle tune up"><span><strong>Nashville bicycle tune up</strong><small>Relevant service and location</small></span></label>
+          <label class="keyword"><input type="checkbox" value="used bicycles for sale"><span><strong>used bicycles for sale</strong><small>Different intent: shopping for a bicycle</small></span></label>
+          <label class="keyword"><input type="checkbox" value="mountain bike trails"><span><strong>mountain bike trails</strong><small>Informational rather than repair intent</small></span></label>
+        </div>
+      </section>
+
+      <section class="step" data-step="3">
+        <p class="step-label">Step 4 of 5</p><h2>Build the search ad</h2>
+        <p class="helper">Connect the landing page, keywords, and message. The preview updates as you type.</p>
+        <div class="fields">
+          <div class="field full"><label for="final-url">Final URL</label><input id="final-url" type="url" placeholder="https://veloworksbikes.example/repairs"></div>
+          <div class="field"><label for="path-one">Display path 1</label><input id="path-one" maxlength="15" placeholder="repairs"></div>
+          <div class="field"><label for="path-two">Display path 2</label><input id="path-two" maxlength="15" placeholder="same-day"></div>
+          <div class="field"><label for="headline-one">Headline 1 <span class="counter" id="c-h1">0/30</span></label><input id="headline-one" maxlength="30" placeholder="Same-Day Bike Repair"></div>
+          <div class="field"><label for="headline-two">Headline 2 <span class="counter" id="c-h2">0/30</span></label><input id="headline-two" maxlength="30" placeholder="Nashville Tune-Ups"></div>
+          <div class="field full"><label for="description-one">Description <span class="counter" id="c-d1">0/90</span></label><textarea id="description-one" maxlength="90" placeholder="Friendly local service, clear pricing and expert repairs. Reserve your appointment today."></textarea></div>
+        </div>
+        <details class="advanced"><summary>Add optional assets</summary><div><label class="checkline"><input type="checkbox" class="asset" value="Book a Repair"> Sitelink: Book a Repair</label><label class="checkline"><input type="checkbox" class="asset" value="Free Safety Check"> Callout: Free Safety Check</label><label class="checkline"><input type="checkbox" class="asset" value="Call (615) 555-0142"> Call asset</label></div></details>
+      </section>
+
+      <section class="step" data-step="4">
+        <p class="step-label">Step 5 of 5</p><h2>Set a budget and review</h2>
+        <p class="helper">Choose an average daily budget, then review the campaign before simulated publishing.</p>
+        <div class="field"><label for="budget">Average daily budget</label><select id="budget"><option value="">Choose a budget</option><option value="15">$15 per day</option><option value="30">$30 per day</option><option value="50">$50 per day</option></select><span class="hint">This activity does not predict real results or charge money.</span></div>
+        <div class="final" id="final"><strong>Simulated campaign ready ✓</strong><br>Your selections form a coherent search campaign. In a real account, review billing, policy, tracking, and Google’s current recommendations before publishing.</div>
+      </section>
+
+      <div class="nav"><button class="btn" id="back" disabled>Back</button><button class="btn primary" id="next">Next step</button><button class="btn gold" id="publish" hidden>Run review</button></div>
+      <p class="source">Workflow adapted and paraphrased from <a href="https://support.google.com/google-ads/answer/9510373" target="_blank" rel="noopener">Google Ads Help: Create a Search campaign</a>. Google may present a different interface or onboarding sequence.</p>
+    </section>
+
+    <aside class="side" aria-label="Campaign summary and preview">
+      <h2>Campaign snapshot</h2>
+      <div class="summary"><div><span>Goal</span><strong id="sum-goal">Not selected</strong></div><div><span>Location</span><strong id="sum-location">Not selected</strong></div><div><span>Keywords</span><strong id="sum-keywords">0 selected</strong></div><div><span>Budget</span><strong id="sum-budget">Not selected</strong></div></div>
+      <p class="preview-label">Search-ad preview</p>
+      <div class="ad-preview"><div class="sponsored">Sponsored · Veloworks Bike Repair</div><div class="url" id="p-url">veloworksbikes.example › repairs</div><div class="headline" id="p-headline">Same-Day Bike Repair | Nashville Tune-Ups</div><div class="description" id="p-description">Friendly local service, clear pricing and expert repairs. Reserve your appointment today.</div><div class="assets" id="p-assets"></div></div>
+      <div class="review" id="review" aria-live="polite"><div class="notice">Complete each step to generate a campaign review.</div></div>
+    </aside>
+  </div>
+</main>
+<script>
+(function(){
+  'use strict';
+  var current=0,steps=[].slice.call(document.querySelectorAll('.step')),tabs=[].slice.call(document.querySelectorAll('.progress button'));
+  var state={goal:'',location:'',language:'English',bidding:'',group:'',keywords:[],url:'',path1:'',path2:'',h1:'',h2:'',description:'',assets:[],budget:''};
+  function q(id){return document.getElementById(id)}
+  function showStep(index){current=Math.max(0,Math.min(steps.length-1,index));steps.forEach(function(s,i){s.classList.toggle('active',i===current)});tabs.forEach(function(t,i){t.classList.toggle('active',i===current);if(i<current)t.classList.add('complete')});q('back').disabled=current===0;q('next').hidden=current===steps.length-1;q('publish').hidden=current!==steps.length-1;steps[current].scrollIntoView({behavior:'smooth',block:'start'});sendHeight()}
+  function sync(){state.location=q('location').value;state.language=q('language').value;state.bidding=q('bidding').value;state.group=q('group-name').value.trim();state.keywords=[].slice.call(document.querySelectorAll('.keyword input:checked')).map(function(x){return x.value});state.url=q('final-url').value.trim();state.path1=q('path-one').value.trim();state.path2=q('path-two').value.trim();state.h1=q('headline-one').value.trim();state.h2=q('headline-two').value.trim();state.description=q('description-one').value.trim();state.assets=[].slice.call(document.querySelectorAll('.asset:checked')).map(function(x){return x.value});state.budget=q('budget').value;
+    q('sum-goal').textContent=state.goal||'Not selected';q('sum-location').textContent=state.location||'Not selected';q('sum-keywords').textContent=state.keywords.length+' selected';q('sum-budget').textContent=state.budget?'$'+state.budget+'/day':'Not selected';
+    var domain='veloworksbikes.example';try{if(state.url)domain=new URL(state.url).hostname}catch(e){}var paths=[state.path1,state.path2].filter(Boolean).join(' › ');q('p-url').textContent=domain+(paths?' › '+paths:' › repairs');q('p-headline').textContent=(state.h1||'Same-Day Bike Repair')+' | '+(state.h2||'Nashville Tune-Ups');q('p-description').textContent=state.description||'Friendly local service, clear pricing and expert repairs. Reserve your appointment today.';q('p-assets').textContent=state.assets.join('  ·  ');q('c-h1').textContent=q('headline-one').value.length+'/30';q('c-h2').textContent=q('headline-two').value.length+'/30';q('c-d1').textContent=q('description-one').value.length+'/90';sendHeight()}
+  function review(){sync();var items=[];function add(text,type){items.push('<div class="notice '+type+'">'+text+'</div>')}
+    if(!state.goal)add('Choose a campaign goal.','problem');else add('Goal selected: '+state.goal+'.','good');
+    if(!state.location||!state.bidding)add('Complete the location and bidding settings.','problem');else add('Audience and bidding settings are defined.','good');
+    if(!state.group||state.keywords.length<3)add('Name the ad group and select at least three related keywords.','problem');else if(state.keywords.some(function(k){return /sale|trails/.test(k)}))add('One or more keywords have a different intent from bike repair. Tighten the ad group.','problem');else add('The ad group stays focused on repair intent.','good');
+    if(!state.url||!state.h1||!state.h2||!state.description)add('Complete the URL, both headlines, and the description.','problem');else{var copy=(state.h1+' '+state.h2+' '+state.description).toLowerCase();if(!/repair|tune/.test(copy))add('Make the ad copy more relevant to the repair keywords.','problem');else add('The ad message aligns with the selected service.','good')}
+    if(!state.budget)add('Choose an average daily budget.','problem');else add('Budget selected: $'+state.budget+' per day.','good');
+    q('review').innerHTML=items.join('');var ready=items.every(function(x){return x.indexOf('problem')===-1});q('final').classList.toggle('show',ready);sendHeight()}
+  document.querySelectorAll('[data-choice="goal"] .choice').forEach(function(btn){btn.addEventListener('click',function(){document.querySelectorAll('[data-choice="goal"] .choice').forEach(function(x){x.classList.remove('selected')});btn.classList.add('selected');state.goal=btn.dataset.value;sync()})});
+  document.querySelectorAll('input,textarea,select').forEach(function(el){el.addEventListener('input',sync);el.addEventListener('change',sync)});tabs.forEach(function(t){t.addEventListener('click',function(){showStep(Number(t.dataset.go))})});q('back').addEventListener('click',function(){showStep(current-1)});q('next').addEventListener('click',function(){showStep(current+1)});q('publish').addEventListener('click',review);
+  function sendHeight(){setTimeout(function(){if(window.parent!==window.parent.parent||window.parent!==window){window.parent.postMessage({type:'iframe-height',id:'guided-search-campaign-builder',height:document.documentElement.scrollHeight},'*')}},40)}
+  window.addEventListener('load',sendHeight);window.addEventListener('resize',sendHeight);sync();showStep(0);
+}());
+</script>
+</body>
+</html>
