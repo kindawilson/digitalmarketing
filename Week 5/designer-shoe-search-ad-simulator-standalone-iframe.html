@@ -35,7 +35,7 @@
       margin: 0 auto;
       overflow: hidden;
       border: 1px solid var(--vu-line);
-      border-top: 7px solid var(--vu-teal);
+      border-top: 7px solid var(--vu-gold);
       border-radius: 5px;
       background: var(--white);
       box-shadow: 0 7px 22px rgba(15, 63, 82, .11);
@@ -43,24 +43,39 @@
 
     .sim-header {
       display: grid;
-      grid-template-columns: 82px minmax(0, 1fr);
+      grid-template-columns: auto minmax(0, 1fr);
+      grid-template-areas:
+        "badge title"
+        "subtitle subtitle";
       align-items: center;
-      gap: 15px;
-      padding: 15px 18px;
-      background: var(--vu-soft);
+      gap: 10px 22px;
+      padding: 20px 22px 18px;
+      background: var(--white);
       border-bottom: 1px solid var(--vu-line);
     }
 
-    .brand-mark {
-      display: grid;
-      place-items: center;
-      width: 82px;
-      height: 68px;
-      border: 2px solid var(--vu-gold);
-      background: var(--white);
+    .try-badge {
+      grid-area: badge;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border: 4px solid var(--vu-gold);
+      background: var(--vu-teal);
+      color: var(--white);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      line-height: 1;
+      text-transform: uppercase;
+      box-shadow: 0 3px 8px rgba(15, 63, 82, .18);
     }
 
-    .brand-mark svg { width: 66px; height: 52px; }
+    .try-cursor { color: var(--vu-gold); font-size: 28px; transform: rotate(-8deg); }
+    .header-title-wrap { grid-area: title; min-width: 0; }
+    .header-eyebrow { margin: 0 0 2px; color: var(--vu-teal); font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .header-title-wrap h1 { color: var(--vu-teal); }
 
     h1, h2, h3 {
       margin: 0;
@@ -68,11 +83,12 @@
       font-family: "Century Gothic", Arial, sans-serif;
     }
 
-    h1 { font-size: clamp(21px, 3.7vw, 30px); line-height: 1.12; }
+    h1 { font-size: clamp(25px, 3vw, 36px); font-weight: 700; letter-spacing: .01em; line-height: 1.08; text-transform: uppercase; }
     h2 { font-size: 19px; line-height: 1.2; }
     h3 { font-size: 16px; line-height: 1.25; }
 
     .subtitle {
+      grid-area: subtitle;
       margin: 5px 0 0;
       color: var(--vu-muted);
       font-size: 14px;
@@ -450,7 +466,9 @@
       .results-header .header-intent { display: none; }
     }
 
-    @media (max-width: 560px) {
+    @media (max-width: 720px) {
+      .sim-header { grid-template-columns: minmax(0, 1fr); grid-template-areas: "badge" "title" "subtitle"; }
+      .try-badge { justify-self: start; }
       .workspace { grid-template-columns: 1fr; }
       .builder { border-right: 0; border-bottom: 1px solid var(--vu-line); }
       .scenario { grid-template-columns: 1fr; }
@@ -470,8 +488,6 @@
     }
 
     @media (max-width: 390px) {
-      .sim-header { grid-template-columns: 1fr; }
-      .brand-mark { width: 70px; height: 57px; }
       .ad-fields { grid-template-columns: 1fr; }
       .field-wide { grid-column: 1; }
     }
@@ -480,17 +496,12 @@
 <body>
   <main class="simulator" aria-labelledby="sim-title">
     <header class="sim-header">
-      <div class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 120 80">
-          <path d="M17 55c20 0 31-9 41-31l12 3c-2 10 3 18 17 24 8 4 16 7 22 8v11H17Z" fill="#1d627b"/>
-          <path d="M18 68h91" stroke="#ddaf4b" stroke-width="6" stroke-linecap="round"/>
-          <path d="M57 25c5 17 14 28 29 33" fill="none" stroke="#fff" stroke-width="4"/>
-        </svg>
-      </div>
-      <div>
+      <div class="try-badge">Try This <span class="try-cursor" aria-hidden="true">➤</span></div>
+      <div class="header-title-wrap">
+        <p class="header-eyebrow">Interactive Learning</p>
         <h1 id="sim-title">Build a Search Ad Campaign</h1>
-        <p class="subtitle">A simulated keyword marketplace for Aurelia Atelier, a fictional designer-shoe company</p>
       </div>
+      <p class="subtitle">A simulated keyword marketplace for Aurelia Atelier, a fictional designer-shoe company</p>
     </header>
 
     <section class="scenario" aria-labelledby="scenario-title">
