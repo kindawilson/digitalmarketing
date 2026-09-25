@@ -338,7 +338,7 @@
 
     .selected-chip {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(112px, .7fr) auto;
+      grid-template-columns: minmax(0, 1fr) auto;
       align-items: center;
       gap: 7px;
       padding: 8px 9px;
@@ -349,7 +349,7 @@
       font-weight: 700;
     }
 
-    .selected-keyword-info small {
+    .selected-chip small {
       display: block;
       margin-top: 3px;
       color: var(--vu-muted);
@@ -357,6 +357,20 @@
       font-weight: 400;
     }
 
+    .bid-list { display: grid; gap: 8px; margin-bottom: 16px; }
+    .bid-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 130px 145px;
+      align-items: center;
+      gap: 14px;
+      padding: 11px 12px;
+      border: 1px solid var(--vu-line);
+      border-left: 5px solid var(--vu-teal);
+      background: var(--white);
+    }
+    .bid-keyword { color: var(--vu-dark); font-size: 14px; font-weight: 700; }
+    .bid-estimate { color: var(--vu-ink); font-size: 13px; }
+    .bid-estimate span { display: block; color: var(--vu-muted); font-size: 10px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; }
     .bid-field { margin: 0; }
     .bid-field span {
       display: block;
@@ -504,13 +518,13 @@
       .keyword > div:not(.keyword-name) { display: block; }
       .keyword .metric-label { display: inline; margin-right: 4px; }
       .add { grid-column: 2; grid-row: 1 / span 6; align-self: stretch; }
+      .bid-row { grid-template-columns: minmax(0, 1fr) 115px 130px; gap: 9px; }
     }
 
     @media (max-width: 390px) {
       .ad-fields { grid-template-columns: 1fr; }
       .field-wide { grid-column: 1; }
-      .selected-chip { grid-template-columns: minmax(0, 1fr) auto; }
-      .bid-field { grid-column: 1 / -1; }
+      .bid-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -559,6 +573,15 @@
         <hr class="section-divider">
 
         <p class="step-label">Step 2</p>
+        <h2>Set your Max CPC bids</h2>
+        <p class="helper">For each selected keyword, compare the fictional estimated average CPC with the maximum amount you are generally willing to bid for a click. Your actual CPC would not necessarily equal your maximum bid.</p>
+        <div class="bid-list" id="bid-list" aria-live="polite">
+          <div class="selected-empty">Select a keyword above to set its Max CPC bid.</div>
+        </div>
+
+        <hr class="section-divider">
+
+        <p class="step-label">Step 3</p>
         <h2>Write the search ad</h2>
         <p class="helper">Make the message specific to what shoppers are searching for.</p>
 
@@ -581,7 +604,7 @@
       <aside class="summary" aria-labelledby="summary-title">
         <p class="step-label">Campaign summary</p>
         <h2 id="summary-title">Your selected keywords</h2>
-        <p class="helper">The estimated average CPC is market guidance. Your Max CPC bid is the most you are generally willing to bid for a click; it is not necessarily what you will pay.</p>
+        <p class="helper">Review the keywords and bids you entered in Steps 1 and 2.</p>
         <div class="selected-list" id="selected-list" aria-live="polite">
           <div class="selected-empty">No keywords selected yet.</div>
         </div>
@@ -642,6 +665,7 @@
       var searchInput = document.getElementById("keyword-search");
       var searchButton = document.getElementById("search-button");
       var selectedList = document.getElementById("selected-list");
+      var bidList = document.getElementById("bid-list");
       var avgCpcEl = document.getElementById("avg-cpc");
       var clicksEl = document.getElementById("clicks");
       var intentEl = document.getElementById("intent-score");
@@ -744,25 +768,35 @@
 
       function renderSummary() {
         selectedList.innerHTML = "";
+        bidList.innerHTML = "";
         if (!selected.length) {
           selectedList.innerHTML = '<div class="selected-empty">No keywords selected yet.</div>';
+          bidList.innerHTML = '<div class="selected-empty">Select a keyword above to set its Max CPC bid.</div>';
         } else {
           selected.forEach(function (item) {
             var chip = document.createElement("div");
             chip.className = "selected-chip";
-            chip.innerHTML = '<div class="selected-keyword-info"><span></span><small></small></div><label class="bid-field"><span>Max CPC bid</span><input class="bid-input" type="number" min="0.01" step="0.01" inputmode="decimal" aria-label="Maximum CPC bid"></label><button class="remove" type="button">Remove</button>';
-            chip.querySelector(".selected-keyword-info span").textContent = item.term;
-            chip.querySelector(".selected-keyword-info small").textContent = "Est. average CPC: $" + item.cpc.toFixed(2);
-            var bidInput = chip.querySelector(".bid-input");
+            chip.innerHTML = '<div><span></span><small></small></div><button class="remove" type="button">Remove</button>';
+            chip.querySelector("span").textContent = item.term;
+            chip.querySelector("small").textContent = Number(item.maxBid) > 0 ? "Max CPC bid: $" + Number(item.maxBid).toFixed(2) : "Max CPC bid not entered";
+            chip.querySelector("button").setAttribute("aria-label", "Remove " + item.term);
+            chip.querySelector("button").addEventListener("click", function () { toggleKeyword(item); });
+            selectedList.appendChild(chip);
+
+            var bidRow = document.createElement("div");
+            bidRow.className = "bid-row";
+            bidRow.innerHTML = '<div class="bid-keyword"></div><div class="bid-estimate"><span>Est. average CPC</span><strong></strong></div><label class="bid-field"><span>Your Max CPC bid</span><input class="bid-input" type="number" min="0.01" step="0.01" inputmode="decimal"></label>';
+            bidRow.querySelector(".bid-keyword").textContent = item.term;
+            bidRow.querySelector(".bid-estimate strong").textContent = "$" + item.cpc.toFixed(2);
+            var bidInput = bidRow.querySelector(".bid-input");
             bidInput.value = item.maxBid;
             bidInput.setAttribute("aria-label", "Maximum CPC bid for " + item.term);
             bidInput.addEventListener("input", function () {
               item.maxBid = bidInput.value;
+              chip.querySelector("small").textContent = Number(item.maxBid) > 0 ? "Max CPC bid: $" + Number(item.maxBid).toFixed(2) : "Max CPC bid not entered";
               updateForecast();
             });
-            chip.querySelector("button").setAttribute("aria-label", "Remove " + item.term);
-            chip.querySelector("button").addEventListener("click", function () { toggleKeyword(item); });
-            selectedList.appendChild(chip);
+            bidList.appendChild(bidRow);
           });
         }
 
