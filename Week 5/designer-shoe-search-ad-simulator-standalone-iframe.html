@@ -631,7 +631,7 @@
       var purchase = document.getElementById("purchase");
 
       function intentLabel(score) {
-        if (score >= 4.5) return "Very high";
+        if (score >= 4.5) return "Very High";
         if (score >= 3.5) return "High";
         if (score >= 2.5) return "Medium";
         return "Low";
@@ -674,12 +674,12 @@
           row.className = "keyword" + (isSelected ? " selected" : "");
           row.innerHTML =
             '<div class="keyword-name"></div>' +
-            '<div class="intent"><span class="metric-label">Intent:</span></div>' +
+            '<div class="intent"></div>' +
             '<div><span class="metric-label">Searches:</span></div>' +
             '<div><span class="metric-label">CPC:</span></div>' +
             '<button class="btn add" type="button"></button>';
           row.querySelector(".keyword-name").textContent = item.term;
-          row.querySelector(".intent").textContent = intentLabel(item.intent);
+          row.querySelector(".intent").textContent = "Purchase Intent: " + intentLabel(item.intent);
           row.children[2].appendChild(document.createTextNode(formatSearches(item.searches) + "/mo"));
           row.children[3].appendChild(document.createTextNode("$" + item.cpc.toFixed(2)));
 
