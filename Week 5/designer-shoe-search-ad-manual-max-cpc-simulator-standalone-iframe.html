@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Build a Search Ad: Set Manual Keyword Bids</title>
+  <style>
+    :root {
+      --vu-teal: #1d627b;
+      --vu-dark: #0f3f52;
+      --vu-gold: #ddaf4b;
+      --vu-green: #18794e;
+      --vu-red: #a52a2a;
+      --vu-sky: #59a4d4;
+      --vu-ink: #30343b;
+      --vu-muted: #5d646b;
+      --vu-soft: #f5f6f7;
+      --vu-line: #d6dde1;
+      --white: #fff;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: transparent; }
+    body {
+      padding: 8px;
+      color: var(--vu-ink);
+      font-family: Lato, Arial, sans-serif;
+    }
+
+    button, input, textarea { font: inherit; }
+
+    .simulator {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      overflow: hidden;
+      border: 1px solid var(--vu-line);
+      border-top: 7px solid var(--vu-gold);
+      border-radius: 5px;
+      background: var(--white);
+      box-shadow: 0 7px 22px rgba(15, 63, 82, .11);
+    }
+
+    .sim-header {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      grid-template-areas:
+        "badge title"
+        "subtitle subtitle";
+      align-items: center;
+      gap: 10px 22px;
+      padding: 20px 22px 18px;
+      background: var(--white);
+      border-bottom: 1px solid var(--vu-line);
+    }
+
+    .try-badge {
+      grid-area: badge;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border: 4px solid var(--vu-gold);
+      background: var(--vu-teal);
+      color: var(--white);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: .09em;
+      line-height: 1;
+      text-transform: uppercase;
+      box-shadow: 0 3px 8px rgba(15, 63, 82, .18);
+    }
+
+    .try-cursor { color: var(--vu-gold); font-size: 28px; transform: rotate(-8deg); }
+    .header-title-wrap { grid-area: title; min-width: 0; }
+    .header-eyebrow { margin: 0 0 2px; color: var(--vu-teal); font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .header-title-wrap h1 { color: var(--vu-teal); }
+
+    h1, h2, h3 {
+      margin: 0;
+      color: var(--vu-dark);
+      font-family: "Century Gothic", Arial, sans-serif;
+    }
+
+    h1 { font-size: clamp(25px, 3vw, 36px); font-weight: 700; letter-spacing: .01em; line-height: 1.08; text-transform: uppercase; }
+    h2 { font-size: 19px; line-height: 1.2; }
+    h3 { font-size: 16px; line-height: 1.25; }
+
+    .subtitle {
+      grid-area: subtitle;
+      margin: 5px 0 0;
+      color: var(--vu-muted);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .scenario {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      padding: 13px 18px;
+      border-bottom: 1px solid var(--vu-line);
+      background: var(--white);
+    }
+
+    .scenario p { margin: 5px 0 0; font-size: 14px; line-height: 1.45; }
+
+    .budget {
+      align-self: center;
+      min-width: 125px;
+      padding-left: 15px;
+      border-left: 5px solid var(--vu-gold);
+      color: var(--vu-dark);
+      font-family: "Century Gothic", Arial, sans-serif;
+      font-size: 23px;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .budget small {
+      display: block;
+      color: var(--vu-muted);
+      font-family: Lato, Arial, sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(255px, .65fr);
+      min-width: 0;
+    }
+
+    .builder {
+      min-width: 0;
+      padding: 16px 18px 20px;
+      border-right: 1px solid var(--vu-line);
+    }
+
+    .summary {
+      min-width: 0;
+      padding: 16px;
+      background: var(--vu-soft);
+    }
+
+    .step-label {
+      margin: 0 0 5px;
+      color: var(--vu-teal);
+      font-family: "Century Gothic", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .helper {
+      margin: 5px 0 12px;
+      color: var(--vu-muted);
+      font-size: 13px;
+      line-height: 1.42;
+    }
+
+    .search-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 8px;
+      margin-bottom: 11px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--vu-dark);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    input, textarea {
+      width: 100%;
+      min-width: 0;
+      border: 2px solid #8da1aa;
+      border-radius: 3px;
+      background: var(--white);
+      color: var(--vu-ink);
+    }
+
+    input { min-height: 43px; padding: 8px 10px; }
+    textarea { min-height: 70px; padding: 9px 10px; resize: vertical; }
+
+    input:focus, textarea:focus, button:focus-visible {
+      outline: 4px solid rgba(221, 175, 75, .65);
+      outline-offset: 2px;
+      border-color: var(--vu-dark);
+    }
+
+    .btn {
+      min-height: 43px;
+      padding: 9px 13px;
+      border: 2px solid var(--vu-dark);
+      border-radius: 3px;
+      background: var(--white);
+      color: var(--vu-dark);
+      font-family: "Century Gothic", Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn:hover { background: #eaf3f6; }
+    .btn-primary { background: var(--vu-dark); color: var(--white); }
+    .btn-primary:hover { background: var(--vu-teal); }
+    .btn-gold {
+      border-color: var(--vu-dark);
+      background: var(--vu-gold);
+      color: var(--vu-dark);
+      box-shadow: 0 3px 0 var(--vu-dark);
+    }
+    .btn-gold:hover { background: #edc76e; }
+    .btn:disabled { cursor: not-allowed; opacity: .55; }
+
+    .results {
+      display: grid;
+      gap: 7px;
+      margin-bottom: 18px;
+    }
+
+    .results-header {
+      display: none;
+      grid-template-columns: minmax(120px, 1.4fr) .75fr .72fr .62fr .68fr auto;
+      align-items: end;
+      gap: 7px;
+      padding: 0 9px 6px;
+      border-bottom: 2px solid var(--vu-dark);
+      color: var(--vu-dark);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .035em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .results-header.show { display: grid; }
+
+    .results-header span:last-child {
+      min-width: 61px;
+      text-align: center;
+    }
+
+    .keyword {
+      display: grid;
+      grid-template-columns: minmax(120px, 1.4fr) .75fr .72fr .62fr .68fr auto;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 9px;
+      border: 1px solid var(--vu-line);
+      background: var(--white);
+      font-size: 12px;
+    }
+
+    .keyword-name {
+      color: var(--vu-dark);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .metric-label {
+      display: none;
+      color: var(--vu-muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .competition {
+      font-weight: 700;
+    }
+
+    .competition.high { color: var(--vu-red); }
+    .competition.medium { color: #8a6415; }
+    .competition.low { color: var(--vu-green); }
+
+    .add {
+      min-width: 61px;
+      min-height: 34px;
+      padding: 5px 8px;
+    }
+
+    .keyword.selected {
+      border: 2px solid var(--vu-green);
+      background: #f0faf5;
+    }
+
+    .keyword.selected .add {
+      border-color: var(--vu-green);
+      background: var(--vu-green);
+      color: var(--white);
+    }
+
+    .section-divider {
+      height: 1px;
+      margin: 16px 0;
+      border: 0;
+      background: var(--vu-line);
+    }
+
+    .ad-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 11px;
+    }
+
+    .field-wide { grid-column: 1 / -1; }
+
+    .counter {
+      float: right;
+      color: var(--vu-muted);
+      font-size: 11px;
+      font-weight: 400;
+    }
+
+    .selected-list {
+      display: grid;
+      gap: 7px;
+      margin: 11px 0 16px;
+    }
+
+    .selected-empty {
+      padding: 11px;
+      border: 1px dashed #9fb0b7;
+      color: var(--vu-muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .selected-chip {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(112px, .7fr) auto;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 9px;
+      border-left: 4px solid var(--vu-teal);
+      background: var(--white);
+      color: var(--vu-dark);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .selected-keyword-info small {
+      display: block;
+      margin-top: 3px;
+      color: var(--vu-muted);
+      font-size: 10px;
+      font-weight: 400;
+    }
+
+    .bid-field { margin: 0; }
+    .bid-field span {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--vu-muted);
+      font-size: 10px;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+    .bid-input { min-height: 34px; padding: 5px 7px; font-size: 12px; }
+
+    .remove {
+      min-height: 28px;
+      padding: 3px 7px;
+      border: 1px solid var(--vu-red);
+      border-radius: 3px;
+      background: var(--white);
+      color: var(--vu-red);
+      cursor: pointer;
+    }
+
+    .forecast {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .forecast-item {
+      padding: 9px;
+      border-top: 4px solid var(--vu-gold);
+      background: var(--white);
+    }
+
+    .forecast-item span {
+      display: block;
+      color: var(--vu-muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .forecast-item strong {
+      display: block;
+      margin-top: 3px;
+      color: var(--vu-dark);
+      font-family: "Century Gothic", Arial, sans-serif;
+      font-size: 18px;
+    }
+
+    .preview-label { margin-bottom: 7px; }
+
+    .ad-preview {
+      min-height: 139px;
+      padding: 12px;
+      border: 1px solid var(--vu-line);
+      background: var(--white);
+      word-break: break-word;
+    }
+
+    .sponsored {
+      margin-bottom: 4px;
+      color: var(--vu-ink);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .url { color: var(--vu-green); font-size: 12px; }
+    .preview-headline {
+      margin: 5px 0;
+      color: #1459a6;
+      font-size: 16px;
+      line-height: 1.25;
+    }
+    .preview-description { color: #4a4f55; font-size: 12px; line-height: 1.4; }
+
+    .purchase {
+      width: 100%;
+      margin-top: 15px;
+      font-size: 15px;
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 12px;
+      border-left: 5px solid var(--vu-green);
+      background: var(--white);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .feedback.show { display: block; }
+    .feedback.needs-work { border-left-color: var(--vu-red); }
+    .feedback strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--vu-dark);
+      font-family: "Century Gothic", Arial, sans-serif;
+      font-size: 15px;
+    }
+
+    .disclaimer {
+      margin: 0;
+      padding: 10px 18px 12px;
+      border-top: 1px solid var(--vu-line);
+      color: var(--vu-muted);
+      font-size: 11px;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 720px) {
+      body { padding: 5px; }
+      .sim-header, .scenario { padding-left: 12px; padding-right: 12px; }
+      .workspace { grid-template-columns: minmax(0, 1.18fr) minmax(225px, .82fr); }
+      .builder { padding: 14px 12px 17px; }
+      .summary { padding: 14px 11px; }
+      .keyword {
+        grid-template-columns: minmax(100px, 1.2fr) .65fr .65fr .75fr auto;
+      }
+      .keyword .intent { display: none; }
+      .results-header {
+        grid-template-columns: minmax(100px, 1.2fr) .65fr .65fr .75fr auto;
+      }
+      .results-header .header-intent { display: none; }
+    }
+
+    @media (max-width: 720px) {
+      .sim-header { grid-template-columns: minmax(0, 1fr); grid-template-areas: "badge" "title" "subtitle"; }
+      .try-badge { justify-self: start; }
+      .workspace { grid-template-columns: 1fr; }
+      .builder { border-right: 0; border-bottom: 1px solid var(--vu-line); }
+      .scenario { grid-template-columns: 1fr; }
+      .budget {
+        justify-self: start;
+        min-width: 0;
+        text-align: left;
+      }
+      .keyword {
+        grid-template-columns: minmax(120px, 1fr) auto;
+        gap: 5px 8px;
+      }
+      .results-header { display: none !important; }
+      .keyword > div:not(.keyword-name) { display: block; }
+      .keyword .metric-label { display: inline; margin-right: 4px; }
+      .add { grid-column: 2; grid-row: 1 / span 6; align-self: stretch; }
+    }
+
+    @media (max-width: 390px) {
+      .ad-fields { grid-template-columns: 1fr; }
+      .field-wide { grid-column: 1; }
+      .selected-chip { grid-template-columns: minmax(0, 1fr) auto; }
+      .bid-field { grid-column: 1 / -1; }
+    }
+  </style>
+</head>
+<body>
+  <main class="simulator" aria-labelledby="sim-title">
+    <header class="sim-header">
+      <div class="try-badge">Try This <span class="try-cursor" aria-hidden="true">➤</span></div>
+      <div class="header-title-wrap">
+        <p class="header-eyebrow">Interactive Learning</p>
+        <h1 id="sim-title">Build a Search Ad: Set Manual Keyword Bids</h1>
+      </div>
+      <p class="subtitle">A simulated keyword marketplace for Aurelia Atelier, a fictional designer-shoe company</p>
+    </header>
+
+    <section class="scenario" aria-labelledby="scenario-title">
+      <div>
+        <h2 id="scenario-title">The launch: The Nocturne Collection</h2>
+        <p>Aurelia Atelier is introducing handcrafted evening shoes priced from $350–$625. Your goal is to reach shoppers who are likely to purchase—not simply anyone interested in shoes.</p>
+      </div>
+      <div class="budget"><small>Campaign budget</small>$1,200</div>
+    </section>
+
+    <div class="workspace">
+      <section class="builder" aria-labelledby="keyword-title">
+        <p class="step-label">Step 1</p>
+        <h2 id="keyword-title">Search and select keywords</h2>
+        <p class="helper">Search the marketplace, compare purchase intent and estimated average CPC, then add up to five keywords. You will set a separate maximum CPC bid for every keyword you choose.</p>
+
+        <div class="search-row">
+          <div>
+            <label for="keyword-search">Search keyword ideas</label>
+            <input id="keyword-search" type="search" placeholder="Example: designer heels" autocomplete="off">
+          </div>
+          <button class="btn btn-primary" id="search-button" type="button">Search</button>
+        </div>
+        <div class="results-header" id="results-header" aria-hidden="true">
+          <span>Keyword</span>
+          <span class="header-intent">Intent</span>
+          <span>Searches<br>per month</span>
+          <span>Est. CPC</span>
+          <span>Competition</span>
+          <span>Action</span>
+        </div>
+        <div class="results" id="results" aria-live="polite"></div>
+
+        <hr class="section-divider">
+
+        <p class="step-label">Step 2</p>
+        <h2>Write the search ad</h2>
+        <p class="helper">Make the message specific to what shoppers are searching for.</p>
+
+        <div class="ad-fields">
+          <div>
+            <label for="headline-one">Headline 1 <span class="counter" id="count-one">0/30</span></label>
+            <input id="headline-one" maxlength="30" placeholder="Example: Luxury Evening Shoes">
+          </div>
+          <div>
+            <label for="headline-two">Headline 2 <span class="counter" id="count-two">0/30</span></label>
+            <input id="headline-two" maxlength="30" placeholder="Example: Handcrafted in Italy">
+          </div>
+          <div class="field-wide">
+            <label for="description">Description <span class="counter" id="count-description">0/90</span></label>
+            <textarea id="description" maxlength="90" placeholder="Example: Discover limited-edition designer heels with complimentary shipping."></textarea>
+          </div>
+        </div>
+      </section>
+
+      <aside class="summary" aria-labelledby="summary-title">
+        <p class="step-label">Campaign summary</p>
+        <h2 id="summary-title">Your selected keywords</h2>
+        <p class="helper">The estimated average CPC is market guidance. Your Max CPC bid is the most you are generally willing to bid for a click; it is not necessarily what you will pay.</p>
+        <div class="selected-list" id="selected-list" aria-live="polite">
+          <div class="selected-empty">No keywords selected yet.</div>
+        </div>
+
+        <div class="forecast" aria-label="Estimated campaign forecast">
+          <div class="forecast-item"><span>Est. average CPC</span><strong id="avg-cpc">$0.00</strong></div>
+          <div class="forecast-item"><span>Est. clicks</span><strong id="clicks">0</strong></div>
+          <div class="forecast-item"><span>Avg. intent</span><strong id="intent-score">—</strong></div>
+          <div class="forecast-item"><span>Keywords</span><strong id="keyword-count">0/5</strong></div>
+          <div class="forecast-item"><span>Avg. Max CPC bid</span><strong id="avg-max-bid">—</strong></div>
+          <div class="forecast-item"><span>Bids completed</span><strong id="bid-count">0/0</strong></div>
+        </div>
+
+        <h3 class="preview-label">Search-ad preview</h3>
+        <div class="ad-preview" aria-live="polite">
+          <div class="sponsored">Sponsored</div>
+          <div class="url">aurelia-atelier.example › nocturne</div>
+          <div class="preview-headline" id="preview-headline">Luxury Evening Shoes | Handcrafted in Italy</div>
+          <div class="preview-description" id="preview-description">Discover limited-edition designer heels with complimentary shipping. Shop the collection.</div>
+        </div>
+
+        <button class="btn btn-gold purchase" id="purchase" type="button">Purchase simulated campaign</button>
+        <div class="feedback" id="feedback" role="status" aria-live="polite" aria-atomic="true"></div>
+      </aside>
+    </div>
+
+    <p class="disclaimer"><strong>Learning simulation:</strong> No real advertisement, account, payment, bid, or purchase is created. Search volume, competition, and CPC values are fictional estimates designed for practice. Actual CPC may differ from both an estimate and a maximum bid.</p>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var BUDGET = 1200;
+      var MAX_KEYWORDS = 5;
+      var keywords = [
+        { term: "designer evening shoes", intent: 5, searches: 3600, competition: "High", cpc: 4.80 },
+        { term: "luxury women's shoes", intent: 5, searches: 5400, competition: "High", cpc: 5.25 },
+        { term: "handcrafted leather heels", intent: 5, searches: 1900, competition: "Medium", cpc: 3.65 },
+        { term: "Italian leather pumps", intent: 5, searches: 2400, competition: "High", cpc: 4.40 },
+        { term: "designer heels online", intent: 5, searches: 6600, competition: "High", cpc: 5.70 },
+        { term: "black tie event shoes", intent: 4, searches: 1300, competition: "Medium", cpc: 3.10 },
+        { term: "red carpet shoes", intent: 3, searches: 2900, competition: "Medium", cpc: 2.80 },
+        { term: "limited edition heels", intent: 4, searches: 1100, competition: "Low", cpc: 2.35 },
+        { term: "designer shoes", intent: 3, searches: 18100, competition: "High", cpc: 6.40 },
+        { term: "comfortable formal heels", intent: 4, searches: 4400, competition: "Medium", cpc: 3.30 },
+        { term: "fashion shoes", intent: 2, searches: 27100, competition: "High", cpc: 4.10 },
+        { term: "cheap shoes", intent: 1, searches: 60500, competition: "High", cpc: 2.20 },
+        { term: "shoe repair near me", intent: 1, searches: 22200, competition: "Medium", cpc: 2.90 },
+        { term: "free shoes", intent: 1, searches: 33100, competition: "High", cpc: 1.95 },
+        { term: "designer sneakers", intent: 2, searches: 14800, competition: "High", cpc: 5.10 },
+        { term: "women's wedding guest shoes", intent: 4, searches: 7200, competition: "Medium", cpc: 3.85 }
+      ];
+
+      var selected = [];
+      var resultsEl = document.getElementById("results");
+      var resultsHeader = document.getElementById("results-header");
+      var searchInput = document.getElementById("keyword-search");
+      var searchButton = document.getElementById("search-button");
+      var selectedList = document.getElementById("selected-list");
+      var avgCpcEl = document.getElementById("avg-cpc");
+      var clicksEl = document.getElementById("clicks");
+      var intentEl = document.getElementById("intent-score");
+      var keywordCountEl = document.getElementById("keyword-count");
+      var avgMaxBidEl = document.getElementById("avg-max-bid");
+      var bidCountEl = document.getElementById("bid-count");
+      var headlineOne = document.getElementById("headline-one");
+      var headlineTwo = document.getElementById("headline-two");
+      var description = document.getElementById("description");
+      var previewHeadline = document.getElementById("preview-headline");
+      var previewDescription = document.getElementById("preview-description");
+      var feedback = document.getElementById("feedback");
+      var purchase = document.getElementById("purchase");
+
+      function intentLabel(score) {
+        if (score >= 4.5) return "Very High";
+        if (score >= 3.5) return "High";
+        if (score >= 2.5) return "Medium";
+        return "Low";
+      }
+
+      function formatSearches(value) {
+        return value >= 1000 ? (value / 1000).toFixed(value >= 10000 ? 0 : 1) + "K" : value;
+      }
+
+      function filteredKeywords() {
+        var query = searchInput.value.trim().toLowerCase();
+        if (!query) return [];
+        var words = query.split(/\s+/);
+        return keywords.filter(function (item) {
+          return words.some(function (word) { return item.term.indexOf(word) !== -1; });
+        });
+      }
+
+      function renderResults() {
+        var query = searchInput.value.trim();
+        var matches = filteredKeywords();
+        resultsEl.innerHTML = "";
+
+        if (!query) {
+          resultsHeader.classList.remove("show");
+          resultsEl.innerHTML = '<div class="selected-empty">Enter a keyword idea before searching.</div>';
+          return;
+        }
+
+        if (!matches.length) {
+          resultsHeader.classList.remove("show");
+          resultsEl.innerHTML = '<div class="selected-empty">No keyword ideas matched. Try a broader term such as “designer,” “heels,” “shoes,” or “leather.”</div>';
+          return;
+        }
+
+        resultsHeader.classList.add("show");
+        matches.forEach(function (item) {
+          var isSelected = selected.some(function (choice) { return choice.term === item.term; });
+          var row = document.createElement("div");
+          row.className = "keyword" + (isSelected ? " selected" : "");
+          row.innerHTML =
+            '<div class="keyword-name"></div>' +
+            '<div class="intent"></div>' +
+            '<div><span class="metric-label">Searches:</span></div>' +
+            '<div><span class="metric-label">CPC:</span></div>' +
+            '<button class="btn add" type="button"></button>';
+          row.querySelector(".keyword-name").textContent = item.term;
+          row.querySelector(".intent").textContent = "Purchase Intent: " + intentLabel(item.intent);
+          row.children[2].appendChild(document.createTextNode(formatSearches(item.searches) + "/mo"));
+          row.children[3].appendChild(document.createTextNode("$" + item.cpc.toFixed(2)));
+
+          var button = row.querySelector(".add");
+          button.textContent = isSelected ? "Added ✓" : "Add";
+          button.setAttribute("aria-label", (isSelected ? "Remove " : "Add ") + item.term);
+          button.addEventListener("click", function () { toggleKeyword(item); });
+          row.insertBefore(buildCompetition(item.competition), button);
+          resultsEl.appendChild(row);
+        });
+      }
+
+      function buildCompetition(level) {
+        var div = document.createElement("div");
+        div.className = "competition " + level.toLowerCase();
+        div.innerHTML = '<span class="metric-label">Competition:</span>';
+        div.appendChild(document.createTextNode(level));
+        return div;
+      }
+
+      function toggleKeyword(item) {
+        var existing = selected.findIndex(function (choice) { return choice.term === item.term; });
+        if (existing >= 0) {
+          selected.splice(existing, 1);
+          feedback.className = "feedback";
+          feedback.innerHTML = "";
+        } else if (selected.length < MAX_KEYWORDS) {
+          selected.push(Object.assign({}, item, { maxBid: "" }));
+        } else {
+          feedback.className = "feedback show needs-work";
+          feedback.innerHTML = "<strong>Keyword limit reached</strong>Remove one selected keyword before adding another.";
+        }
+        renderResults();
+        renderSummary();
+      }
+
+      function renderSummary() {
+        selectedList.innerHTML = "";
+        if (!selected.length) {
+          selectedList.innerHTML = '<div class="selected-empty">No keywords selected yet.</div>';
+        } else {
+          selected.forEach(function (item) {
+            var chip = document.createElement("div");
+            chip.className = "selected-chip";
+            chip.innerHTML = '<div class="selected-keyword-info"><span></span><small></small></div><label class="bid-field"><span>Max CPC bid</span><input class="bid-input" type="number" min="0.01" step="0.01" inputmode="decimal" aria-label="Maximum CPC bid"></label><button class="remove" type="button">Remove</button>';
+            chip.querySelector(".selected-keyword-info span").textContent = item.term;
+            chip.querySelector(".selected-keyword-info small").textContent = "Est. average CPC: $" + item.cpc.toFixed(2);
+            var bidInput = chip.querySelector(".bid-input");
+            bidInput.value = item.maxBid;
+            bidInput.setAttribute("aria-label", "Maximum CPC bid for " + item.term);
+            bidInput.addEventListener("input", function () {
+              item.maxBid = bidInput.value;
+              updateForecast();
+            });
+            chip.querySelector("button").setAttribute("aria-label", "Remove " + item.term);
+            chip.querySelector("button").addEventListener("click", function () { toggleKeyword(item); });
+            selectedList.appendChild(chip);
+          });
+        }
+
+        updateForecast();
+      }
+
+      function updateForecast() {
+        var avgCpc = selected.length
+          ? selected.reduce(function (sum, item) { return sum + item.cpc; }, 0) / selected.length
+          : 0;
+        var avgIntent = selected.length
+          ? selected.reduce(function (sum, item) { return sum + item.intent; }, 0) / selected.length
+          : 0;
+        var completedBids = selected.filter(function (item) { return Number(item.maxBid) > 0; });
+        var avgMaxBid = completedBids.length
+          ? completedBids.reduce(function (sum, item) { return sum + Number(item.maxBid); }, 0) / completedBids.length
+          : 0;
+
+        avgCpcEl.textContent = "$" + avgCpc.toFixed(2);
+        clicksEl.textContent = avgCpc ? Math.floor(BUDGET / avgCpc).toLocaleString() : "0";
+        intentEl.textContent = selected.length ? intentLabel(avgIntent) : "—";
+        keywordCountEl.textContent = selected.length + "/" + MAX_KEYWORDS;
+        avgMaxBidEl.textContent = completedBids.length ? "$" + avgMaxBid.toFixed(2) : "—";
+        bidCountEl.textContent = completedBids.length + "/" + selected.length;
+      }
+
+      function updatePreview() {
+        var h1 = headlineOne.value.trim() || "Luxury Evening Shoes";
+        var h2 = headlineTwo.value.trim() || "Handcrafted in Italy";
+        var desc = description.value.trim() || "Discover limited-edition designer heels with complimentary shipping. Shop the collection.";
+        previewHeadline.textContent = h1 + " | " + h2;
+        previewDescription.textContent = desc;
+        document.getElementById("count-one").textContent = headlineOne.value.length + "/30";
+        document.getElementById("count-two").textContent = headlineTwo.value.length + "/30";
+        document.getElementById("count-description").textContent = description.value.length + "/90";
+      }
+
+      function evaluateCampaign() {
+        var problems = [];
+        var strengths = [];
+        var avgIntent = selected.length
+          ? selected.reduce(function (sum, item) { return sum + item.intent; }, 0) / selected.length
+          : 0;
+        var adText = (headlineOne.value + " " + headlineTwo.value + " " + description.value).toLowerCase();
+
+        if (selected.length < 3) problems.push("Select at least three keywords so the campaign can reach more than one narrow query.");
+        else strengths.push("You selected a workable group of keywords.");
+
+        var missingBids = selected.filter(function (item) { return !(Number(item.maxBid) > 0); });
+        var veryLowBids = selected.filter(function (item) { return Number(item.maxBid) > 0 && Number(item.maxBid) < item.cpc * .6; });
+        var veryHighBids = selected.filter(function (item) { return Number(item.maxBid) > item.cpc * 1.5; });
+        if (missingBids.length) problems.push("Enter a Max CPC bid for every selected keyword.");
+        else strengths.push("Every selected keyword has its own Max CPC bid.");
+        if (veryLowBids.length) problems.push("Review bids far below the estimated average CPC; they may reduce the keyword’s ability to compete in this simulation.");
+        if (veryHighBids.length) problems.push("Review bids far above the estimated average CPC. A higher maximum does not guarantee better results and increases potential cost exposure.");
+
+        if (avgIntent < 3.5) problems.push("Several selected terms have weak purchase intent for premium evening shoes. Replace broad or bargain-focused terms.");
+        else strengths.push("The keyword set shows strong purchase intent.");
+
+        if (!headlineOne.value.trim() || !headlineTwo.value.trim() || !description.value.trim()) {
+          problems.push("Complete both headlines and the description before purchasing the simulated campaign.");
+        } else {
+          strengths.push("The ad includes two headlines and a description.");
+        }
+
+        if (!/(designer|luxury|evening|leather|heels|shoes)/.test(adText)) {
+          problems.push("Use language that closely matches the product and selected searches.");
+        } else {
+          strengths.push("The ad copy connects to the product and likely search language.");
+        }
+
+        if (!/(shop|discover|explore|order|view|buy)/.test(adText)) {
+          problems.push("Add a clear action such as “Shop,” “Discover,” or “Explore.”");
+        } else {
+          strengths.push("The ad includes a clear call to action.");
+        }
+
+        if (problems.length) {
+          feedback.className = "feedback show needs-work";
+          feedback.innerHTML = "<strong>Campaign not purchased yet</strong>" +
+            problems.map(function (problem) { return "• " + problem; }).join("<br>");
+        } else {
+          feedback.className = "feedback show";
+          feedback.innerHTML = "<strong>Simulated campaign purchased ✓</strong>" +
+            strengths.join(" ") +
+            " Your choices focus the budget on shoppers who are more likely to value Aurelia Atelier’s premium collection.";
+        }
+      }
+
+      searchButton.addEventListener("click", renderResults);
+      searchInput.addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          renderResults();
+        }
+      });
+      [headlineOne, headlineTwo, description].forEach(function (field) {
+        field.addEventListener("input", updatePreview);
+      });
+      purchase.addEventListener("click", evaluateCampaign);
+
+      renderSummary();
+      updatePreview();
+    }());
+  </script>
+</body>
+</html>
