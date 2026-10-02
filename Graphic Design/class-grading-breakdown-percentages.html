@@ -1,0 +1,116 @@
+<div id="vanderbilt-grading-percent-chart">
+  <div class="vgp-layout">
+    <div class="vgp-chart-wrap">
+      <svg class="vgp-chart" viewBox="0 0 360 360" role="img" aria-labelledby="vgp-title vgp-desc">
+        <title id="vgp-title">Pie chart of the class grading percentage breakdown</title>
+        <desc id="vgp-desc">Five grading categories total 100 percent. Individual Items account for 50 percent through Participation, Quizzes, and Individual Assignments. Team Items account for 50 percent through Team Assignments and the Final Project.</desc>
+        <g id="vgp-slices"></g>
+        <g id="vgp-labels"></g>
+      </svg>
+    </div>
+    <ol class="vgp-legend" aria-label="Graded item categories" id="vgp-legend"></ol>
+  </div>
+  <p class="vgp-note">Individual Items: 50% &nbsp;•&nbsp; Team Items: 50%</p>
+</div>
+
+<style>
+  #vanderbilt-grading-percent-chart {
+    --class-blue: #1d627b;
+    --class-gold: #ddaf4b;
+    --class-red: #b03d19;
+    --class-sky: #59a4d4;
+    --class-teal: #00a080;
+    --class-black: #000000;
+    --class-white: #ffffff;
+    color: var(--foreground);
+    width: 100%;
+  }
+  #vanderbilt-grading-percent-chart .vgp-layout {
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) minmax(250px, 1fr);
+    gap: 1.5rem;
+    align-items: center;
+  }
+  #vanderbilt-grading-percent-chart .vgp-chart-wrap { min-width: 0; }
+  #vanderbilt-grading-percent-chart .vgp-chart { display: block; width: 100%; height: auto; max-height: 440px; }
+  #vanderbilt-grading-percent-chart .vgp-slice { stroke: var(--background); stroke-width: 3; }
+  #vanderbilt-grading-percent-chart .vgp-pct {
+    font-size: 17px;
+    font-weight: 500;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none;
+  }
+  #vanderbilt-grading-percent-chart .vgp-legend {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: .8rem;
+  }
+  #vanderbilt-grading-percent-chart .vgp-item {
+    display: grid;
+    grid-template-columns: 14px minmax(0, 1fr);
+    gap: .65rem;
+    align-items: center;
+  }
+  #vanderbilt-grading-percent-chart .vgp-swatch { width: 14px; height: 14px; border-radius: 50%; }
+  #vanderbilt-grading-percent-chart .vgp-name { color: var(--foreground); }
+  #vanderbilt-grading-percent-chart .vgp-note { margin: 1rem 0 0; color: var(--muted-foreground); text-align: center; }
+  @media (max-width: 640px) {
+    #vanderbilt-grading-percent-chart .vgp-layout { grid-template-columns: 1fr; gap: 1rem; }
+    #vanderbilt-grading-percent-chart .vgp-chart { max-height: 330px; }
+  }
+</style>
+
+<script>
+(() => {
+  const root = document.getElementById('vanderbilt-grading-percent-chart');
+  const data = [
+    ['Participation', 25, 'var(--class-red)', 'var(--class-white)'],
+    ['Quizzes', 50, 'var(--class-gold)', 'var(--class-white)'],
+    ['Individual Assignments', 75, 'var(--class-blue)', 'var(--class-white)'],
+    ['Team Assignments', 50, 'var(--class-sky)', 'var(--class-white)'],
+    ['Final Project', 100, 'var(--class-teal)', 'var(--class-white)']
+  ];
+  const total = data.reduce((sum, item) => sum + item[1], 0);
+  const slices = root.querySelector('#vgp-slices');
+  const labels = root.querySelector('#vgp-labels');
+  const legend = root.querySelector('#vgp-legend');
+  const polar = (angle, radius) => [180 + radius * Math.cos(angle), 180 + radius * Math.sin(angle)];
+  const formatPct = value => Number.isInteger(value) ? `${value}%` : `${value.toFixed(1)}%`;
+  let angle = -Math.PI / 2;
+
+  data.forEach(([name, points, color, labelColor]) => {
+    const pct = points / total * 100;
+    const next = angle + (points / total) * Math.PI * 2;
+    const middle = (angle + next) / 2;
+    const [x1, y1] = polar(angle, 154);
+    const [x2, y2] = polar(next, 154);
+    const [lx, ly] = polar(middle, 102);
+    const large = next - angle > Math.PI ? 1 : 0;
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', `M 180 180 L ${x1} ${y1} A 154 154 0 ${large} 1 ${x2} ${y2} Z`);
+    path.setAttribute('fill', color);
+    path.setAttribute('class', 'vgp-slice');
+    path.setAttribute('tabindex', '0');
+    path.setAttribute('data-tooltip', `${name}: ${formatPct(pct)}`);
+    slices.appendChild(path);
+
+    const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    label.setAttribute('x', lx);
+    label.setAttribute('y', ly);
+    label.setAttribute('fill', labelColor);
+    label.setAttribute('class', 'vgp-pct');
+    label.textContent = formatPct(pct);
+    labels.appendChild(label);
+
+    const item = document.createElement('li');
+    item.className = 'vgp-item';
+    item.innerHTML = `<span class="vgp-swatch" style="background:${color}" aria-hidden="true"></span><span class="vgp-name">${name}</span>`;
+    legend.appendChild(item);
+    angle = next;
+  });
+})();
+</script>
