@@ -1,0 +1,147 @@
+<div id="vanderbilt-grading-inside-chart">
+  <svg class="vgi-chart" viewBox="0 0 560 520" role="img" aria-labelledby="vgi-title vgi-desc">
+    <title id="vgi-title">Class grading percentage breakdown with labels inside the pie</title>
+    <desc id="vgi-desc">Participation is 8.3 percent, Quizzes are 16.7 percent, Individual Assignments are 25 percent, Team Assignments are 16.7 percent, and Final Project is 33.3 percent. Individual Items and Team Items each account for 50 percent.</desc>
+    <g id="vgi-slices"></g>
+    <g id="vgi-labels"></g>
+    <text x="280" y="500" text-anchor="middle" class="vgi-summary">Individual Items: 50%  •  Team Items: 50%</text>
+  </svg>
+</div>
+
+<style>
+  #vanderbilt-grading-inside-chart {
+    --class-blue: #1d627b;
+    --class-gold: #ddaf4b;
+    --class-red: #b03d19;
+    --class-sky: #59a4d4;
+    --class-teal: #00a080;
+    --class-white: #ffffff;
+    color: var(--foreground);
+    width: 100%;
+  }
+  #vanderbilt-grading-inside-chart .vgi-chart {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 560px;
+  }
+  #vanderbilt-grading-inside-chart .vgi-slice {
+    stroke: var(--background);
+    stroke-width: 3;
+  }
+  #vanderbilt-grading-inside-chart .vgi-name,
+  #vanderbilt-grading-inside-chart .vgi-pct,
+  #vanderbilt-grading-inside-chart .vgi-outside-name {
+    fill: var(--class-white);
+    font-weight: 500;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none;
+  }
+  #vanderbilt-grading-inside-chart .vgi-name { font-size: 12px; }
+  #vanderbilt-grading-inside-chart .vgi-pct { font-size: 16px; }
+  #vanderbilt-grading-inside-chart .vgi-outside-name {
+    fill: var(--foreground);
+    font-size: 12px;
+    text-anchor: start;
+  }
+  #vanderbilt-grading-inside-chart .vgi-leader {
+    fill: none;
+    stroke: var(--foreground);
+    stroke-width: 1.5;
+  }
+  #vanderbilt-grading-inside-chart .vgi-summary {
+    fill: var(--foreground);
+    font-size: 14px;
+  }
+</style>
+
+<script>
+(() => {
+  const root = document.getElementById('vanderbilt-grading-inside-chart');
+  const data = [
+    ['Participation', 25, 'var(--class-red)'],
+    ['Quizzes', 50, 'var(--class-gold)'],
+    ['Individual Assignments', 75, 'var(--class-blue)'],
+    ['Team Assignments', 50, 'var(--class-sky)'],
+    ['Final Project', 100, 'var(--class-teal)']
+  ];
+  const total = data.reduce((sum, item) => sum + item[1], 0);
+  const slices = root.querySelector('#vgi-slices');
+  const labels = root.querySelector('#vgi-labels');
+  const cx = 280;
+  const cy = 238;
+  const radius = 218;
+  const polar = (angle, r) => [cx + r * Math.cos(angle), cy + r * Math.sin(angle)];
+  const formatPct = value => Number.isInteger(value) ? `${value}%` : `${value.toFixed(1)}%`;
+  let angle = -Math.PI / 2;
+
+  data.forEach(([name, points, color]) => {
+    const pct = points / total * 100;
+    const next = angle + (points / total) * Math.PI * 2;
+    const middle = (angle + next) / 2;
+    const [x1, y1] = polar(angle, radius);
+    const [x2, y2] = polar(next, radius);
+    const large = next - angle > Math.PI ? 1 : 0;
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', `M ${cx} ${cy} L ${x1} ${y1} A ${radius} ${radius} 0 ${large} 1 ${x2} ${y2} Z`);
+    path.setAttribute('fill', color);
+    path.setAttribute('class', 'vgi-slice');
+    path.setAttribute('tabindex', '0');
+    path.setAttribute('data-tooltip', `${name}: ${formatPct(pct)}`);
+    slices.appendChild(path);
+
+    const labelRadius = 138;
+    const [lx, ly] = polar(middle, labelRadius);
+    let rotation = middle * 180 / Math.PI;
+    if (rotation > 90) rotation -= 180;
+    if (rotation < -90) rotation += 180;
+
+    if (pct < 10) {
+      const [px, py] = polar(middle, 145);
+      const [ex, ey] = polar(middle, 228);
+      const lineEndX = ex + 28;
+      const leader = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      leader.setAttribute('d', `M ${px} ${py} L ${ex} ${ey} L ${lineEndX} ${ey}`);
+      leader.setAttribute('class', 'vgi-leader');
+      labels.appendChild(leader);
+
+      const outside = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      outside.setAttribute('x', lineEndX + 6);
+      outside.setAttribute('y', ey + 4);
+      outside.setAttribute('class', 'vgi-outside-name');
+      outside.textContent = name;
+      labels.appendChild(outside);
+
+      const [pctX, pctY] = polar(middle, 112);
+      const pctOnly = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      pctOnly.setAttribute('x', pctX);
+      pctOnly.setAttribute('y', pctY);
+      pctOnly.setAttribute('class', 'vgi-pct');
+      pctOnly.textContent = formatPct(pct);
+      labels.appendChild(pctOnly);
+      angle = next;
+      return;
+    }
+
+    const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    group.setAttribute('transform', `translate(${lx} ${ly}) rotate(${rotation})`);
+
+    const nameText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    nameText.setAttribute('class', 'vgi-name');
+    nameText.setAttribute('y', '-10');
+    nameText.textContent = name;
+    group.appendChild(nameText);
+
+    const pctText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    pctText.setAttribute('class', 'vgi-pct');
+    pctText.setAttribute('y', '11');
+    pctText.textContent = formatPct(pct);
+    group.appendChild(pctText);
+
+    labels.appendChild(group);
+    angle = next;
+  });
+})();
+</script>
