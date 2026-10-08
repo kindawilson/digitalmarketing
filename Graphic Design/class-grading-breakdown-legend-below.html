@@ -1,0 +1,112 @@
+<div id="vanderbilt-grading-legend-below">
+  <svg class="vgl-chart" viewBox="0 0 950 890" role="img" aria-labelledby="vgl-title vgl-desc">
+    <title id="vgl-title">Class grading percentage breakdown with legend below</title>
+    <desc id="vgl-desc">Participation is 8.3 percent, Quizzes are 16.7 percent, Individual Assignments are 25 percent, Team Assignments are 16.7 percent, and Final Project is 33.3 percent.</desc>
+    <g id="vgl-slices"></g>
+    <g id="vgl-percentages"></g>
+    <g id="vgl-legend"></g>
+  </svg>
+</div>
+
+<style>
+  #vanderbilt-grading-legend-below {
+    --class-blue: #1d627b;
+    --class-gold: #ddaf4b;
+    --class-red: #b03d19;
+    --class-sky: #59a4d4;
+    --class-teal: #00a080;
+    --class-white: #ffffff;
+    width: 100%;
+  }
+  #vanderbilt-grading-legend-below .vgl-chart {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 890px;
+  }
+  #vanderbilt-grading-legend-below .vgl-slice {
+    stroke: var(--background);
+    stroke-width: 3;
+  }
+  #vanderbilt-grading-legend-below .vgl-pct {
+    fill: var(--class-white);
+    font-size: 25px;
+    font-weight: 500;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none;
+  }
+  #vanderbilt-grading-legend-below .vgl-legend-label {
+    fill: #000000;
+    font-size: 21px;
+    font-weight: 500;
+    dominant-baseline: middle;
+  }
+</style>
+
+<script>
+(() => {
+  const root = document.getElementById('vanderbilt-grading-legend-below');
+  const data = [
+    ['Participation', 25, 'var(--class-red)'],
+    ['Quizzes', 50, 'var(--class-gold)'],
+    ['Individual Assignments', 75, 'var(--class-blue)'],
+    ['Team Assignments', 50, 'var(--class-sky)'],
+    ['Final Project', 100, 'var(--class-teal)']
+  ];
+  const total = data.reduce((sum, item) => sum + item[1], 0);
+  const slices = root.querySelector('#vgl-slices');
+  const percentages = root.querySelector('#vgl-percentages');
+  const legend = root.querySelector('#vgl-legend');
+  const cx = 475;
+  const cy = 260;
+  const radius = 225;
+  const polar = (angle, r) => [cx + r * Math.cos(angle), cy + r * Math.sin(angle)];
+  const formatPct = value => Number.isInteger(value) ? `${value}%` : `${value.toFixed(1)}%`;
+  let angle = -Math.PI / 2;
+
+  data.forEach(([name, points, color], index) => {
+    const pct = points / total * 100;
+    const next = angle + (points / total) * Math.PI * 2;
+    const middle = (angle + next) / 2;
+    const [x1, y1] = polar(angle, radius);
+    const [x2, y2] = polar(next, radius);
+    const large = next - angle > Math.PI ? 1 : 0;
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', `M ${cx} ${cy} L ${x1} ${y1} A ${radius} ${radius} 0 ${large} 1 ${x2} ${y2} Z`);
+    path.setAttribute('fill', color);
+    path.setAttribute('class', 'vgl-slice');
+    path.setAttribute('tabindex', '0');
+    path.setAttribute('data-tooltip', `${name}: ${formatPct(pct)}`);
+    slices.appendChild(path);
+
+    const [px, py] = polar(middle, 140);
+    const pctText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    pctText.setAttribute('x', px);
+    pctText.setAttribute('y', py);
+    pctText.setAttribute('class', 'vgl-pct');
+    pctText.textContent = formatPct(pct);
+    percentages.appendChild(pctText);
+
+    const positions = [
+      [335, 525], [335, 590], [335, 655],
+      [335, 720], [335, 785]
+    ];
+    const [lx, ly] = positions[index];
+    const swatch = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    swatch.setAttribute('cx', lx);
+    swatch.setAttribute('cy', ly);
+    swatch.setAttribute('r', '10');
+    swatch.setAttribute('fill', color);
+    legend.appendChild(swatch);
+
+    const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    label.setAttribute('x', lx + 20);
+    label.setAttribute('y', ly + 1);
+    label.setAttribute('class', 'vgl-legend-label');
+    label.textContent = name;
+    legend.appendChild(label);
+    angle = next;
+  });
+})();
+</script>
