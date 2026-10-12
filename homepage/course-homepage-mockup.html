@@ -62,7 +62,7 @@
     .main { padding: 26px 24px 56px; }
     .welcome-grid {
       display: grid;
-      grid-template-columns: minmax(0, 520px) minmax(280px, 1fr);
+      grid-template-columns: 1fr;
       gap: 24px;
       align-items: stretch;
     }
@@ -83,28 +83,6 @@
       letter-spacing: .02em;
       text-transform: uppercase;
     }
-    .video-placeholder {
-      aspect-ratio: 16 / 9;
-      display: grid;
-      place-items: center;
-      padding: 28px;
-      background: linear-gradient(145deg, #123f50, #1d627b);
-      color: var(--white);
-      text-align: center;
-    }
-    .play-button {
-      width: 76px;
-      height: 76px;
-      display: grid;
-      place-items: center;
-      margin: 0 auto 14px;
-      border: 3px solid var(--gold);
-      border-radius: 50%;
-      background: rgba(255,255,255,.08);
-    }
-    .play-button svg { width: 34px; height: 34px; margin-left: 5px; fill: var(--white); }
-    .video-placeholder p { margin: 0; font-weight: 700; }
-
     .announcement { border-top-color: var(--gold); }
     .announcement-body { padding: 22px; }
     .announcement-kicker {
@@ -233,7 +211,6 @@
 
     @media (max-width: 820px) {
       .welcome-grid { grid-template-columns: 1fr; }
-      .video-placeholder { min-height: 0; }
       .module-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 600px) {
@@ -262,16 +239,6 @@
 
   <main class="shell main" id="content">
     <section class="welcome-grid" aria-label="Course welcome and announcement">
-      <article class="panel">
-        <h2 class="panel-heading">Welcome to the Course</h2>
-        <div class="video-placeholder" role="img" aria-label="Course welcome video placeholder">
-          <div>
-            <span class="play-button"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M12 7l22 13-22 13z"/></svg></span>
-            <p>Course welcome video placeholder</p>
-          </div>
-        </div>
-      </article>
-
       <aside class="panel announcement">
         <h2 class="panel-heading announcement">Announcements</h2>
         <div class="announcement-body">
