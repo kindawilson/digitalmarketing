@@ -1,0 +1,84 @@
+<div id="swatch-root" aria-label="Grading color swatches"></div>
+
+<style>
+  html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
+  #swatch-root { box-sizing: border-box; }
+  .composite {
+    position: relative;
+    width: 220px;
+    height: 1040px;
+  }
+  .square, .rectangle {
+    position: absolute;
+    left: 66px;
+    width: 88px;
+    border-radius: 10px;
+  }
+  .square { height: 88px; }
+  .rectangle { height: 190px; }
+  .participation.square { top: 40px; }
+  .quizzes.square { top: 160px; }
+  .individual.rectangle { top: 280px; }
+  .team.rectangle { top: 575px; }
+  .final.rectangle { top: 810px; }
+  .single { display: block; border-radius: 10px; }
+  .individual-group, .individual-group-no-quiz, .team-group { position: relative; width: 220px; }
+  .individual-group { height: 510px; }
+  .individual-group-no-quiz { height: 390px; }
+  .team-group { height: 580px; }
+  .individual-group .participation { top: 20px; }
+  .individual-group .quizzes { top: 140px; }
+  .individual-group .individual { top: 260px; height: 210px; }
+  .individual-group-no-quiz .participation { top: 20px; }
+  .individual-group-no-quiz .individual { top: 140px; height: 210px; }
+  .team-group .team { top: 25px; height: 200px; }
+  .team-group .final { top: 350px; height: 200px; }
+  .participation { background: #b03d19; }
+  .quizzes { background: #ddaf4b; }
+  .individual { background: #1d627b; }
+  .team { background: #59a4d4; }
+  .final { background: #00a080; }
+</style>
+
+<script>
+(() => {
+  const root = document.getElementById('swatch-root');
+  const variant = location.hash.replace('#', '') || 'composite';
+  if (variant === 'composite') {
+    root.className = 'composite';
+    root.innerHTML = `
+      <div class="square participation" aria-label="Participation"></div>
+      <div class="square quizzes" aria-label="Quizzes"></div>
+      <div class="rectangle individual" aria-label="Individual assignments"></div>
+      <div class="rectangle team" aria-label="Team assignments"></div>
+      <div class="rectangle final" aria-label="Final project"></div>`;
+    return;
+  }
+  if (variant === 'individual-group') {
+    root.className = 'individual-group';
+    root.innerHTML = `
+      <div class="square participation" aria-label="Participation"></div>
+      <div class="square quizzes" aria-label="Quizzes"></div>
+      <div class="rectangle individual" aria-label="Individual assignments"></div>`;
+    return;
+  }
+  if (variant === 'individual-group-no-quiz') {
+    root.className = 'individual-group-no-quiz';
+    root.innerHTML = `
+      <div class="square participation" aria-label="Participation"></div>
+      <div class="rectangle individual" aria-label="Individual assignments"></div>`;
+    return;
+  }
+  if (variant === 'team-group') {
+    root.className = 'team-group';
+    root.innerHTML = `
+      <div class="rectangle team" aria-label="Team assignments"></div>
+      <div class="rectangle final" aria-label="Final project"></div>`;
+    return;
+  }
+  const isSquare = variant === 'participation' || variant === 'quizzes';
+  root.className = `single ${variant}`;
+  root.style.width = isSquare ? '300px' : '600px';
+  root.style.height = isSquare ? '300px' : '180px';
+})();
+</script>

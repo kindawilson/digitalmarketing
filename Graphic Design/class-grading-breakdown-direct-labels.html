@@ -1,0 +1,121 @@
+<div id="vanderbilt-grading-direct-labels">
+  <svg class="vgd-chart" viewBox="0 0 1000 650" role="img" aria-labelledby="vgd-title vgd-desc">
+    <title id="vgd-title">Class grading percentage breakdown with direct labels</title>
+    <desc id="vgd-desc">Participation is 8.3 percent, Quizzes are 16.7 percent, Individual Assignments are 25 percent, Team Assignments are 16.7 percent, and Final Project is 33.3 percent. Each category name is connected directly to its pie slice.</desc>
+    <g id="vgd-slices"></g>
+    <g id="vgd-percentages"></g>
+    <g id="vgd-direct-labels"></g>
+  </svg>
+</div>
+
+<style>
+  html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
+  #vanderbilt-grading-direct-labels {
+    --class-blue: #1d627b;
+    --class-gold: #ddaf4b;
+    --class-red: #b03d19;
+    --class-sky: #59a4d4;
+    --class-teal: #00a080;
+    --class-white: #ffffff;
+    width: 100%;
+  }
+  #vanderbilt-grading-direct-labels .vgd-chart {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  #vanderbilt-grading-direct-labels .vgd-slice {
+    stroke: transparent;
+    stroke-width: 0;
+  }
+  #vanderbilt-grading-direct-labels .vgd-pct {
+    fill: var(--class-white);
+    font-family: Aptos, "Aptos Display", Arial, sans-serif;
+    font-size: 26px;
+    font-weight: 500;
+    text-anchor: middle;
+    dominant-baseline: middle;
+    pointer-events: none;
+  }
+  #vanderbilt-grading-direct-labels .vgd-leader {
+    fill: none;
+    stroke: #000000;
+    stroke-width: 2;
+  }
+  #vanderbilt-grading-direct-labels .vgd-label {
+    fill: #000000;
+    font-family: Aptos, "Aptos Display", Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 500;
+    dominant-baseline: middle;
+  }
+</style>
+
+<script>
+(() => {
+  const root = document.getElementById('vanderbilt-grading-direct-labels');
+  const data = [
+    ['Participation', 25, 'var(--class-red)'],
+    ['Quizzes', 50, 'var(--class-gold)'],
+    ['Individual Assignments', 75, 'var(--class-blue)'],
+    ['Team Assignments', 50, 'var(--class-sky)'],
+    ['Final Project', 100, 'var(--class-teal)']
+  ];
+  const total = data.reduce((sum, item) => sum + item[1], 0);
+  const slices = root.querySelector('#vgd-slices');
+  const percentages = root.querySelector('#vgd-percentages');
+  const labels = root.querySelector('#vgd-direct-labels');
+  const cx = 500;
+  const cy = 320;
+  const radius = 220;
+  const polar = (angle, r) => [cx + r * Math.cos(angle), cy + r * Math.sin(angle)];
+  const formatPct = value => Number.isInteger(value) ? `${value}%` : `${value.toFixed(1)}%`;
+  let angle = -Math.PI / 2;
+
+  data.forEach(([name, points, color]) => {
+    const pct = points / total * 100;
+    const next = angle + (points / total) * Math.PI * 2;
+    const middle = (angle + next) / 2;
+    const [x1, y1] = polar(angle, radius);
+    const [x2, y2] = polar(next, radius);
+    const large = next - angle > Math.PI ? 1 : 0;
+
+    const slice = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    slice.setAttribute('d', `M ${cx} ${cy} L ${x1} ${y1} A ${radius} ${radius} 0 ${large} 1 ${x2} ${y2} Z`);
+    slice.setAttribute('fill', color);
+    slice.setAttribute('class', 'vgd-slice');
+    slice.setAttribute('tabindex', '0');
+    slice.setAttribute('data-tooltip', `${name}: ${formatPct(pct)}`);
+    slices.appendChild(slice);
+
+    const [pctX, pctY] = polar(middle, 135);
+    const pctText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    pctText.setAttribute('x', pctX);
+    pctText.setAttribute('y', pctY);
+    pctText.setAttribute('class', 'vgd-pct');
+    pctText.textContent = formatPct(pct);
+    percentages.appendChild(pctText);
+
+    const [edgeX, edgeY] = polar(middle, radius - 1);
+    const [lineEndX, lineEndY] = polar(middle, radius + 15);
+    const onRight = Math.cos(middle) >= 0;
+    const labelX = lineEndX + (onRight ? 9 : -9);
+    const labelY = lineEndY;
+    const anchor = onRight ? 'start' : 'end';
+    const leader = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    leader.setAttribute('d', `M ${edgeX} ${edgeY} L ${lineEndX} ${lineEndY}`);
+    leader.setAttribute('class', 'vgd-leader');
+    labels.appendChild(leader);
+
+    const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    label.setAttribute('x', labelX);
+    label.setAttribute('y', labelY + 1);
+    label.setAttribute('text-anchor', anchor);
+    label.setAttribute('class', 'vgd-label');
+    label.textContent = name;
+    labels.appendChild(label);
+
+    angle = next;
+  });
+})();
+</script>
