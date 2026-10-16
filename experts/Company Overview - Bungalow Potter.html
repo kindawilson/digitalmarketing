@@ -31,6 +31,12 @@ body h1::after{background-color:#ddaf4b!important;border-color:#ddaf4b!important
 .video-placeholder span{display:block;margin-top:8px;color:#4d5259;font-size:16px}
 .video-caption{margin:14px 0 0;color:#5c6267;font-size:15px;text-align:center}
 .video-frame iframe{display:block;width:100%;height:100%;border:0}
+.video-local-fallback{position:relative;display:grid;width:100%;height:100%;place-items:center;overflow:hidden;background:#111;color:#fff!important;text-decoration:none!important}
+.video-local-fallback strong{color:#fff!important;text-decoration:none!important}
+.video-local-fallback img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72}
+.video-local-play{position:relative;z-index:1;display:flex;align-items:center;gap:12px;padding:13px 18px;border-radius:8px;background:rgba(15,63,82,.94);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.video-local-play svg{width:25px;height:30px;color:#fff}
+.youtube-embed{display:none!important}
 .company-card{margin-top:32px;border:1px solid #e7e6e6;border-top:6px solid #1d627b;padding:28px 30px;background:#fff;box-shadow:0 12px 28px rgba(77,82,89,.08)}
 .company-card h2{margin:0 0 10px!important;padding:0!important;color:#1d627b!important;font-family:'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif!important;font-size:27px!important;font-weight:700!important;letter-spacing:.01em;line-height:1.18!important;text-transform:uppercase}
 .company-intro{margin:0 0 22px;font-size:18px}
@@ -95,7 +101,11 @@ body h1::after{background-color:#ddaf4b!important;border-color:#ddaf4b!important
 
   <article class="video-card" aria-label="Bungalow Potter company overview video">
     <div class="video-frame">
-      <iframe src="https://www.youtube-nocookie.com/embed/tFvG1aL7eEI?rel=0" title="Bungalow Potter company overview video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <a class="video-local-fallback" href="https://youtu.be/tFvG1aL7eEI" target="_blank" rel="noopener noreferrer" aria-label="Watch the Bungalow Potter company overview video on YouTube">
+        <img src="https://i.ytimg.com/vi/tFvG1aL7eEI/hqdefault.jpg" alt="">
+        <span class="video-local-play"><svg viewBox="0 0 32 38" aria-hidden="true"><path fill="currentColor" d="M3 1.8v34.4L30 19 3 1.8Z"></path></svg><strong>Watch video on YouTube</strong></span>
+      </a>
+      <iframe class="youtube-embed" data-src="https://www.youtube-nocookie.com/embed/tFvG1aL7eEI?rel=0" title="Bungalow Potter company overview video" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
     <p class="video-caption">Company Overview: Bungalow Potter</p>
   </article>
@@ -142,5 +152,16 @@ body h1::after{background-color:#ddaf4b!important;border-color:#ddaf4b!important
     <img src="https://kindawilson.github.io/digitalmarketing/Week%203/Dimensional_V_White_Lockup.png" alt="Vanderbilt University" style="display:inline-block;max-width:260px!important;width:100%!important;height:auto!important;">
   </div>
 </footer>
+<script>
+(function(){
+  if(window.location.protocol==='file:')return;
+  document.querySelectorAll('.youtube-embed[data-src]').forEach(function(frame){
+    frame.src=frame.getAttribute('data-src');
+    frame.style.setProperty('display','block','important');
+    var fallback=frame.previousElementSibling;
+    if(fallback&&fallback.classList.contains('video-local-fallback'))fallback.style.display='none';
+  });
+})();
+</script>
 </body>
 </html>
