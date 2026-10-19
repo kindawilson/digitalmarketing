@@ -60,6 +60,11 @@ body h1::after{background-color:#ddaf4b!important;border-color:#ddaf4b!important
 .resource-content ul{margin:0;padding-left:20px;font-size:16px;line-height:1.4}
 .resource-content li+li{margin-top:9px}
 .resource-content a{color:#1d627b;font-weight:700;overflow-wrap:anywhere;text-underline-offset:3px}
+.resource-gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.resource-item{margin:0;border:1px solid #d7dfe2;background:#f5f6f7}
+.resource-item a{display:block}
+.resource-item img{display:block;width:100%;height:auto}
+.resource-item figcaption{padding:12px 14px;color:#1d627b;font-size:16px;font-weight:700}
 .footer{border-top:7px solid #ddaf4b;margin-top:28px;padding:30px 24px;background:#4d5259;color:#fff;text-align:center}
 .footer img{max-width:260px;width:100%;height:auto}
 @media(max-width:700px){
@@ -82,6 +87,7 @@ body h1::after{background-color:#ddaf4b!important;border-color:#ddaf4b!important
   .video-placeholder strong{font-size:18px}
   .company-details{grid-template-columns:1fr}
   .company-detail.website,.company-detail.notes{grid-column:auto}
+  .resource-gallery{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -139,9 +145,20 @@ body h1::after{background-color:#ddaf4b!important;border-color:#ddaf4b!important
       <details>
         <summary>Resources</summary>
         <div class="resource-content">
-          <ul>
-            <li>Staccato logo and color resources will be added here.</li>
-          </ul>
+          <div class="resource-gallery">
+            <figure class="resource-item">
+              <a href="resources/staccato/Staccato%20fonts.png" target="_blank" rel="noopener noreferrer"><img src="resources/staccato/Staccato%20fonts.png" alt="Staccato font pairings"></a>
+              <figcaption>Staccato fonts.png</figcaption>
+            </figure>
+            <figure class="resource-item">
+              <a href="resources/staccato/Staccato%20color%20palette.png" target="_blank" rel="noopener noreferrer"><img src="resources/staccato/Staccato%20color%20palette.png" alt="Staccato primary color palette"></a>
+              <figcaption>Staccato color palette.png</figcaption>
+            </figure>
+            <figure class="resource-item">
+              <a href="resources/staccato/Staccato%20logo.jpg" target="_blank" rel="noopener noreferrer"><img src="resources/staccato/Staccato%20logo.jpg" alt="Staccato logo"></a>
+              <figcaption>Staccato logo.jpg</figcaption>
+            </figure>
+          </div>
         </div>
       </details>
     </div>
