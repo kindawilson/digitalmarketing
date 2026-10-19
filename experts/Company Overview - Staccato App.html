@@ -40,13 +40,13 @@ body h1::after{background-color:#ddaf4b!important;border-color:#ddaf4b!important
 .company-card{margin-top:32px;border:1px solid #e7e6e6;border-top:6px solid #1d627b;padding:28px 30px;background:#fff;box-shadow:0 12px 28px rgba(77,82,89,.08)}
 .company-card h2{margin:0 0 10px!important;padding:0!important;color:#1d627b!important;font-family:'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif!important;font-size:27px!important;font-weight:700!important;letter-spacing:.01em;line-height:1.18!important;text-transform:uppercase}
 .company-intro{margin:0 0 22px;font-size:18px}
-.company-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0}
+.company-details{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:14px;margin:0}
 .company-detail{margin:0;border:1px solid #e1e5e7;padding:16px 18px;background:#f5f6f7}
 .company-detail.website,.company-detail.notes{grid-column:1/-1}
-.company-detail dt{margin:0 0 5px;color:#0f3f52;font-family:'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif;font-size:16px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
-.company-detail dd{margin:0;color:#4d5259;font-size:18px}
-.company-detail dd ul{margin:0;padding-left:22px}
-.company-detail dd li+li{margin-top:8px}
+.company-label{display:block!important;margin:0 0 5px!important;color:#0f3f52;font-family:'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif;font-size:16px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.company-value{display:block!important;margin:0!important;color:#4d5259;font-size:18px}
+.company-value ul{margin:0;padding-left:22px}
+.company-value li+li{margin-top:8px}
 .company-detail a{color:#1d627b;font-weight:700;text-underline-offset:3px}
 .resource-list{display:grid;gap:12px;margin-top:28px;padding-top:24px;border-top:2px solid #d7dfe2}
 .resource-list details{border:1px solid #d7dfe2;border-left:8px solid #ddaf4b;background:#fff}
@@ -73,7 +73,7 @@ body h1::after{background-color:#ddaf4b!important;border-color:#ddaf4b!important
   .course-header h1{font-size:34px!important;line-height:1.12!important}
   .subtitle{font-size:17px!important}
   .course-content{padding:34px 18px!important}
-  .intro,.company-intro,.company-detail dd{font-size:17px}
+  .intro,.company-intro,.company-value{font-size:17px}
   .video-card,.company-card{padding:22px 20px!important}
   .video-placeholder strong{font-size:21px}
 }
@@ -85,7 +85,7 @@ body h1::after{background-color:#ddaf4b!important;border-color:#ddaf4b!important
   .video-icon svg{width:24px;height:28px}
   .video-placeholder{padding:14px}
   .video-placeholder strong{font-size:18px}
-  .company-details{grid-template-columns:1fr}
+  .company-details{grid-template-columns:1fr!important}
   .company-detail.website,.company-detail.notes{grid-column:auto}
   .resource-gallery{grid-template-columns:1fr}
 }
@@ -117,29 +117,29 @@ body h1::after{background-color:#ddaf4b!important;border-color:#ddaf4b!important
   <article class="company-card">
     <h2>Company Information</h2>
     <p class="company-intro">Use the information below as a quick reference while viewing the company overview.</p>
-    <dl class="company-details">
+    <div class="company-details">
       <div class="company-detail">
-        <dt>Company Name</dt>
-        <dd>Staccato</dd>
+        <div class="company-label">Company Name</div>
+        <div class="company-value">Staccato</div>
       </div>
       <div class="company-detail">
-        <dt>Owner</dt>
-        <dd>Joseph Gardner</dd>
+        <div class="company-label">Owner</div>
+        <div class="company-value">Joseph Gardner</div>
       </div>
       <div class="company-detail website">
-        <dt>Website</dt>
-        <dd><a href="https://staccatomusic.com" target="_blank" rel="noopener noreferrer">staccatomusic.com</a></dd>
+        <div class="company-label">Website</div>
+        <div class="company-value"><a href="https://staccatomusic.com" target="_blank" rel="noopener noreferrer">staccatomusic.com</a></div>
       </div>
       <div class="company-detail notes">
-        <dt>Additional Notes</dt>
-        <dd>
+        <div class="company-label">Additional Notes</div>
+        <div class="company-value">
           <ul>
             <li>The current price is $12 per user and is subject to change.</li>
             <li>The logo and colors will be included in Resources. The owner is open to updating the logo if you have a brilliant idea for it.</li>
           </ul>
-        </dd>
+        </div>
       </div>
-    </dl>
+    </div>
 
     <div class="resource-list">
       <details>
@@ -147,15 +147,15 @@ body h1::after{background-color:#ddaf4b!important;border-color:#ddaf4b!important
         <div class="resource-content">
           <div class="resource-gallery">
             <figure class="resource-item">
-              <a href="resources/staccato/Staccato%20fonts.png" target="_blank" rel="noopener noreferrer"><img src="resources/staccato/Staccato%20fonts.png" alt="Staccato font pairings"></a>
+              <a href="https://kindawilson.github.io/digitalmarketing/experts/resources/staccato/Staccato%20fonts.png" target="_blank" rel="noopener noreferrer"><img src="https://kindawilson.github.io/digitalmarketing/experts/resources/staccato/Staccato%20fonts.png" alt="Staccato font pairings"></a>
               <figcaption>Staccato fonts.png</figcaption>
             </figure>
             <figure class="resource-item">
-              <a href="resources/staccato/Staccato%20color%20palette.png" target="_blank" rel="noopener noreferrer"><img src="resources/staccato/Staccato%20color%20palette.png" alt="Staccato primary color palette"></a>
+              <a href="https://kindawilson.github.io/digitalmarketing/experts/resources/staccato/Staccato%20color%20palette.png" target="_blank" rel="noopener noreferrer"><img src="https://kindawilson.github.io/digitalmarketing/experts/resources/staccato/Staccato%20color%20palette.png" alt="Staccato primary color palette"></a>
               <figcaption>Staccato color palette.png</figcaption>
             </figure>
             <figure class="resource-item">
-              <a href="resources/staccato/Staccato%20logo.jpg" target="_blank" rel="noopener noreferrer"><img src="resources/staccato/Staccato%20logo.jpg" alt="Staccato logo"></a>
+              <a href="https://kindawilson.github.io/digitalmarketing/experts/resources/staccato/Staccato%20logo.jpg" target="_blank" rel="noopener noreferrer"><img src="https://kindawilson.github.io/digitalmarketing/experts/resources/staccato/Staccato%20logo.jpg" alt="Staccato logo"></a>
               <figcaption>Staccato logo.jpg</figcaption>
             </figure>
           </div>
