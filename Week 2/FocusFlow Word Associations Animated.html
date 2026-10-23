@@ -9,7 +9,7 @@
     *{box-sizing:border-box}
     html,body{width:100%;max-width:100%;margin:0;overflow-x:hidden;background:#fff;color:var(--gray);font-family:Lato,Arial,Helvetica,sans-serif}
     body{padding:12px}
-    .activity{width:min(1120px,100%);max-width:100%;margin:0 auto;border:1px solid #d8e0e4;border-top:7px solid var(--gold);background:#fff;box-shadow:0 10px 26px rgba(23,50,77,.1)}
+    .activity{width:min(1120px,100%);max-width:100%;margin:0 auto;border:1px solid #d8e0e4;background:#fff;box-shadow:0 10px 26px rgba(23,50,77,.1)}
     .mobile-break{display:none}
     .activity-header{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"badge title" "subtitle subtitle";gap:6px 38px;align-items:center;padding:20px 22px 16px}
     .try-badge{grid-area:badge;display:flex;align-items:center;gap:12px;min-height:68px;padding:10px 18px 10px 24px;border:4px solid var(--gold);border-radius:4px;background:var(--blue);color:#fff;font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:23px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 3px 0 rgba(23,50,77,.16)}
@@ -18,7 +18,7 @@
     .eyebrow{margin:0 0 4px;color:var(--blue);font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:14px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
     h1{margin:0;color:var(--blue);font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:clamp(25px,4.5vw,38px);font-weight:700;letter-spacing:.01em;line-height:1.08;text-transform:uppercase;overflow-wrap:anywhere}
     .subtitle{grid-area:subtitle;margin:0;color:var(--gray);font-size:16px;font-weight:700;line-height:1.4}
-    .stage{position:relative;min-height:540px;overflow:hidden;border-top:1px solid #d8e0e4;background:radial-gradient(circle at center,#fff 0 20%,#f4f7f8 60%,#edf2f4 100%)}
+    .stage{position:relative;min-height:540px;overflow:hidden;background:radial-gradient(circle at center,#fff 0 20%,#f4f7f8 60%,#edf2f4 100%)}
     .orbit{position:absolute;left:50%;top:51%;width:min(74%,760px);aspect-ratio:1.65;border:3px dashed var(--line);border-radius:50%;transform:translate(-50%,-50%)}
     .orbit::before,.orbit::after{content:"";position:absolute;inset:14%;border:1px solid rgba(156,185,196,.5);border-radius:50%}
     .orbit::after{inset:31%;border-style:dashed}
@@ -51,11 +51,6 @@
 </head>
 <body>
   <main class="activity" id="activity">
-    <header class="activity-header">
-      <div class="try-badge"><span>Try This</span><svg class="cursor" viewBox="0 0 24 30" aria-hidden="true"><path fill="currentColor" d="M2 1.3v24.4l6.2-5 4.4 8.1 4.2-2.3-4.4-8.1 7.8-1.2L2 1.3Z"/></svg></div>
-      <div class="title-wrap"><p class="eyebrow">Interactive Learning</p><h1>Brand Associations<span class="mobile-break" aria-hidden="true"><br></span> in Motion</h1></div>
-      <p class="subtitle">Notice how several ideas can move around one stable product identity.</p>
-    </header>
     <section class="stage" aria-label="Animated FocusFlow word-association diagram">
       <div class="orbit" aria-hidden="true"></div>
       <div class="center"><small>Example product</small><strong>FocusFlow</strong></div>
