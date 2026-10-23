@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FocusFlow Brand Associations in Motion</title>
+  <style>
+    :root{--navy:#17324d;--blue:#1d627b;--gold:#ddaf4b;--gray:#4d5259;--light:#f5f6f7;--line:#9cb9c4}
+    *{box-sizing:border-box}
+    html,body{margin:0;background:#fff;color:var(--gray);font-family:Lato,Arial,Helvetica,sans-serif}
+    body{padding:12px}
+    .activity{width:min(1120px,100%);margin:0 auto;border:1px solid #d8e0e4;border-top:7px solid var(--gold);background:#fff;box-shadow:0 10px 26px rgba(23,50,77,.1)}
+    .activity-header{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"badge title" "subtitle subtitle";gap:6px 38px;align-items:center;padding:20px 22px 16px}
+    .try-badge{grid-area:badge;display:flex;align-items:center;gap:12px;min-height:68px;padding:10px 18px 10px 24px;border:4px solid var(--gold);border-radius:4px;background:var(--blue);color:#fff;font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:23px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;box-shadow:0 3px 0 rgba(23,50,77,.16)}
+    .cursor{width:25px;color:var(--gold)}
+    .title-wrap{grid-area:title;min-width:0}
+    .eyebrow{margin:0 0 4px;color:var(--blue);font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:14px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0;color:var(--blue);font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:clamp(25px,4.5vw,38px);font-weight:700;letter-spacing:.01em;line-height:1.08;text-transform:uppercase;overflow-wrap:anywhere}
+    .subtitle{grid-area:subtitle;margin:0;color:var(--gray);font-size:16px;font-weight:700;line-height:1.4}
+    .stage{position:relative;min-height:540px;overflow:hidden;border-top:1px solid #d8e0e4;background:radial-gradient(circle at center,#fff 0 20%,#f4f7f8 60%,#edf2f4 100%)}
+    .orbit{position:absolute;left:50%;top:51%;width:min(74%,760px);aspect-ratio:1.65;border:3px dashed var(--line);border-radius:50%;transform:translate(-50%,-50%)}
+    .orbit::before,.orbit::after{content:"";position:absolute;inset:14%;border:1px solid rgba(156,185,196,.5);border-radius:50%}
+    .orbit::after{inset:31%;border-style:dashed}
+    .center{position:absolute;left:50%;top:51%;z-index:4;display:grid;width:clamp(150px,22vw,220px);aspect-ratio:1;place-content:center;border:5px solid var(--gold);border-radius:50%;background:var(--navy);color:#fff;text-align:center;transform:translate(-50%,-50%);box-shadow:0 12px 28px rgba(23,50,77,.24)}
+    .center small{font-size:clamp(12px,1.8vw,16px);font-weight:800;letter-spacing:.08em;line-height:1.2;text-transform:uppercase}
+    .center strong{margin-top:5px;font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:clamp(20px,3vw,29px);line-height:1.1}
+    .moving-word{--delay:0s;--radius-x:clamp(175px,31vw,355px);--radius-y:clamp(128px,18vw,205px);position:absolute;left:50%;top:51%;z-index:3;display:grid;min-width:clamp(108px,16vw,168px);min-height:56px;padding:10px 16px;place-items:center;border:2px solid var(--blue);border-radius:18px;background:#fff;color:var(--navy);font-size:clamp(15px,2vw,20px);font-weight:800;box-shadow:0 7px 18px rgba(23,50,77,.13);animation:orbitWord 28s linear infinite;animation-delay:var(--delay);transform:translate(-50%,-50%)}
+    .word-2{--delay:-5.6s}.word-3{--delay:-11.2s}.word-4{--delay:-16.8s}.word-5{--delay:-22.4s}
+    @keyframes orbitWord{
+      0%{transform:translate(-50%,-50%) translate(var(--radius-x),0)}
+      12.5%{transform:translate(-50%,-50%) translate(calc(var(--radius-x)*.707),calc(var(--radius-y)*.707))}
+      25%{transform:translate(-50%,-50%) translate(0,var(--radius-y))}
+      37.5%{transform:translate(-50%,-50%) translate(calc(var(--radius-x)*-.707),calc(var(--radius-y)*.707))}
+      50%{transform:translate(-50%,-50%) translate(calc(var(--radius-x)*-1),0)}
+      62.5%{transform:translate(-50%,-50%) translate(calc(var(--radius-x)*-.707),calc(var(--radius-y)*-.707))}
+      75%{transform:translate(-50%,-50%) translate(0,calc(var(--radius-y)*-1))}
+      87.5%{transform:translate(-50%,-50%) translate(calc(var(--radius-x)*.707),calc(var(--radius-y)*-.707))}
+      100%{transform:translate(-50%,-50%) translate(var(--radius-x),0)}
+    }
+    .controls{position:absolute;right:16px;bottom:14px;z-index:8}
+    .motion-toggle{padding:9px 14px;border:2px solid var(--blue);border-radius:4px;background:#fff;color:var(--navy);font:800 14px Lato,Arial,sans-serif;cursor:pointer}
+    .motion-toggle:hover,.motion-toggle:focus-visible{background:var(--blue);color:#fff;outline:3px solid rgba(221,175,75,.5);outline-offset:2px}
+    .paused .moving-word{animation-play-state:paused}
+    @media(max-width:700px){
+      body{padding:8px}.activity-header{grid-template-columns:1fr;grid-template-areas:"badge" "title" "subtitle";gap:7px;padding:14px}.try-badge{justify-self:start;min-height:50px;padding:7px 12px 7px 16px;font-size:17px}.cursor{width:20px}.stage{min-height:490px}.orbit{width:88%;aspect-ratio:1.25}.moving-word{--radius-x:clamp(120px,34vw,225px);--radius-y:clamp(135px,28vw,175px);min-width:100px;min-height:48px;padding:8px 11px}.center{width:clamp(128px,32vw,165px)}
+    }
+    @media(max-width:430px){.stage{min-height:460px}.orbit{width:94%;aspect-ratio:1}.moving-word{--radius-x:clamp(112px,35vw,150px);--radius-y:clamp(135px,40vw,165px);min-width:88px;font-size:14px}.center{width:120px}.controls{right:10px;bottom:10px}}
+    @media(prefers-reduced-motion:reduce){.moving-word{animation:none}.word-1{transform:translate(-50%,-50%) translate(0,-155px)}.word-2{transform:translate(-50%,-50%) translate(145px,-48px)}.word-3{transform:translate(-50%,-50%) translate(90px,145px)}.word-4{transform:translate(-50%,-50%) translate(-90px,145px)}.word-5{transform:translate(-50%,-50%) translate(-145px,-48px)}.motion-toggle{display:none}}
+  </style>
+</head>
+<body>
+  <main class="activity" id="activity">
+    <header class="activity-header">
+      <div class="try-badge"><span>Try This</span><svg class="cursor" viewBox="0 0 24 30" aria-hidden="true"><path fill="currentColor" d="M2 1.3v24.4l6.2-5 4.4 8.1 4.2-2.3-4.4-8.1 7.8-1.2L2 1.3Z"/></svg></div>
+      <div class="title-wrap"><p class="eyebrow">Interactive Learning</p><h1>Brand Associations in Motion</h1></div>
+      <p class="subtitle">Notice how several ideas can move around one stable product identity.</p>
+    </header>
+    <section class="stage" aria-label="Animated FocusFlow word-association diagram">
+      <div class="orbit" aria-hidden="true"></div>
+      <div class="center"><small>Example product</small><strong>FocusFlow</strong></div>
+      <div class="moving-word word-1">Simple</div>
+      <div class="moving-word word-2">Focused</div>
+      <div class="moving-word word-3">Dependable</div>
+      <div class="moving-word word-4">Calm</div>
+      <div class="moving-word word-5">Motivating</div>
+      <div class="controls"><button class="motion-toggle" id="motionToggle" type="button" aria-pressed="false">Pause motion</button></div>
+    </section>
+  </main>
+  <script>
+    (function(){
+      var activity=document.getElementById('activity');
+      var button=document.getElementById('motionToggle');
+      button.addEventListener('click',function(){
+        var paused=activity.classList.toggle('paused');
+        button.textContent=paused?'Play motion':'Pause motion';
+        button.setAttribute('aria-pressed',String(paused));
+      });
+      var last=0,raf=0;
+      function report(){cancelAnimationFrame(raf);raf=requestAnimationFrame(function(){var h=Math.ceil(document.documentElement.scrollHeight);if(h!==last){last=h;window.parent.postMessage({type:'vanderbilt-iframe-height',id:'focusflow-word-associations-animated',height:h},'*')}})}
+      window.addEventListener('load',report);window.addEventListener('resize',report);if('ResizeObserver'in window)new ResizeObserver(report).observe(document.body);setTimeout(report,100);setTimeout(report,700);
+    })();
+  </script>
+</body>
+</html>
