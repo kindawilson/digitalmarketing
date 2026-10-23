@@ -138,7 +138,7 @@ h1,h2,h3,p,li{overflow-wrap:anywhere}
 <p>See the videos below for how specific colors and fonts have cultural meaning, and how knowing that meaning can help a marketer make appropriate choices for brand identity.</p>
 <div class="embedded-video" style="width:min(100%,640px);margin:20px auto 0;">
 <div style="position:relative;width:100%;padding-top:56.25%;overflow:hidden;background:#111;">
-<iframe src="https://www.youtube.com/embed/Eiwk8ZWpKM8" title="How colors are expressed culturally" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;">
+<iframe id="colors-branding-video" name="colors-branding-video" src="https://www.youtube.com/embed/Eiwk8ZWpKM8" data-expected-src="https://www.youtube.com/embed/Eiwk8ZWpKM8" title="How colors are expressed culturally" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;">
 </iframe>
 </div>
 <h3 style="margin:12px 0 0!important;text-align:center;">Colors and Branding</h3>
@@ -154,7 +154,7 @@ Your browser does not support embedded video. <a href="https://www.dropbox.com/s
 </div>
 <p>Your brand guide will include these visual elements, along with the brand personality or voice and the verbal phrases or slogans you want to use.</p>
 <p>Here is a short example of a mini brand guide. A full guide for a company will be more detailed and complex, but this activity provides a feel for the process.</p>
-<iframe class="section-iframe iframe-brand" src="https://kindawilson.github.io/digitalmarketing/Week%202/Brand%20Identity%20Workshop.html" title="Interactive brand identity workshop" width="100%" height="620" scrolling="no" loading="lazy" allow="fullscreen" style="display:block;width:100%;margin:20px 0 22px;border:0;">
+<iframe id="brand-identity-workshop" name="brand-identity-workshop" class="section-iframe iframe-brand" src="https://kindawilson.github.io/digitalmarketing/Week%202/Brand%20Identity%20Workshop.html" data-expected-src="https://kindawilson.github.io/digitalmarketing/Week%202/Brand%20Identity%20Workshop.html" title="Interactive brand identity workshop" width="100%" height="620" scrolling="no" loading="lazy" allow="fullscreen" style="display:block;width:100%;margin:20px 0 22px;border:0;">
 </iframe>
 </article>
 </section>
@@ -167,6 +167,13 @@ Your browser does not support embedded video. <a href="https://www.dropbox.com/s
 <script>document.querySelectorAll('.tooltip-button').forEach(function(button){button.addEventListener('click',function(){var wrap=button.closest('.tooltip-wrap');var open=!wrap.classList.contains('open');document.querySelectorAll('.tooltip-wrap.open').forEach(function(item){item.classList.remove('open');item.querySelector('button').setAttribute('aria-expanded','false')});wrap.classList.toggle('open',open);button.setAttribute('aria-expanded',String(open))})});</script>
 <script>
 (function(){
+  document.querySelectorAll('iframe[data-expected-src]').forEach(function(frame){
+    var expected=frame.getAttribute('data-expected-src');
+    if(frame.getAttribute('src')!==expected)frame.setAttribute('src',expected);
+    frame.addEventListener('load',function(){
+      if(frame.getAttribute('src')!==expected)frame.setAttribute('src',expected);
+    },{once:true});
+  });
   window.addEventListener('message',function(event){
     var data=event.data;
     if(!data||data.type!=='vanderbilt-iframe-height'||!Number.isFinite(Number(data.height)))return;
