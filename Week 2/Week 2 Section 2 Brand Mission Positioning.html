@@ -169,10 +169,8 @@ Your browser does not support embedded video. <a href="https://www.dropbox.com/s
 (function(){
   document.querySelectorAll('iframe[data-expected-src]').forEach(function(frame){
     var expected=frame.getAttribute('data-expected-src');
-    if(frame.getAttribute('src')!==expected)frame.setAttribute('src',expected);
-    frame.addEventListener('load',function(){
-      if(frame.getAttribute('src')!==expected)frame.setAttribute('src',expected);
-    },{once:true});
+    frame.setAttribute('src','about:blank');
+    window.setTimeout(function(){frame.setAttribute('src',expected);},0);
   });
   window.addEventListener('message',function(event){
     var data=event.data;
