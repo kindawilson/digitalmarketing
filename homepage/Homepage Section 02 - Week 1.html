@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Digital Marketing Strategies | Homepage Sect 02</title>
+  <link rel="stylesheet" href="https://s.brightspace.com/lib/fonts/0.6.1/fonts.css">
+  <style>
+    :root {
+      --teal: #1d627b;
+      --deep-teal: #0f3f52;
+      --gold: #ddaf4b;
+      --charcoal: #4d5259;
+      --light-gray: #e7e6e6;
+      --soft-gray: #f5f6f7;
+      --white: #fff;
+      --max-width: 1170px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--charcoal);
+      background:
+        linear-gradient(rgba(15,63,82,.28), rgba(15,63,82,.38)),
+        url("laptop-coffee-background.jpg") center top / cover fixed no-repeat;
+      font-family: Lato, Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    a { color: inherit; }
+    a:focus-visible { outline: 4px solid var(--gold); outline-offset: 4px; }
+    .shell { width: min(100%, var(--max-width)); margin: 0 auto; }
+
+    .utility-nav { background: var(--teal); border-bottom: 5px solid var(--gold); }
+    .utility-nav ul {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .utility-nav a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-width: 180px;
+      padding: 15px 24px;
+      color: var(--white);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background-color .2s ease, color .2s ease, transform .2s ease;
+    }
+    .utility-nav a:hover,
+    .utility-nav a:focus-visible { background: var(--deep-teal); color: var(--white); transform: translateY(-2px); }
+    .utility-nav svg { width: 21px; height: 21px; fill: none; stroke: currentColor; stroke-width: 2; }
+
+    .main {
+      width: min(calc(100% - 48px), var(--max-width));
+      margin: 32px auto;
+      padding: 28px 28px 52px;
+      border: 1px solid rgba(255,255,255,.72);
+      background: rgba(255,255,255,.94);
+      box-shadow: 0 18px 50px rgba(15,63,82,.28);
+      backdrop-filter: blur(5px);
+    }
+    .week-teaser { display: none; }
+    .week-teaser {
+      position: relative;
+      height: 150px;
+      overflow: hidden;
+      margin-bottom: 14px;
+      border-top: 6px solid var(--gold);
+      background:
+        radial-gradient(circle at 88% 20%, rgba(221,175,75,.25), transparent 27%),
+        linear-gradient(135deg, var(--deep-teal), var(--teal));
+      color: var(--white);
+      box-shadow: 0 10px 26px rgba(77,82,89,.12);
+    }
+    .teaser-scene {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(360px, 1.1fr);
+      align-items: center;
+      gap: 22px;
+      padding: 14px 34px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: teaserCycle 16s infinite;
+    }
+    .teaser-scene:nth-of-type(2) { animation-delay: 4s; }
+    .teaser-scene:nth-of-type(3) { animation-delay: 8s; }
+    .teaser-scene:nth-of-type(4) { animation-delay: 12s; }
+    .teaser-copy { position: relative; z-index: 2; }
+    .teaser-eyebrow {
+      margin: 0 0 7px;
+      color: var(--gold);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .teaser-title {
+      margin: 0;
+      color: var(--white);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: clamp(23px, 2.5vw, 34px);
+      font-weight: 700;
+      letter-spacing: .01em;
+      line-height: 1.08;
+      text-transform: uppercase;
+    }
+    .teaser-subtitle { margin: 6px 0 0; max-width: 520px; font-size: 15px; }
+    .teaser-visual {
+      display: grid;
+      place-items: center;
+      min-width: 0;
+    }
+    .scene-art { width: min(100%, 420px); height: 118px; overflow: visible; }
+    .scene-art .line { fill: none; stroke: rgba(255,255,255,.88); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+    .scene-art .gold-line { fill: none; stroke: var(--gold); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+    .scene-art .soft-fill { fill: rgba(255,255,255,.11); stroke: rgba(255,255,255,.48); stroke-width: 1.5; }
+    .scene-art .gold-fill { fill: rgba(221,175,75,.22); stroke: var(--gold); stroke-width: 2; }
+    .scene-art .paper { fill: rgba(255,255,255,.94); stroke: var(--gold); stroke-width: 2; }
+    .scene-art .paper-line { stroke: var(--teal); stroke-width: 2; stroke-linecap: round; }
+    .scene-art .drift-a { animation: driftA 2.8s ease-in-out infinite alternate; }
+    .scene-art .drift-b { animation: driftB 3.2s ease-in-out infinite alternate; }
+    .scene-art .pulse { transform-origin: center; animation: scenePulse 1.8s ease-in-out infinite alternate; }
+    .scene-art .orbit { transform-origin: 250px 88px; animation: slowOrbit 12s linear infinite; }
+    .teaser-progress {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 4px;
+      background: rgba(255,255,255,.18);
+    }
+    .teaser-progress::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: var(--gold);
+      transform-origin: left;
+      animation: teaserProgress 16s linear infinite;
+    }
+    @keyframes teaserCycle {
+      0% { opacity: 0; transform: translateY(16px); }
+      4%, 21% { opacity: 1; transform: translateY(0); }
+      25%, 100% { opacity: 0; transform: translateY(-12px); }
+    }
+    @keyframes driftA { to { transform: translate(7px,-8px) rotate(1.5deg); } }
+    @keyframes driftB { to { transform: translate(-8px,6px) rotate(-1.5deg); } }
+    @keyframes scenePulse { to { transform: scale(1.07); opacity: .82; } }
+    @keyframes slowOrbit { to { transform: rotate(360deg); } }
+    @keyframes teaserProgress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    .welcome-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      align-items: stretch;
+      height: 100%;
+    }
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      align-items: stretch;
+    }
+    .dashboard-grid aside.announcement { height: 100%; }
+    .panel {
+      border: 1px solid var(--light-gray);
+      background: var(--white);
+      box-shadow: 0 10px 26px rgba(77,82,89,.09);
+    }
+    .panel-heading {
+      margin: 0;
+      padding: 15px 20px;
+      border-top: 6px solid var(--teal);
+      color: var(--teal);
+      background: var(--soft-gray);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+    .announcement { border-top-color: var(--gold); }
+    .announcement-body { padding: 22px; }
+    .announcement-kicker {
+      margin: 0 0 7px;
+      color: var(--teal);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .announcement h3 {
+      margin: 0 0 12px;
+      color: var(--deep-teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 25px;
+      line-height: 1.15;
+    }
+    .announcement p { margin: 0 0 13px; }
+    .announcement a { color: var(--teal); font-weight: 700; text-underline-offset: 3px; }
+
+    .weekly-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 0;
+    }
+    .weekly-card { padding: 22px; border-top: 6px solid var(--teal); }
+    .weekly-card.due { border-top-color: var(--charcoal); }
+    .weekly-card h2 {
+      margin: 0 0 12px;
+      color: var(--teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 22px;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+    .weekly-card ul { margin: 0; padding-left: 21px; }
+    .weekly-card li + li { margin-top: 6px; }
+    .padlet-link { color: #0066cc; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+    .padlet-link:hover,
+    .padlet-link:focus-visible { color: #004b99; text-decoration-thickness: 2px; }
+
+    .modules {
+      margin-top: 26px;
+      padding: 30px;
+      border: 1px solid var(--light-gray);
+      background: var(--soft-gray);
+    }
+    .section-title {
+      margin: 0;
+      color: var(--deep-teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: clamp(25px, 3vw, 34px);
+      line-height: 1.15;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    .section-intro { margin: 8px auto 25px; text-align: center; }
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .module-card {
+      position: relative;
+      min-height: 192px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 22px 16px;
+      border: 2px solid transparent;
+      background: var(--white);
+      color: var(--deep-teal);
+      text-align: center;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(77,82,89,.07);
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .module-card:hover,
+    .module-card:focus-visible {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(29,98,123,.16);
+    }
+    /* Move this class to a different card each week. */
+    .module-card.current-week {
+      border-color: var(--gold);
+      background: #fff9e9;
+      box-shadow: inset 0 0 0 5px rgba(221,175,75,.20), 0 10px 24px rgba(77,82,89,.12);
+    }
+    .current-label {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: var(--gold);
+      color: #24313a;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .module-icon {
+      width: 84px;
+      height: 84px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #eef5f7;
+      color: var(--teal);
+    }
+    .module-icon svg { width: 50px; height: 50px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.9; }
+    .module-title {
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .footer {
+      border-top: 7px solid var(--gold);
+      padding: 30px 24px;
+      background: var(--charcoal);
+      color: var(--white);
+      text-align: center;
+    }
+    .footer img { display: block; width: 100%; max-width: 260px; height: auto; margin: 0 auto; }
+
+    .calendar-modal[hidden] { display: none; }
+    .calendar-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(10, 31, 42, .82);
+    }
+    .calendar-dialog {
+      position: relative;
+      width: min(94vw, 900px);
+      max-height: 92vh;
+      padding: 18px;
+      border-top: 6px solid var(--gold);
+      background: var(--white);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .42);
+      overflow: auto;
+    }
+    .calendar-dialog img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .calendar-close {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      margin: 0 0 -46px auto;
+      border: 2px solid var(--white);
+      border-radius: 50%;
+      background: var(--deep-teal);
+      color: var(--white);
+      font: 700 30px/1 Arial, sans-serif;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .28);
+    }
+    .calendar-close:hover,
+    .calendar-close:focus-visible { background: var(--teal); outline: 3px solid var(--gold); outline-offset: 2px; }
+    body.modal-open { overflow: hidden; }
+
+    @media (max-width: 820px) {
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .welcome-grid { grid-template-columns: 1fr; }
+      .week-teaser { height: 235px; }
+      .teaser-scene { grid-template-columns: 1fr; gap: 8px; padding: 15px 24px; text-align: center; }
+      .teaser-subtitle { margin-left: auto; margin-right: auto; }
+      .scene-art { height: 112px; }
+      .module-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 600px) {
+      .utility-nav a { min-width: 0; flex: 1 1 150px; padding: 13px 12px; }
+      body { background-attachment: scroll; }
+      .main { width: min(calc(100% - 24px), var(--max-width)); margin: 18px auto; padding: 20px 12px 38px; }
+      .week-teaser { height: 260px; }
+      .teaser-scene { padding: 14px 16px; }
+      .scene-art { width: min(100%, 360px); height: 115px; }
+      .weekly-grid, .module-grid { grid-template-columns: 1fr; }
+      .modules { margin-top: 34px; padding: 24px 14px; }
+      .module-card { min-height: 170px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; }
+      .teaser-scene { display: none; animation: none; }
+      .teaser-scene:first-child { display: grid; opacity: 1; transform: none; }
+      .scene-art *, .teaser-progress::after { animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="utility-nav" aria-label="Course shortcuts">
+    <div class="shell">
+      <ul>
+        <li><a href="mailto:kinda.wilson@vanderbilt.edu"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zM3 7l9 7 9-7"/></svg>Email Me</a></li>
+        <li><a href="https://brightspace.vanderbilt.edu/d2l/le/lessons/664894"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5"/></svg>Content</a></li>
+        <li><a href="#calendar-modal" id="calendarOpen" aria-haspopup="dialog" aria-controls="calendar-modal"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M7 14h2M11 14h2M15 14h2M7 18h2M11 18h2"/></svg>Calendar</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="shell main" id="content">
+    <section class="week-teaser" aria-label="Week 1 animated preview">
+      <p class="sr-only" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">Welcome to Week 1. This week covers the syllabus, course expectations, class calendar, and the major pieces of digital marketing.</p>
+
+      <div class="teaser-scene">
+        <div class="teaser-copy"><p class="teaser-eyebrow">Digital Marketing Strategies</p><h2 class="teaser-title">Welcome to Week 1</h2><p class="teaser-subtitle">Get oriented, meet the class, and build the foundation for the weeks ahead.</p></div>
+        <div class="teaser-visual" aria-hidden="true">
+          <svg class="scene-art" viewBox="0 0 500 176">
+            <path class="gold-line" d="M34 139C105 94 159 132 224 88S357 47 465 91" stroke-dasharray="5 9"/>
+            <g class="drift-a"><path class="paper" d="M43 44l72-12 8 57-72 12z"/><path class="paper-line" d="M61 57l42-7M64 68l34-6M66 80l28-5"/></g>
+            <g class="drift-b"><path class="paper" d="M373 33l63 10-8 52-63-10z"/><path class="paper-line" d="M385 50l35 5M383 61l28 4M381 72l33 5"/></g>
+            <g class="pulse"><path class="gold-fill" d="M174 72q38-24 76 2 38-26 76-2v72q-38-23-76 2-38-25-76-2z"/><path class="line" d="M250 75v70M190 91q29-12 48 0M190 106q27-11 47 0M263 91q25-12 47 0M263 106q24-11 46 0"/></g>
+            <circle class="gold-fill drift-a" cx="145" cy="42" r="7"/><path class="gold-line drift-b" d="M338 25l4 10 11 1-9 7 3 11-9-6-9 6 3-11-9-7 11-1z"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="teaser-scene">
+        <div class="teaser-copy"><p class="teaser-eyebrow">First Things First</p><h2 class="teaser-title">Know the Course</h2><p class="teaser-subtitle">Review how the course works and what will help you succeed.</p></div>
+        <div class="teaser-visual" aria-hidden="true">
+          <svg class="scene-art" viewBox="0 0 500 176">
+            <path class="gold-line" d="M30 126c82 35 137 27 202-9s132-44 236 4" stroke-dasharray="4 8"/>
+            <g class="drift-a"><path class="paper" d="M39 39h96v112H39z"/><path class="paper-line" d="M58 61h57M58 77h57M58 93h42M58 119l10 10 21-25"/></g>
+            <g class="pulse"><rect class="soft-fill" x="176" y="29" width="142" height="122" rx="8"/><path class="gold-line" d="M176 61h142M207 18v24M287 18v24"/><path class="line" d="M199 80h21M238 80h21M277 80h20M199 105h21M238 105h21M277 105h20M199 130h21M238 130h21"/></g>
+            <g class="drift-b"><path class="paper" d="M365 45l94 14-16 101-94-14z"/><path class="gold-line" d="M382 79l10 11 22-23M378 105l10 11 22-23M374 131l10 11 22-23"/></g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="teaser-scene">
+        <div class="teaser-copy"><p class="teaser-eyebrow">The Big Picture</p><h2 class="teaser-title">Pieces of Digital Marketing</h2><p class="teaser-subtitle">See how the channels work together to create a complete strategy.</p></div>
+        <div class="teaser-visual" aria-hidden="true">
+          <svg class="scene-art" viewBox="0 0 500 176">
+            <ellipse class="gold-line" cx="250" cy="88" rx="168" ry="67" stroke-dasharray="6 10"/>
+            <g class="orbit">
+              <g transform="translate(70 60)"><rect class="soft-fill" width="72" height="50" rx="4"/><path class="line" d="M0 11h72M22 58h28M36 50v8M12 22h21v16H12z"/></g>
+              <g transform="translate(212 3)"><path class="soft-fill" d="M0 0h76v48H43L22 62V48H0z"/><path class="line" d="M15 17h46M15 29h34"/></g>
+              <g transform="translate(368 61)"><path class="soft-fill" d="M0 25V9L50 0v49L0 40z"/><path class="line" d="M50 15h17M52 25h22M8 42l7 22h18l-9-19"/></g>
+              <g transform="translate(212 125)"><rect class="soft-fill" width="76" height="46" rx="3"/><path class="line" d="M0 4l38 28L76 4"/></g>
+            </g>
+            <g class="pulse"><circle class="gold-fill" cx="250" cy="88" r="48"/><circle class="line" cx="250" cy="88" r="27"/><path class="line" d="M232 89l12 12 25-29"/></g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="teaser-scene">
+        <div class="teaser-copy"><p class="teaser-eyebrow">Ready?</p><h2 class="teaser-title">Let’s Get Started</h2></div>
+        <div class="teaser-visual" aria-hidden="true">
+          <svg class="scene-art" viewBox="0 0 500 176">
+            <path class="gold-line" d="M36 144c96-10 137-69 216-74 73-5 111 29 193-31" stroke-dasharray="7 10"/>
+            <path class="line" d="M410 25l37 14-19 35"/>
+            <g class="drift-a"><path class="paper" d="M61 42h118v82H61z"/><path class="gold-line" d="M61 42l59 43 59-43"/><circle class="gold-fill" cx="178" cy="125" r="11"/></g>
+            <g class="pulse"><circle class="soft-fill" cx="305" cy="85" r="55"/><path class="gold-line" d="M285 85h62M326 64l21 21-21 21"/></g>
+            <path class="gold-line drift-b" d="M232 26l4 10 11 1-9 7 3 11-9-6-9 6 3-11-9-7 11-1zM386 111l3 8 9 1-7 6 2 9-7-5-8 5 3-9-7-6 9-1z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="teaser-progress" aria-hidden="true"></div>
+    </section>
+
+    <div class="dashboard-grid">
+      <section class="welcome-grid" aria-label="Course announcement">
+        <aside class="panel announcement">
+          <h2 class="panel-heading">Announcements</h2>
+          <div class="announcement-body">
+            <p class="announcement-kicker">Welcome</p>
+            <h3>Start Here</h3>
+            <p>Welcome to Digital Marketing Strategies. Check this space each week for course updates and reminders.</p>
+            <p><strong>Current announcement:</strong> None at this time.</p>
+          </div>
+        </aside>
+      </section>
+
+      <section class="weekly-grid" aria-label="Weekly preparation and due items">
+        <article class="panel weekly-card">
+          <h2>Weekly Prep</h2>
+          <ul>
+            <li>Thursday: Bring your laptop to class</li>
+          </ul>
+        </article>
+        <article class="panel weekly-card due">
+          <h2>Items Due Soon</h2>
+          <ul>
+            <li>Introduce yourself on <a class="padlet-link" href="https://padlet.com/kindawilson/digital-marketing-sect02-introduce-yourselves-s024g8am5jwzgpnylw53" target="_blank" rel="noopener noreferrer">Padlet</a> (will be explained in class - you can do this now or after class)</li>
+          </ul>
+        </article>
+      </section>
+    </div>
+
+    <section class="modules" aria-labelledby="modulesTitle">
+      <h2 class="section-title" id="modulesTitle">Course Content</h2>
+      <p class="section-intro">Select an icon to open course information or weekly content.</p>
+      <div class="module-grid">
+        <a class="module-card" href="https://brightspace.vanderbilt.edu/d2l/le/lessons/664894/topics/4520409"><span class="module-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 8h24l6 6v26H9zM33 8v8h8M15 22h18M15 28h18M15 34h12"/></svg></span><span class="module-title">Course Syllabus</span></a>
+        <a class="module-card current-week" href="https://brightspace.vanderbilt.edu/d2l/le/lessons/664894/topics/4520397"><span class="current-label">Current</span><span class="module-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 12l17-6 17 6v25l-17 6-17-6zM24 7v35M8 13l16 5 16-5M15 28l5 5 10-11"/></svg></span><span class="module-title">Week 1: Class Overview</span></a>
+        <a class="module-card" href="https://brightspace.vanderbilt.edu/d2l/le/lessons/664894/topics/4520400"><span class="module-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="18" r="9"/><path d="M9 42c1-10 6-15 15-15s14 5 15 15M5 15h6M37 15h6M24 3v5"/></svg></span><span class="module-title">Week 2: Digital Marketing Foundations</span></a>
+        <a class="module-card" href="https://brightspace.vanderbilt.edu/d2l/le/lessons/664894/topics/4520411"><span class="module-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="8" width="38" height="28" rx="2"/><path d="M5 15h38M11 11.5h.01M16 11.5h.01M17 42h14M24 36v6M13 22h10v8H13zM28 22h8M28 27h8"/></svg></span><span class="module-title">Week 3: Website, UX/UI</span></a>
+        <a class="module-card" href="#"><span class="module-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="21" cy="21" r="13"/><path d="M31 31l11 11M15 21h12M21 15v12"/></svg></span><span class="module-title">Week 4: SEO</span></a>
+        <a class="module-card" href="#"><span class="module-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 27V15l27-8v28L7 27zM34 17h6M35 23h8M34 29h6M12 28l3 12h8l-4-10"/></svg></span><span class="module-title">Week 5: Digital Ads</span></a>
+        <a class="module-card" href="#"><span class="module-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 11h32v23H24l-10 7v-7H8zM15 19h18M15 25h13"/></svg></span><span class="module-title">Week 6: Social Media</span></a>
+        <a class="module-card" href="#"><span class="module-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 7h34v25H7zM16 41h16M24 32v9M13 25l7-7 5 5 9-10"/></svg></span><span class="module-title">Week 7: Presentations</span></a>
+        <a class="module-card" href="https://brightspace.vanderbilt.edu/d2l/le/lessons/664892/topics/4482905"><span class="module-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 6h28v36H10zM16 14h16M16 21h16M16 28h10M30 35l3 3 7-8"/></svg></span><span class="module-title">Final Project Info</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer mceNonEditable">
+    <div class="shell"><img src="https://kindawilson.github.io/digitalmarketing/Week%203/Dimensional_V_White_Lockup.png" alt="Vanderbilt University"></div>
+  </footer>
+
+  <div class="calendar-modal" id="calendar-modal" role="dialog" aria-modal="true" aria-labelledby="calendarTitle" hidden>
+    <div class="calendar-dialog">
+      <h2 id="calendarTitle" class="sr-only">Digital Marketing Strategy Course Calendar</h2>
+      <button class="calendar-close" id="calendarClose" type="button" aria-label="Close course calendar">&times;</button>
+      <img src="digital-marketing-calendar.jpg" alt="Digital Marketing Strategy course calendar showing weekly topics, Tuesday and Thursday activities, assignment deadlines, Thanksgiving break, presentations, and the final paper deadline.">
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var openButton = document.getElementById('calendarOpen');
+      var modal = document.getElementById('calendar-modal');
+      var closeButton = document.getElementById('calendarClose');
+
+      function openCalendar(event) {
+        if (event) event.preventDefault();
+        modal.hidden = false;
+        document.body.classList.add('modal-open');
+        closeButton.focus();
+      }
+
+      function closeCalendar() {
+        modal.hidden = true;
+        document.body.classList.remove('modal-open');
+        openButton.focus();
+      }
+
+      openButton.addEventListener('click', openCalendar);
+      closeButton.addEventListener('click', closeCalendar);
+      modal.addEventListener('click', function (event) {
+        if (event.target === modal) closeCalendar();
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && !modal.hidden) closeCalendar();
+      });
+      if (window.location.hash === '#calendar-modal') openCalendar();
+    }());
+  </script>
+</body>
+</html>
