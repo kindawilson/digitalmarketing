@@ -238,8 +238,19 @@
       line-height: 1.15;
       text-transform: uppercase;
     }
+    .weekly-card h3 {
+      margin: 16px 0 6px;
+      color: var(--deep-teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 17px;
+      line-height: 1.2;
+    }
+    .weekly-card h2 + h3 { margin-top: 0; }
     .weekly-card ul { margin: 0; padding-left: 21px; }
     .weekly-card li + li { margin-top: 6px; }
+    .weekly-card a { color: #0066cc; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+    .weekly-card a:hover,
+    .weekly-card a:focus-visible { color: #004b99; text-decoration-thickness: 2px; }
     .padlet-link { color: #0066cc; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
     .padlet-link:hover,
     .padlet-link:focus-visible { color: #004b99; text-decoration-thickness: 2px; }
@@ -494,15 +505,22 @@
 
       <section class="weekly-grid" aria-label="Weekly preparation and due items">
         <article class="panel weekly-card">
-          <h2>Weekly Prep</h2>
+          <h2>Class Prep</h2>
+          <h3>Tuesday</h3>
           <ul>
-            <li>Thursday: Bring your laptop to class</li>
+            <li>Read Sections 1 and 2</li>
+          </ul>
+          <h3>Thursday</h3>
+          <ul>
+            <li>Make your team company decision</li>
+            <li>Prepare for the expert-session discussion - Kathryn Good</li>
           </ul>
         </article>
         <article class="panel weekly-card due">
           <h2>Items Due Soon</h2>
           <ul>
-            <li>Introduce yourself on <a class="padlet-link" href="https://padlet.com/kindawilson/digital-marketing-sect02-introduce-yourselves-s024g8am5jwzgpnylw53" target="_blank" rel="noopener noreferrer">Padlet</a> (will be explained in class - you can do this now or after class)</li>
+            <li><strong>NEXT Tuesday, October 3</strong> - <a href="https://brightspace.vanderbilt.edu/d2l/common/dialogs/quickLink/quickLink.d2l?ou={orgUnitId}&amp;type=dropbox&amp;rcode=vanderbiltprod-3234789">Foundations assignment</a></li>
+            <li>NEXT Tuesday, Oct 3 - <a href="https://brightspace.vanderbilt.edu/d2l/common/dialogs/quickLink/quickLink.d2l?ou={orgUnitId}&amp;type=dropbox&amp;rcode=vanderbiltprod-3234791">Turn in Group Contract/NDA</a></li>
           </ul>
         </article>
       </section>
@@ -513,8 +531,8 @@
       <p class="section-intro">Select an icon to open course information or weekly content.</p>
       <div class="module-grid">
         <a class="module-card" href="https://brightspace.vanderbilt.edu/d2l/le/lessons/664894/topics/4520409"><span class="module-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 8h24l6 6v26H9zM33 8v8h8M15 22h18M15 28h18M15 34h12"/></svg></span><span class="module-title">Course Syllabus</span></a>
-        <a class="module-card current-week" href="https://brightspace.vanderbilt.edu/d2l/le/lessons/664894/topics/4520397"><span class="current-label">Current</span><span class="module-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 12l17-6 17 6v25l-17 6-17-6zM24 7v35M8 13l16 5 16-5M15 28l5 5 10-11"/></svg></span><span class="module-title">Week 1: Class Overview</span></a>
-        <a class="module-card" href="https://brightspace.vanderbilt.edu/d2l/le/lessons/664894/topics/4520400"><span class="module-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="18" r="9"/><path d="M9 42c1-10 6-15 15-15s14 5 15 15M5 15h6M37 15h6M24 3v5"/></svg></span><span class="module-title">Week 2: Digital Marketing Foundations</span></a>
+        <a class="module-card" href="https://brightspace.vanderbilt.edu/d2l/le/lessons/664894/topics/4520397"><span class="module-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 12l17-6 17 6v25l-17 6-17-6zM24 7v35M8 13l16 5 16-5M15 28l5 5 10-11"/></svg></span><span class="module-title">Week 1: Class Overview</span></a>
+        <a class="module-card current-week" href="https://brightspace.vanderbilt.edu/d2l/le/lessons/664894/topics/4520400"><span class="current-label">Current</span><span class="module-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="18" r="9"/><path d="M9 42c1-10 6-15 15-15s14 5 15 15M5 15h6M37 15h6M24 3v5"/></svg></span><span class="module-title">Week 2: Digital Marketing Foundations</span></a>
         <a class="module-card" href="https://brightspace.vanderbilt.edu/d2l/le/lessons/664894/topics/4520411"><span class="module-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="8" width="38" height="28" rx="2"/><path d="M5 15h38M11 11.5h.01M16 11.5h.01M17 42h14M24 36v6M13 22h10v8H13zM28 22h8M28 27h8"/></svg></span><span class="module-title">Week 3: Website, UX/UI</span></a>
         <a class="module-card" href="#"><span class="module-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="21" cy="21" r="13"/><path d="M31 31l11 11M15 21h12M21 15v12"/></svg></span><span class="module-title">Week 4: SEO</span></a>
         <a class="module-card" href="#"><span class="module-icon"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 27V15l27-8v28L7 27zM34 17h6M35 23h8M34 29h6M12 28l3 12h8l-4-10"/></svg></span><span class="module-title">Week 5: Digital Ads</span></a>
