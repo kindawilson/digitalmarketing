@@ -31,6 +31,114 @@
 
     body { padding: 10px; }
 
+    .integrated-activity {
+      width: 100%;
+      max-width: 920px;
+      min-width: 0;
+      margin: 0 auto;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #102f3a;
+    }
+
+    .integrated-top-composition {
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr);
+      grid-template-areas: "try title" "subtitle subtitle";
+      column-gap: 18px;
+      row-gap: 10px;
+      align-items: start;
+      padding: 16px 18px 14px;
+      border: 1px solid #dfe3e6;
+      border-top: 6px solid #ddaf4b;
+      border-radius: 12px 12px 0 0;
+      background: linear-gradient(135deg, #f5f6f7 0%, #fff 72%);
+    }
+
+    .integrated-try-row {
+      grid-area: try;
+      display: flex;
+      align-items: flex-start;
+      margin: 0;
+      padding: 0 2px 0 0;
+    }
+
+    .integrated-try-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+      min-height: 54px;
+      padding: 8px 13px 8px 20px;
+      border: 4px solid #ddaf4b;
+      border-radius: 4px;
+      background: #1d627b;
+      box-shadow: 0 2px 0 rgba(16, 47, 58, .16);
+      color: #fff;
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      line-height: 1;
+      text-transform: uppercase;
+      animation: integratedBadgePulse 2.2s ease-in-out infinite;
+    }
+
+    .integrated-cursor {
+      width: 22px;
+      height: 27px;
+      color: #ddaf4b;
+      filter: drop-shadow(1px 1px 0 rgba(16, 47, 58, .32));
+      animation: integratedCursorTap 2.2s ease-in-out infinite;
+    }
+
+    .integrated-title-wrap { grid-area: title; min-width: 0; padding-top: 1px; }
+
+    .integrated-eyebrow {
+      margin: 0 0 3px;
+      color: #1d627b;
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .integrated-title {
+      margin: 0 !important;
+      padding: 0 !important;
+      color: #1d627b !important;
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif !important;
+      font-size: clamp(25px, 5vw, 32px) !important;
+      font-weight: 700 !important;
+      letter-spacing: .01em !important;
+      line-height: 1.08 !important;
+      text-transform: uppercase !important;
+      overflow-wrap: anywhere;
+    }
+
+    .integrated-subtitle {
+      grid-area: subtitle;
+      width: 100%;
+      margin: 0;
+      color: #4d5259;
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+
+    @keyframes integratedBadgePulse {
+      0%, 20%, 100% { transform: scale(1); }
+      40% { transform: scale(1.025); }
+      58% { transform: scale(1); }
+    }
+
+    @keyframes integratedCursorTap {
+      0%, 20%, 65%, 100% { transform: translate(0, 0); }
+      36% { transform: translate(3px, 2px); }
+      48% { transform: translate(0, 0); }
+    }
+
     .quiz {
       width: 100%;
       max-width: 920px;
@@ -38,8 +146,8 @@
       margin: 0 auto;
       overflow: hidden;
       border: 1px solid var(--vu-line);
-      border-top: 7px solid var(--vu-teal);
-      border-radius: 4px;
+      border-top: 0;
+      border-radius: 0 0 4px 4px;
       background: var(--white);
       box-shadow: 0 6px 20px rgba(15, 63, 82, .10);
     }
@@ -54,17 +162,9 @@
       background: var(--vu-soft);
     }
 
-    .quiz-head h1 {
-      margin: 0;
-      color: var(--vu-dark);
-      font-family: "Century Gothic", Arial, sans-serif;
-      font-size: clamp(18px, 3.2vw, 25px);
-      line-height: 1.15;
-      letter-spacing: .01em;
-    }
-
     .progress {
       flex: 0 0 auto;
+      margin-left: auto;
       color: var(--vu-dark);
       font-size: 14px;
       font-weight: 700;
@@ -277,6 +377,22 @@
       .feedback strong { font-size: 14px; }
     }
 
+    @media (max-width: 700px) {
+      .integrated-top-composition {
+        grid-template-columns: 1fr;
+        grid-template-areas: "try" "title" "subtitle";
+        gap: 6px;
+        padding: 12px 14px;
+      }
+      .integrated-title { font-size: clamp(24px, 7vw, 30px) !important; }
+      .integrated-subtitle { font-size: 14px; }
+      .integrated-try-badge {
+        min-height: 48px;
+        padding: 7px 11px 7px 16px;
+        font-size: 16px;
+      }
+    }
+
     @media (max-width: 410px) {
       .quiz-head { align-items: flex-start; }
       .columns { grid-template-columns: minmax(0, 1fr); }
@@ -287,6 +403,8 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
+      .integrated-try-badge,
+      .integrated-cursor { animation: none !important; }
       *, *::before, *::after {
         scroll-behavior: auto !important;
         transition: none !important;
@@ -295,9 +413,23 @@
   </style>
 </head>
 <body>
+  <section class="integrated-activity" aria-label="Interactive learning activity">
+    <div class="integrated-top-composition">
+      <div class="integrated-try-row" aria-label="Try this interactive activity">
+        <div class="integrated-try-badge">
+          <span>Try This</span>
+          <svg class="integrated-cursor" viewBox="0 0 24 30" aria-hidden="true"><path fill="currentColor" d="M2 1.3v24.4l6.2-5 4.4 8.1 4.2-2.3-4.4-8.1 7.8-1.2L2 1.3Z"/></svg>
+        </div>
+      </div>
+      <div class="integrated-title-wrap">
+        <p class="integrated-eyebrow">Interactive Learning</p>
+        <h1 class="integrated-title" id="quiz-title">Choose the Best Digital Ad</h1>
+      </div>
+      <p class="integrated-subtitle">Read each scenario and choose the digital ad type that best fits the campaign goal.</p>
+    </div>
+  </section>
   <main class="quiz" aria-labelledby="quiz-title">
     <div class="quiz-head">
-      <h1 id="quiz-title">Choose the Best Digital Ad</h1>
       <div class="progress" id="progress" aria-live="polite">Scenario 1 of 4</div>
     </div>
     <p class="instructions">Read the scenario, then choose the ad type that best fits. Keyboard users: press Tab to move through every answer, then press Enter or Space to choose the focused answer.</p>
@@ -327,13 +459,12 @@
     (function () {
       "use strict";
 
-      var adTypes = ["Search ads", "Display ads", "Video ads", "Social media ads"];
-
       var scenarios = [
         {
           title: "A solution at the moment of need",
           description: "A neighborhood plumbing company wants to reach people who are actively looking online for an emergency plumber nearby.",
           answer: "Search ads",
+          choices: ["Video ads", "Social media ads", "Search ads", "Display ads"],
           correctReason: "search ads can appear when someone types a high-intent phrase such as “emergency plumber near me.”",
           wrong: {
             "Display ads": "display ads can build awareness, but they do not target the customer’s immediate search as directly.",
@@ -346,6 +477,7 @@
           title: "Building recognition across the web",
           description: "A new meal-kit company wants colorful visual ads to appear on cooking, wellness, and lifestyle websites visited by its target audience.",
           answer: "Display ads",
+          choices: ["Display ads", "Video ads", "Social media ads", "Search ads"],
           correctReason: "display ads place visual banners on relevant websites and apps, helping the new brand build recognition.",
           wrong: {
             "Search ads": "search ads reach people using selected keywords, but this scenario emphasizes visual exposure across many websites.",
@@ -358,6 +490,7 @@
           title: "Showing a product in action",
           description: "A fitness app wants to demonstrate a new 30-second workout feature with movement, music, and a quick before-and-after story.",
           answer: "Video ads",
+          choices: ["Social media ads", "Search ads", "Display ads", "Video ads"],
           correctReason: "video ads combine motion, sound, and sequence, making them the strongest choice for demonstrating the workout experience.",
           wrong: {
             "Search ads": "search text can capture intent, but it cannot show the movement and story that make this feature compelling.",
@@ -370,6 +503,7 @@
           title: "Reaching a specific community",
           description: "A campus coffee shop wants to promote a student discount to nearby college students based on age, location, and interests—and encourage sharing.",
           answer: "Social media ads",
+          choices: ["Search ads", "Social media ads", "Video ads", "Display ads"],
           correctReason: "social media ads support detailed audience targeting and make it easy for students to react, comment, and share.",
           wrong: {
             "Search ads": "search can reach people looking for coffee, but it is less suited to targeting a defined student audience and encouraging social sharing.",
@@ -413,7 +547,7 @@
         restart.className = "restart";
         choices.innerHTML = "";
 
-        adTypes.forEach(function (type) {
+        item.choices.forEach(function (type) {
           var button = document.createElement("button");
           button.type = "button";
           button.className = "choice";

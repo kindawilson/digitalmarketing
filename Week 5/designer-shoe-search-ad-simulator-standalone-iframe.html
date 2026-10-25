@@ -70,9 +70,28 @@
       line-height: 1;
       text-transform: uppercase;
       box-shadow: 0 3px 8px rgba(15, 63, 82, .18);
+      animation: integratedBadgePulse 2.2s ease-in-out infinite;
     }
 
-    .try-cursor { color: var(--vu-gold); font-size: 28px; transform: rotate(-8deg); }
+    .try-cursor {
+      width: 22px;
+      height: 27px;
+      color: var(--vu-gold);
+      filter: drop-shadow(1px 1px 0 rgba(16, 47, 58, .32));
+      animation: integratedCursorTap 2.2s ease-in-out infinite;
+    }
+
+    @keyframes integratedBadgePulse {
+      0%, 20%, 100% { transform: scale(1); }
+      40% { transform: scale(1.025); }
+      58% { transform: scale(1); }
+    }
+
+    @keyframes integratedCursorTap {
+      0%, 20%, 65%, 100% { transform: translate(0, 0); }
+      36% { transform: translate(3px, 2px); }
+      48% { transform: translate(0, 0); }
+    }
     .header-title-wrap { grid-area: title; min-width: 0; }
     .header-eyebrow { margin: 0 0 2px; color: var(--vu-teal); font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
     .header-title-wrap h1 { color: var(--vu-teal); }
@@ -491,12 +510,17 @@
       .ad-fields { grid-template-columns: 1fr; }
       .field-wide { grid-column: 1; }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      .try-badge,
+      .try-cursor { animation: none !important; }
+    }
   </style>
 </head>
 <body>
   <main class="simulator" aria-labelledby="sim-title">
     <header class="sim-header">
-      <div class="try-badge">Try This <span class="try-cursor" aria-hidden="true">➤</span></div>
+      <div class="try-badge">Try This <svg class="try-cursor" viewBox="0 0 24 30" aria-hidden="true"><path fill="currentColor" d="M2 1.3v24.4l6.2-5 4.4 8.1 4.2-2.3-4.4-8.1 7.8-1.2L2 1.3Z"/></svg></div>
       <div class="header-title-wrap">
         <p class="header-eyebrow">Interactive Learning</p>
         <h1 id="sim-title">Build a Search Ad: Manual Keyword Pricing</h1>
