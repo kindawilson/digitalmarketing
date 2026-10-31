@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 3 In-Class Exercise: Landing Page Client Brief</title>
+<style>
+*{box-sizing:border-box}
+:root{--navy:#0f3f52;--blue:#1d627b;--gold:#ddaf4b;--ink:#40464d;--soft:#f5f6f7;--pale:#fff8e7;--line:#d7dde1}
+html,body{margin:0;padding:0;background:#fff;color:var(--ink);font-family:Arial,Helvetica,sans-serif;line-height:1.52}
+.page{min-height:100vh}
+.inner,.content,.footer-inner{width:min(100%,1160px);margin:0 auto;min-width:0}
+.hero{padding:36px 24px 34px;border-bottom:7px solid var(--gold);background:var(--navy);color:#fff}
+.eyebrow{margin:0 0 7px;color:var(--gold);font-family:'Century Gothic','Segoe UI',Arial,sans-serif;font-size:20px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+h1,h2,h3{font-family:'Century Gothic','Segoe UI',Arial,sans-serif;overflow-wrap:anywhere}
+h1{max-width:940px;margin:0;color:#fff;font-size:43px;line-height:1.08;text-transform:uppercase}
+.content{padding:42px 24px}
+.task-banner{margin:0 0 26px;padding:20px 22px;border-left:8px solid var(--blue);background:var(--soft)}
+.task-banner h2,.card h2,.section-title{margin:0 0 10px;color:var(--blue);font-size:25px;line-height:1.18;text-transform:uppercase}
+.task-banner p{margin:0;font-size:18px}
+.quick-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:18px 0 0}
+.fact{padding:13px 15px;border:1px solid var(--line);background:#fff}
+.fact strong{display:block;color:var(--navy)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin:22px 0}
+.card{padding:24px;border:1px solid #e7e6e6;border-top:6px solid var(--blue);background:#fff;box-shadow:0 10px 24px rgba(77,82,89,.08)}
+.card.gold{border-top-color:var(--gold)}
+.card h2{font-size:24px}
+.card h3{margin:20px 0 7px;color:var(--navy);font-size:19px}
+.card p{margin:0 0 13px;font-size:17px}
+.card p:last-child{margin-bottom:0}
+.card ul,.card ol{margin:8px 0 0;padding-left:23px;font-size:17px}
+.card li+li{margin-top:7px}
+.label{display:inline-block;margin:0 0 10px;padding:4px 9px;background:var(--navy);color:#fff;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.selling-points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:14px}
+.selling-point{padding:17px;border:1px solid var(--line);background:var(--soft)}
+.selling-point strong{display:block;margin-bottom:5px;color:var(--navy);font-size:17px}
+.assignment{margin-top:28px;padding:28px 30px;border:1px solid #e7e6e6;border-top:6px solid var(--blue);box-shadow:0 12px 28px rgba(77,82,89,.08)}
+.assignment h2{margin:0 0 14px;color:var(--blue);font-size:27px;text-transform:uppercase}
+.steps{counter-reset:step;display:grid;gap:13px;margin:0;padding:0;list-style:none}
+.steps li{counter-increment:step;position:relative;padding:15px 17px 15px 58px;border:1px solid var(--line);font-size:17px}
+.steps li::before{content:counter(step);position:absolute;left:16px;top:14px;display:grid;width:29px;height:29px;place-items:center;border-radius:50%;background:var(--gold);color:var(--navy);font-weight:800}
+.requirements{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px 24px;margin:16px 0 0;padding:19px 22px;background:var(--pale);border-left:7px solid var(--gold)}
+.requirement{position:relative;padding-left:28px;font-size:17px}
+.requirement::before{content:'□';position:absolute;left:0;color:var(--navy);font-size:22px;line-height:1}
+.foundation{margin:28px 0 0;padding:22px 24px;border:2px solid var(--blue);background:#e9f1f3}
+.foundation h2{margin:0 0 10px;color:var(--blue);font-size:23px;text-transform:uppercase}
+.foundation ul{margin:0;padding-left:23px;font-size:17px}
+.foundation li+li{margin-top:7px}
+.share{margin-top:24px;padding:22px 24px;background:var(--navy);color:#fff}
+.share h2{margin:0 0 8px;color:#fff;font-size:23px;text-transform:uppercase}
+.share ol{margin:0;padding-left:22px;font-size:17px}
+.footer{margin-top:28px;padding:28px 24px;border-top:7px solid var(--gold);background:#4d5259;text-align:center}
+.footer img{display:block;width:100%;max-width:260px;height:auto;margin:0 auto}
+@media(max-width:760px){.hero{padding:28px 18px 27px}.eyebrow{font-size:18px}h1{font-size:34px}.content{padding:32px 18px}.grid,.selling-points{grid-template-columns:1fr}.quick-facts{grid-template-columns:repeat(3,minmax(0,1fr))}.card,.assignment{padding:21px 19px}.requirements{grid-template-columns:1fr}.selling-point{padding:14px}.task-banner p,.card p,.card ul,.card ol,.steps li,.requirement,.foundation ul,.share ol{font-size:16px}}
+@media(max-width:520px){h1{font-size:29px}.content{padding:26px 13px}.quick-facts{grid-template-columns:1fr}.task-banner{padding:18px}.assignment{padding:20px 15px}.steps li{padding-left:52px}.foundation,.share{padding:19px}.hero{padding-left:14px;padding-right:14px}}
+@media print{.hero{padding:22px;border-bottom-width:5px}.content{padding:22px}.card,.assignment{box-shadow:none;break-inside:avoid}.footer{display:none}}
+</style>
+</head>
+<body>
+<main class="page">
+<header class="hero">
+  <div class="inner">
+    <p class="eyebrow">Week 3 · In-Class Exercise</p>
+    <h1>Build a Product Landing Page</h1>
+  </div>
+</header>
+
+<section class="content">
+  <aside class="task-banner">
+    <h2>Your Challenge</h2>
+    <p>Use the client brief below to create a low-fidelity mockup of a product landing page. Make the page easy to understand, persuasive for the buyer persona, and focused on one clear next action.</p>
+    <div class="quick-facts" aria-label="Exercise details">
+      <div class="fact"><strong>Deliverable</strong>One landing-page mockup</div>
+      <div class="fact"><strong>Format</strong>Paper or a digital design tool</div>
+      <div class="fact"><strong>Priority</strong>Clear strategy before polish</div>
+    </div>
+  </aside>
+
+  <div class="grid">
+    <article class="card gold">
+      <span class="label">Client Brief</span>
+      <h2>SproutSide</h2>
+      <p>SproutSide is a small Nashville startup that makes indoor gardening approachable for people with limited space and limited time. Its first product, the <strong>Kitchen Garden Mini</strong>, is a compact countertop garden designed to help customers grow fresh herbs without a yard or gardening experience.</p>
+      <h3>Brand Foundation</h3>
+      <ul>
+        <li><strong>Purpose:</strong> Make fresh, home-grown ingredients practical in small spaces.</li>
+        <li><strong>Personality:</strong> Optimistic, calm, practical, and encouraging.</li>
+        <li><strong>Positioning:</strong> The simple indoor garden for busy beginners.</li>
+        <li><strong>Primary goal:</strong> Motivate qualified visitors to preorder the product.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <span class="label">Buyer Persona</span>
+      <h2>Meet Maya</h2>
+      <p><strong>Maya Chen, 29</strong>, rents a city apartment and enjoys cooking after work. She likes the idea of fresh herbs but has little counter space, no outdoor area, and a history of forgetting to water plants.</p>
+      <h3>What Matters to Her</h3>
+      <ul>
+        <li>Fresh ingredients without a complicated routine</li>
+        <li>A clean, attractive product that fits her apartment</li>
+        <li>Proof that a beginner can keep the herbs alive</li>
+      </ul>
+      <h3>Research and Objections</h3>
+      <p>She searches for “small indoor herb garden” and watches short product demos on Instagram and YouTube. She worries about mess, maintenance, counter space, and whether the product is worth the price. She usually researches on her phone and completes larger purchases on her laptop.</p>
+    </article>
+  </div>
+
+  <article class="card">
+    <h2>Product Details and Selling Points</h2>
+    <p><strong>Kitchen Garden Mini</strong> launches at <strong>$89</strong> and includes basil, mint, and cilantro starter pods. Every preorder includes free shipping and replacement pods if the first seedlings do not sprout.</p>
+    <div class="selling-points">
+      <div class="selling-point"><strong>Fits Small Spaces</strong>A 12-inch footprint makes it practical for apartment counters.</div>
+      <div class="selling-point"><strong>Beginner Friendly</strong>A self-watering reservoir and built-in grow light remove the guesswork.</div>
+      <div class="selling-point"><strong>Fresh Herbs, Faster</strong>Customers can begin harvesting common herbs in about 30 days.</div>
+    </div>
+  </article>
+
+  <section class="assignment">
+    <h2>Create the Mockup</h2>
+    <ol class="steps">
+      <li><strong>Choose the message.</strong> Write one short headline and one supporting sentence that connect the product’s value to Maya’s needs.</li>
+      <li><strong>Plan the hierarchy.</strong> Decide what Maya should notice first, second, and third. Select one clear call to action; suggested wording is <strong>Preorder Your Garden</strong>.</li>
+      <li><strong>Sketch the landing page.</strong> Organize the information using a familiar page structure, clear chunks, and enough whitespace. Use boxes or labels as image placeholders.</li>
+      <li><strong>Check the mobile experience.</strong> Add one note explaining how your design would adapt at approximately 600 pixels wide.</li>
+    </ol>
+
+    <h3 class="section-title" style="margin-top:25px">Your Mockup Must Include</h3>
+    <div class="requirements">
+      <div class="requirement">SproutSide and the Kitchen Garden Mini</div>
+      <div class="requirement">A short, benefit-focused headline</div>
+      <div class="requirement">A supporting sentence</div>
+      <div class="requirement">A compelling product-image placeholder</div>
+      <div class="requirement">One visually distinctive primary call to action</div>
+      <div class="requirement">Three chunked selling points</div>
+      <div class="requirement">One trust element or answer to an objection</div>
+      <div class="requirement">A note about the 600-pixel mobile layout</div>
+    </div>
+  </section>
+
+  <aside class="foundation">
+    <h2>Connect Week 2 Foundations to Week 3 Design</h2>
+    <ul>
+      <li><strong>Brand and positioning:</strong> Make the visual and verbal choices feel optimistic, calm, and beginner-friendly.</li>
+      <li><strong>Customer:</strong> Prioritize Maya’s needs, likely questions, search behavior, and purchase objections.</li>
+      <li><strong>Goal:</strong> Keep the page focused on preorder conversion rather than giving every possible action equal emphasis.</li>
+      <li><strong>UX and layout:</strong> Answer who the company is, why the product is valuable, and what the visitor should do next. Apply hierarchy, contrast, alignment, proximity, whitespace, chunking, familiar patterns, and a distinctive call to action.</li>
+    </ul>
+  </aside>
+
+  <aside class="share">
+    <h2>Be Ready to Explain</h2>
+    <ol>
+      <li>Which buyer-persona insight most influenced your page?</li>
+      <li>What did you make most visually distinctive, and why?</li>
+      <li>How did you reduce cognitive load and keep the action clear?</li>
+    </ol>
+  </aside>
+</section>
+</main>
+<footer class="footer">
+  <div class="footer-inner">
+    <img src="https://kindawilson.github.io/digitalmarketing/Week%203/Dimensional_V_White_Lockup.png" alt="Vanderbilt University">
+  </div>
+</footer>
+</body>
+</html>
