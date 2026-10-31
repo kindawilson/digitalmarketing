@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Week 3 Section 6 Usability Testing</title>
+<link rel="stylesheet" href="https://s.brightspace.com/lib/fonts/0.6.1/fonts.css">
+<link rel="stylesheet" href="https://templates.lcs.brightspace.com/lib/assets/css/styles.min.css">
+<link rel="stylesheet" href="/d2l/le/contentstyler/6606/files/View" data-override="override">
+<style>
+*{box-sizing:border-box}
+.inner,.course-content,.footer-inner{min-width:0!important}
+h1,h2,h3,p,li{overflow-wrap:anywhere}
+body h1::after{background-color:#ddaf4b!important;border-color:#ddaf4b!important}
+.course-page{min-height:100vh;font-family:Lato,Arial,Helvetica,sans-serif;color:#4d5259;line-height:1.58;background:#fff}
+.course-header{position:relative;overflow:hidden;padding:34px 24px 32px;border-bottom:7px solid #ddaf4b;background:#0f3f52;color:#fff}
+.inner,.course-content,.footer-inner{width:min(100%,1160px);margin:0 auto}
+.section-number{margin:0 0 6px;color:#ddaf4b;font-family:'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif;font-size:20px;font-weight:700;letter-spacing:.08em;line-height:1.08;text-transform:uppercase}
+.course-header h1{max-width:940px;margin:0!important;padding:0!important;color:#fff!important;font-family:'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif!important;font-size:44px!important;font-weight:700!important;letter-spacing:.01em;line-height:1.08!important;text-transform:uppercase}
+.course-content{padding:48px 24px}
+.takeaways{margin:0 0 28px;padding:20px 22px;border-left:8px solid #1d627b;background:#f5f6f7}
+.takeaways h2,.content-card h2,.content-card h3{margin:0 0 10px!important;padding:0!important;color:#1d627b!important;font-family:'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif!important;font-weight:700!important;letter-spacing:.01em;line-height:1.18!important;text-transform:uppercase}
+.takeaways h2{font-size:23px!important}
+.content-card h2{font-size:27px!important}
+.content-card h3{margin-top:24px!important;font-size:21px!important}
+.takeaways ul,.content-card ul,.content-card ol{font-size:18px}
+.takeaways ul{margin:0 0 0 22px;padding:0}
+.takeaways li+li,.content-card li+li{margin-top:8px}
+.content-card{margin-top:28px;border:1px solid #e7e6e6;border-top:6px solid #1d627b;padding:28px 30px;background:#fff;box-shadow:0 12px 28px rgba(77,82,89,.08)}
+.content-card:first-of-type{margin-top:0}
+.content-card p{margin:0 0 16px;font-size:18px}
+.content-card p:last-child{margin-bottom:0}
+.content-card ul,.content-card ol{margin:12px 0 18px;padding-left:24px}
+.excerpt{margin:22px 0;padding:22px 24px;border-left:8px solid #ddaf4b;background:#f5f6f7}
+.excerpt-label{display:block;margin-bottom:12px;color:#1d627b;font-family:'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif;font-size:18px;font-weight:700;text-transform:uppercase}
+.course-page a{color:#1d627b;font-weight:700;text-underline-offset:3px;overflow-wrap:anywhere}
+.full-link{margin:0 0 22px;font-size:16px}
+.info-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:20px}
+.info-panel{padding:20px;border:1px solid #d7dde1;background:#f8fafb}
+.info-panel h3{margin:0 0 10px!important;font-size:19px!important}
+.info-panel ul{margin:0;padding-left:21px;font-size:16px}
+.guidelines{counter-reset:guide;display:grid;gap:16px;margin:18px 0 0!important;padding:0!important;list-style:none}
+.guidelines>li{counter-increment:guide;position:relative;padding:18px 20px 18px 62px;border:1px solid #d7dde1;background:#fff}
+.guidelines>li::before{content:counter(guide);position:absolute;left:18px;top:18px;display:grid;width:30px;height:30px;place-items:center;border-radius:50%;background:#ddaf4b;color:#0f3f52;font-weight:800}
+.guidelines strong{display:block;margin-bottom:5px;color:#0f3f52;font-size:18px}
+.video-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:20px}
+.video-card{margin:0;border:1px solid #d7dde1;background:#f5f6f7}
+.video-frame{position:relative;width:100%;padding-top:56.25%;background:#111}
+.video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-card figcaption{padding:12px 14px;color:#1d627b;font-size:16px;font-weight:700;text-align:center}
+.footer{border-top:7px solid #ddaf4b;margin-top:28px;padding:30px 24px;background:#4d5259;color:#fff;text-align:center}
+.footer img{max-width:260px;width:100%;height:auto}
+@media(max-width:800px){.info-grid{grid-template-columns:1fr}.video-grid{grid-template-columns:1fr}}
+@media(max-width:700px){.course-header{padding:28px 18px 26px!important}.section-number{font-size:18px!important}.course-header h1{font-size:34px!important;line-height:1.12!important}.course-content{padding:34px 18px!important}.content-card,.takeaways{padding:22px 20px!important}}
+@media(max-width:500px){.course-header h1{font-size:30px!important}.course-content{padding:28px 14px!important}.content-card p,.takeaways ul,.content-card ul,.content-card ol{font-size:17px}.guidelines>li{padding:17px 15px 17px 54px}.guidelines>li::before{left:13px}}
+</style>
+</head>
+<body>
+<main class="course-page">
+<header class="course-header" style="position:relative;overflow:hidden;padding:34px 24px 32px;border-bottom:7px solid #ddaf4b;background:#0f3f52;color:#fff">
+<div class="inner">
+<p class="section-number">Section 6</p>
+<h1>Usability Testing</h1>
+</div>
+</header>
+
+<section class="course-content">
+<aside class="takeaways">
+<h2>Key Takeaways</h2>
+<ul>
+<li>Use A/B testing to compare responses to simple design alternatives.</li>
+<li>Use usability testing to observe people completing specific tasks in a more complex experience.</li>
+<li>Ask participants to think aloud, observe without coaching, and follow up with neutral questions.</li>
+<li>Test the design—not the participant—and treat problems and negative feedback as opportunities to improve.</li>
+</ul>
+</aside>
+
+<p class="full-link"><a href="https://kindawilson.github.io/digitalmarketing/Week%203/Week%203%20Section%206%20Usability%20Testing.html" target="_blank" rel="noopener noreferrer">Open this lesson full screen</a></p>
+
+<article class="content-card">
+<h2>Choosing a Testing Method</h2>
+<p>When we create any type of design, we want to test it and see how users respond. For a single design—such as a product landing page or an advertisement—we can use <strong>A/B testing</strong>. We might compare the alternatives in a survey or run a live split test and compare the response rate for each.</p>
+<p>For a more complex experience—such as the journey from a homepage through a purchase process—we can use <strong>usability testing</strong>. Usability testing is task-oriented. It evaluates specific things users should be able to do, such as finding product information, locating an item, or adding a product to a cart.</p>
+</article>
+
+<article class="content-card">
+<h2>Usability Testing Overview</h2>
+<div class="excerpt"><span class="excerpt-label">Content below includes excerpts from and is adapted from <a href="https://creativevisionwebconsulting.com/contextual-inquiry-vs-usability-testing/" target="_blank" rel="noopener noreferrer">Contextual Inquiry vs. Usability Testing</a></span><p>Usability testing evaluates a product or interface in a controlled setting, often by asking participants to complete specific tasks.</p></div>
+
+<div class="info-grid">
+<section class="info-panel">
+<h3>Core Objectives</h3>
+<ul>
+<li><strong>Identify flaws:</strong> Uncover interface and experience problems.</li>
+<li><strong>Improve interaction:</strong> Make the product more intuitive and user-friendly.</li>
+<li><strong>Measure performance:</strong> Evaluate efficiency, effectiveness, and satisfaction.</li>
+</ul>
+</section>
+<section class="info-panel">
+<h3>Method</h3>
+<ul>
+<li><strong>Controlled setting:</strong> Use a lab or simulated environment.</li>
+<li><strong>Task-oriented:</strong> Give participants specific tasks to perform.</li>
+<li><strong>Interface focus:</strong> Examine navigation, layout, and accessibility.</li>
+</ul>
+</section>
+<section class="info-panel">
+<h3>Data Collection</h3>
+<ul>
+<li><strong>Quantitative data:</strong> Track task time, completion, and errors.</li>
+<li><strong>User feedback:</strong> Use post-task questions or surveys.</li>
+<li><strong>Evaluation:</strong> Analyze performance metrics and observations.</li>
+</ul>
+</section>
+</div>
+</article>
+
+<article class="content-card">
+<h2>Five Guidelines for Conducting a Test</h2>
+<div class="excerpt"><span class="excerpt-label">Guidelines below include excerpts from and are adapted from <a href="https://www.interaction-design.org/literature/article/stage-5-in-the-design-thinking-process-test" target="_blank" rel="noopener noreferrer">Stage 5 in the Design Thinking Process: Test</a></span></div>
+<ol class="guidelines">
+<li><strong>Show, don’t tell.</strong> Let participants experience the prototype. Introduce the session and the task, but avoid explaining how the design is supposed to work. Do not identify yourself as the designer; participants may soften their feedback to avoid hurting your feelings.</li>
+<li><strong>Ask participants to think aloud.</strong> Ask them to say what they expect, notice, and think while they work. Because thinking aloud may feel unnatural, remind them when needed.</li>
+<li><strong>Observe without correcting.</strong> Stay neutral and resist the urge to help when someone misinterprets the design. Their mistakes reveal opportunities to improve the prototype. You are testing the design, not the participant.</li>
+<li><strong>Ask follow-up questions.</strong> Do not assume you know what a participant means. Ask questions such as “What did you expect would happen?”, “What do you mean by that?”, and “Why?”</li>
+<li><strong>Learn from negative feedback.</strong> Critical feedback may feel uncomfortable, but it helps uncover problems that the design team may not have considered.</li>
+</ol>
+</article>
+
+<article class="content-card">
+<h2>Usability Testing Demonstrations</h2>
+<p>Watch the videos below for a demonstration of usability testing and additional testing tips.</p>
+<div class="video-grid">
+<figure class="video-card">
+<div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/bcfqmx2hnUQ" title="Usability testing demonstration" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+<figcaption>Usability Testing Demonstration</figcaption>
+</figure>
+<figure class="video-card">
+<div class="video-frame"><iframe src="https://www.youtube-nocookie.com/embed/LKaCtvvhbcg" title="Tips for usability testing" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+<figcaption>Tips for Usability Testing</figcaption>
+</figure>
+</div>
+</article>
+</section>
+</main>
+
+<footer class="footer mceNonEditable" style="border-top:7px solid #ddaf4b;margin-top:28px;padding:30px 24px;background:#4d5259;color:#ffffff;text-align:center;">
+<div class="footer-inner" style="width:min(100%,1160px);margin:0 auto;font-size:14px;">
+<img src="https://kindawilson.github.io/digitalmarketing/Week%203/Dimensional_V_White_Lockup.png" alt="Vanderbilt University" style="max-width:260px;width:100%;height:auto;">
+</div>
+</footer>
+</body>
+</html>
