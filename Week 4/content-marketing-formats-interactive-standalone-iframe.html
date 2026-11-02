@@ -15,6 +15,24 @@
     @media(max-width:700px){.integrated-activity{width:min(100% - 18px,1120px);padding-top:10px}.integrated-top-composition{grid-template-columns:1fr;grid-template-areas:"try" "title" "subtitle";gap:6px;padding:12px 14px}.integrated-title{font-size:clamp(24px,7vw,30px)!important}.integrated-subtitle{font-size:14px}.integrated-try-badge{min-height:48px;padding:7px 11px 7px 16px;font-size:16px}.activity,.source{width:calc(100% - 18px)}.format-panel{padding:15px}.detail{padding:23px 20px}}
     @media(max-width:520px){.format-grid{grid-template-columns:minmax(0,1fr)}.format{display:grid;grid-template-columns:58px minmax(0,1fr);column-gap:12px;align-items:center;min-height:106px}.icon-wrap{grid-row:1/3;width:58px;height:58px;margin:0}.icon-wrap svg{width:34px;height:34px}.format-name,.format-examples{grid-column:2}.source{text-align:left}.source a{overflow-wrap:anywhere}.instruction{align-items:flex-start}}
     @media(prefers-reduced-motion:reduce){.integrated-try-badge,.integrated-cursor{animation:none!important}.format{transition:none}}
+    /* Keep explanations beside the choices throughout LMS and tablet widths. */
+    @media (min-width:561px) and (max-width:850px){
+      .workspace{grid-template-columns:minmax(260px,.82fr) minmax(300px,1.18fr);min-height:500px}
+      .format-panel{padding:16px;border-right:1px solid var(--line);border-bottom:0}
+      .format-grid{grid-template-columns:minmax(0,1fr);gap:9px}
+      .format{display:grid;grid-template-columns:54px minmax(0,1fr);column-gap:11px;align-items:center;min-height:92px;padding:10px 12px}
+      .icon-wrap{grid-row:1/3;width:54px;height:54px;margin:0}
+      .icon-wrap svg{width:32px;height:32px}
+      .format-name,.format-examples{grid-column:2}
+      .format-name{font-size:18px}
+      .format-examples{font-size:16px}
+      .detail{min-height:0;padding:24px 22px}
+    }
+    @media (max-width:560px){
+      .workspace{grid-template-columns:minmax(0,1fr)}
+      .format-panel{border-right:0;border-bottom:1px solid var(--line)}
+      .detail{min-height:430px}
+    }
   </style>
 </head>
 <body>
