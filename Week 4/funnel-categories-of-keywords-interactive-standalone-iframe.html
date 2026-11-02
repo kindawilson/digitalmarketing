@@ -36,6 +36,27 @@
     @media(max-width:780px){.workspace{grid-template-columns:1fr;min-height:0}.funnel-area{align-items:flex-start;border-right:0;border-bottom:1px solid var(--line);padding:20px}.details{padding:24px}.stage.tofu{height:96px}.stage.mofu{height:91px}.stage.bofu{height:86px}}
     @media(max-width:560px){.activity{width:min(100% - 16px,1120px);padding-top:8px}.top-composition{grid-template-columns:1fr;grid-template-areas:"try" "title" "subtitle";padding:14px}.try-this-badge{min-height:48px;font-size:16px}.explorer-bar{align-items:flex-start;flex-direction:column}.examples{grid-template-columns:1fr}.funnel-area{padding:16px 10px}.stage-content{padding-inline:25px}.stage-name{font-size:13px}}
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+    /* Keep the explanation beside the funnel in narrow LMS and tablet columns. */
+    @media (min-width:561px) and (max-width:780px){
+      .workspace{grid-template-columns:minmax(250px,.86fr) minmax(300px,1.14fr);min-height:465px}
+      .funnel-area{align-items:flex-start;border-right:1px solid var(--line);border-bottom:0;padding:18px 14px}
+      .funnel{width:100%;max-width:300px}
+      .stage.tofu{height:92px}
+      .stage.mofu{height:87px}
+      .stage.bofu{height:82px}
+      .stage-code{font-size:21px}
+      .stage-name{font-size:13px}
+      .details{padding:22px 18px}
+      .details h2{font-size:26px}
+      .definition{font-size:15px}
+      .examples{grid-template-columns:1fr;gap:6px}
+      .examples li{padding-top:7px;padding-bottom:7px;font-size:13px}
+      .examples li::before{top:7px}
+    }
+    @media (max-width:560px){
+      .workspace{grid-template-columns:1fr;min-height:0}
+      .funnel-area{align-items:flex-start;border-right:0;border-bottom:1px solid var(--line)}
+    }
   </style>
 </head>
 <body>
