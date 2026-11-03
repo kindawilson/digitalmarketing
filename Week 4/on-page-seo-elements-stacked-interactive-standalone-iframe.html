@@ -110,6 +110,7 @@
     @keyframes softGlow { 0%,100%{box-shadow:0 0 0 0 rgba(221,175,75,.25)} 50%{box-shadow:0 0 0 4px rgba(221,175,75,.17)} }
 
     .info-popover { position:absolute; z-index:20; top:72px; right:18px; width:min(400px,calc(100% - 36px)); padding:17px 18px 16px; border:2px solid var(--gold); border-radius:10px; background:#fff; box-shadow:0 18px 45px rgba(16,47,58,.25); }
+    .info-popover.is-preview { pointer-events:none; }
     .info-popover[hidden] { display:none; }
     .popover-top { display:flex; justify-content:space-between; gap:14px; align-items:flex-start; }
     .popover-kicker { margin:0 0 4px; color:var(--teal-2); font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
@@ -269,6 +270,7 @@
       popoverCode.hidden = !item.code;
       popoverCode.textContent = item.code || '';
       popover.hidden = false;
+      popover.classList.toggle('is-preview', !pin);
       positionPopover(element);
       if (pin) {
         pinned = element;
@@ -280,6 +282,7 @@
       const previous = pinned;
       pinned = null;
       popover.hidden = true;
+      popover.classList.remove('is-preview');
       hotspots.forEach(hotspot => hotspot.setAttribute('aria-pressed','false'));
       if (returnFocus && previous) previous.focus();
     }
