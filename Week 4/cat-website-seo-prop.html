@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cat Website SEO Classroom Prop</title>
+  <style>
+    :root {
+      --ink: #24313a;
+      --muted: #66757f;
+      --teal: #176b70;
+      --teal-dark: #0d4f53;
+      --cream: #fbf7ef;
+      --orange: #e89a3d;
+      --line: #d9e1e3;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; background: #dfe5e6; color: var(--ink); font-family: Arial, Helvetica, sans-serif; }
+    body { padding: .35in; }
+    .poster {
+      width: 16.3in;
+      min-height: 21.3in;
+      margin: 0 auto;
+      background: white;
+      box-shadow: 0 .12in .38in rgba(29, 48, 53, .2);
+      overflow: hidden;
+    }
+    .browser {
+      background: #edf1f2;
+      border-bottom: 2px solid #cdd7d9;
+      padding: .22in .32in;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: .22in;
+      font-size: .26in;
+    }
+    .dots { display: flex; gap: .11in; }
+    .dot { width: .17in; height: .17in; border-radius: 50%; background: #b8c5c8; }
+    .dot:first-child { background: #ed6a5a; }
+    .dot:nth-child(2) { background: #f4bf4f; }
+    .dot:nth-child(3) { background: #61c554; }
+    .address {
+      background: white;
+      border: 2px solid #c9d4d6;
+      border-radius: .12in;
+      padding: .16in .24in;
+      color: #40535c;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .address strong { color: var(--teal-dark); }
+    .lock { color: var(--teal); font-weight: 700; }
+    .site-header {
+      padding: .28in .62in;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .brand { font-weight: 900; font-size: .47in; color: var(--teal-dark); letter-spacing: -.02in; }
+    .brand span { color: var(--orange); }
+    nav { display: flex; gap: .46in; font-size: .25in; font-weight: 700; color: #465760; }
+    .hero-strip { height: .12in; background: linear-gradient(90deg, var(--teal-dark), var(--teal), var(--orange)); }
+    main { max-width: 13.9in; margin: 0 auto; padding: .52in .58in .7in; }
+    .breadcrumb { color: var(--teal); font-size: .23in; font-weight: 700; margin-bottom: .28in; }
+    .category { color: var(--orange); font-size: .24in; font-weight: 800; text-transform: uppercase; letter-spacing: .04in; }
+    h1 { color: #153f43; font-size: .76in; line-height: 1.06; margin: .13in 0 .22in; max-width: 12.4in; letter-spacing: -.025in; }
+    .dek { font-size: .31in; line-height: 1.48; color: #53646d; max-width: 11.7in; margin: 0 0 .2in; }
+    .byline { color: #6b777d; font-size: .21in; padding-bottom: .3in; border-bottom: 2px solid var(--line); }
+    .article-grid { display: grid; grid-template-columns: 1.55fr .95fr; gap: .55in; margin-top: .4in; align-items: start; }
+    article p { font-size: .27in; line-height: 1.57; margin: 0 0 .3in; }
+    h2 { color: var(--teal-dark); font-size: .43in; line-height: 1.14; margin: .42in 0 .16in; padding-left: .18in; border-left: .09in solid var(--orange); }
+    h2:first-of-type { margin-top: .12in; }
+    figure { margin: 0; border: 2px solid var(--line); background: var(--cream); padding: .18in; border-radius: .12in; }
+    figure img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: .06in; }
+    figcaption { padding: .16in .05in .05in; color: #4f5c62; font-size: .22in; line-height: 1.42; }
+    .fact-box { margin-top: .34in; padding: .28in; background: #eef6f5; border-top: .08in solid var(--teal); }
+    .fact-box h3 { margin: 0 0 .12in; color: var(--teal-dark); font-size: .28in; }
+    .fact-box p { font-size: .22in; line-height: 1.48; margin: 0; }
+    .related { margin-top: .42in; border-top: 2px solid var(--line); padding-top: .34in; }
+    .related h3 { color: #26383f; font-size: .3in; margin: 0 0 .2in; }
+    .related a { display: block; color: var(--teal); font-size: .23in; margin: .12in 0; font-weight: 700; text-decoration-thickness: 2px; }
+    footer { background: #153f43; color: white; padding: .35in .62in; display: flex; justify-content: space-between; font-size: .2in; }
+    @page { size: 17in 22in; margin: .35in; }
+    @media print {
+      html, body { background: white; }
+      body { padding: 0; }
+      .poster { box-shadow: none; width: 16.3in; min-height: 21.3in; }
+    }
+  </style>
+</head>
+<body>
+  <div class="poster">
+    <div class="browser" aria-label="Browser address bar">
+      <div class="dots" aria-hidden="true"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+      <div class="address"><span class="lock">&#128274;</span>&nbsp; https://catscats.com/<strong>cat-care/how-to-keep-your-cat-happy</strong></div>
+      <div aria-hidden="true">&#8635;&nbsp;&nbsp;&#9734;</div>
+    </div>
+
+    <header class="site-header">
+      <div class="brand">cats<span>cats</span>.com</div>
+      <nav aria-label="Main navigation"><span>Cat Care</span><span>Cat Behavior</span><span>Cat Health</span><span>About</span></nav>
+    </header>
+    <div class="hero-strip"></div>
+
+    <main>
+      <div class="breadcrumb">Home &rsaquo; Cat Care &rsaquo; Indoor Cats</div>
+      <div class="category">Cat Care Guide</div>
+      <h1>How to Keep Your Indoor Cat Happy and Healthy</h1>
+      <p class="dek">A comfortable home, daily play, and a predictable routine can help your cat stay active, curious, and content.</p>
+      <div class="byline">By Maya Collins &nbsp;|&nbsp; Reviewed by Dr. Lena Ortiz, DVM &nbsp;|&nbsp; Updated November 2026</div>
+
+      <div class="article-grid">
+        <article>
+          <p>Indoor cats can live rich, healthy lives when their environment supports their natural instincts. A few thoughtful choices can give a cat more opportunities to climb, explore, rest, and connect with people.</p>
+
+          <h2>Create a Cat-Friendly Home</h2>
+          <p>Give your cat a mix of high perches, quiet hiding spots, scratching surfaces, and comfortable places to sleep. Place these resources in different parts of the home so your cat can choose where to spend time.</p>
+
+          <h2>Keep Your Cat Active Every Day</h2>
+          <p>Use wand toys, rolling balls, and short games that imitate hunting. Two or three brief play sessions can be more appealing to a cat than one long session. Rotate toys to keep familiar activities interesting.</p>
+
+          <h2>Build a Calm, Consistent Routine</h2>
+          <p>Cats often feel safest when meals, play, and quiet time happen on a predictable schedule. Watch your cat's body language and allow space when the cat chooses to rest alone.</p>
+
+          <p>Small changes can make a big difference. Start with one new activity or resting place, observe what your cat enjoys, and adjust the environment over time.</p>
+        </article>
+
+        <aside>
+          <figure>
+            <img src="cat-window.png" alt="Orange tabby cat sitting beside a sunny window">
+            <figcaption>An orange tabby <strong>cat</strong> sits beside a sunny window in a comfortable indoor resting spot.</figcaption>
+          </figure>
+          <div class="fact-box">
+            <h3>Quick Cat Tip</h3>
+            <p>Let your cat approach new toys and spaces at its own pace. Choice helps a cat feel secure.</p>
+          </div>
+          <div class="related">
+            <h3>Related Cat Guides</h3>
+            <a href="#">Choosing the Best Scratching Post</a>
+            <a href="#">Five Easy Indoor Cat Games</a>
+            <a href="#">Understanding Common Cat Sounds</a>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <footer><span>&copy; 2026 catscats.com</span><span>Practical guidance for happier cats and their people.</span></footer>
+  </div>
+</body>
+</html>
