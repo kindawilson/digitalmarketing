@@ -2,7 +2,7 @@
   <defs>
     <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#103c4c" flood-opacity=".14"/></filter>
     <style>
-      text{font-family:'Segoe UI',Arial,sans-serif}.title{font-size:54px;font-weight:800;letter-spacing:1px;fill:#103f52}.subtitle{font-size:24px;fill:#4c5a60}.stage{font-size:40px;font-weight:800;fill:#fff;text-anchor:middle}.stageName{font-size:23px;font-weight:700;fill:#fff;text-anchor:middle}.eyebrow{font-size:18px;font-weight:800;letter-spacing:2px;fill:#17647d}.head{font-size:34px;font-weight:800;fill:#103f52}.intent{font-size:19px;font-weight:700;fill:#8b5a00}.body{font-size:21px;font-weight:600;fill:#66757c}.example{font-size:20px;font-weight:700;fill:#103f52}.line{stroke:#d7a63c;stroke-width:4}.source{font-size:17px;fill:#526168}
+      text{font-family:'Segoe UI',Arial,sans-serif}.title{font-size:54px;font-weight:800;letter-spacing:1px;fill:#103f52}.subtitle{font-size:24px;fill:#4c5a60}.stage{font-size:37px;font-weight:800;fill:#fff;text-anchor:middle}.intent{font-size:25px;font-weight:700;fill:#8b5a00}.body{font-size:29px;font-weight:600;fill:#66757c}.example{font-size:27px;font-weight:700;fill:#103f52}.line{stroke:#d7a63c;stroke-width:4}.source{font-size:17px;fill:#526168}
     </style>
   </defs>
   <rect width="1920" height="1080" fill="#f7f8f8"/>
@@ -16,32 +16,26 @@
   </g>
 
   <g>
-    <text x="520" y="300" class="stage">TOFU</text><text x="520" y="342" class="stageName">Top of Funnel</text>
-    <text x="520" y="542" class="stage">MOFU</text><text x="520" y="584" class="stageName">Middle of Funnel</text>
-    <text x="520" y="784" class="stage">BOFU</text><text x="520" y="826" class="stageName">Bottom of Funnel</text>
+    <text x="520" y="305" class="stage"><tspan x="520">Discovery and</tspan><tspan x="520" dy="45">awareness</tspan></text>
+    <text x="520" y="555" class="stage">Solution exploration</text>
+    <text x="520" y="797" class="stage"><tspan x="520">Evaluation and</tspan><tspan x="520" dy="45">decision</tspan></text>
   </g>
 
   <g>
     <line x1="890" y1="320" x2="960" y2="320" class="line"/><circle cx="960" cy="320" r="7" fill="#d7a63c"/>
-    <text x="995" y="238" class="eyebrow">TOP OF FUNNEL · TOFU</text>
-    <text x="995" y="279" class="head">Discovery and awareness</text>
-    <rect x="995" y="296" width="390" height="36" rx="18" fill="#fff1cd"/><text x="1015" y="321" class="intent">Problem-aware or idea-seeking</text>
-    <text x="995" y="359" class="body">Educational or exploratory searches</text>
-    <text x="995" y="397" class="example">“What is…?” · “Why…?” · Ideas · Trends</text>
+    <rect x="995" y="242" width="515" height="48" rx="24" fill="#fff1cd"/><text x="1020" y="275" class="intent">Problem-aware or idea-seeking</text>
+    <text x="995" y="334" class="body">Educational or exploratory searches</text>
+    <text x="995" y="388" class="example">“What is…?” · “Why…?” · Ideas · Trends</text>
 
     <line x1="822" y1="562" x2="960" y2="562" class="line"/><circle cx="960" cy="562" r="7" fill="#d7a63c"/>
-    <text x="995" y="480" class="eyebrow">MIDDLE OF FUNNEL · MOFU</text>
-    <text x="995" y="521" class="head">Solution exploration</text>
-    <rect x="995" y="538" width="410" height="36" rx="18" fill="#fff1cd"/><text x="1015" y="563" class="intent">Solution-aware and process-focused</text>
-    <text x="995" y="601" class="body">Implementation-focused searches</text>
-    <text x="995" y="639" class="example">How-to guides · Frameworks · Checklists</text>
+    <rect x="995" y="484" width="565" height="48" rx="24" fill="#fff1cd"/><text x="1020" y="517" class="intent">Solution-aware and process-focused</text>
+    <text x="995" y="576" class="body">Implementation-focused searches</text>
+    <text x="995" y="630" class="example">How-to guides · Frameworks · Checklists</text>
 
     <line x1="757" y1="804" x2="960" y2="804" class="line"/><circle cx="960" cy="804" r="7" fill="#d7a63c"/>
-    <text x="995" y="722" class="eyebrow">BOTTOM OF FUNNEL · BOFU</text>
-    <text x="995" y="763" class="head">Evaluation and decision</text>
-    <rect x="995" y="780" width="390" height="36" rx="18" fill="#fff1cd"/><text x="1015" y="805" class="intent">Product-aware and high-intent</text>
-    <text x="995" y="843" class="body">Searches that support a final choice</text>
-    <text x="995" y="881" class="example">Best tools · Comparisons · Reviews · Pricing</text>
+    <rect x="995" y="726" width="500" height="48" rx="24" fill="#fff1cd"/><text x="1020" y="759" class="intent">Product-aware and high-intent</text>
+    <text x="995" y="818" class="body">Searches that support a final choice</text>
+    <text x="995" y="872" class="example">Best tools · Comparisons · Reviews · Pricing</text>
   </g>
 
   <text x="1740" y="1035" text-anchor="end" class="source">Source: Marketer Milk — How to Do Keyword Research</text>
