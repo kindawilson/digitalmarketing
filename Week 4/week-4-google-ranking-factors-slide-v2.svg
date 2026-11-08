@@ -2,7 +2,7 @@
   <defs>
     <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="7" stdDeviation="10" flood-color="#103c4c" flood-opacity=".13"/></filter>
     <style>
-      text{font-family:'Segoe UI',Arial,sans-serif;fill:#103f52}.title{font-size:52px;font-weight:800;letter-spacing:1px}.subtitle{font-size:24px;fill:#4c5a60}.factor{font-size:41px;font-weight:800}.desc{font-size:22px;font-weight:600;fill:#78868c}.kicker{font-size:17px;font-weight:800;letter-spacing:2px;fill:#17647d}.num{font-size:31px;font-weight:800;text-anchor:middle;dominant-baseline:middle}.box{fill:#fff;stroke:#d4dde1;stroke-width:2}.gold{fill:#e0aa3e}.teal{fill:#0c4b61}
+      text{font-family:'Segoe UI',Arial,sans-serif;fill:#103f52}.title{font-size:52px;font-weight:800;letter-spacing:1px}.subtitle{font-size:24px;fill:#4c5a60}.factor{font-size:41px;font-weight:800}.desc{font-size:26px;font-weight:600;fill:#78868c}.kicker{font-size:17px;font-weight:800;letter-spacing:2px;fill:#17647d}.num{font-size:31px;font-weight:800;text-anchor:middle;dominant-baseline:middle}.box{fill:#fff;stroke:#d4dde1;stroke-width:2}.gold{fill:#e0aa3e}.teal{fill:#0c4b61}
     </style>
   </defs>
   <rect width="1920" height="1080" fill="#f7f8f8"/>
