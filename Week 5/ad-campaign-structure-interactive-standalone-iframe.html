@@ -1,0 +1,542 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Organize a Search Ad Campaign - Interactive Learning</title>
+  <style>
+    :root {
+      --vu-ink: #102f3a;
+      --vu-dark: #0f3f52;
+      --vu-teal: #1d627b;
+      --vu-gold: #ddaf4b;
+      --vu-blue: #1a4da1;
+      --vu-gray: #4d5259;
+      --vu-muted: #687178;
+      --vu-line: #dfe3e6;
+      --vu-soft: #f5f6f7;
+      --vu-gold-soft: #fff6df;
+      --white: #fff;
+      --shadow: 0 16px 42px rgba(16,47,58,.13);
+    }
+
+    * { box-sizing: border-box; }
+    html { background: #fff; }
+    body {
+      margin: 0;
+      background: #fff;
+      color: var(--vu-ink);
+      font-family: Lato, Arial, sans-serif;
+      line-height: 1.45;
+    }
+    button { font: inherit; }
+
+    .integrated-activity {
+      width: min(1120px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 14px 0 18px;
+    }
+
+    .integrated-top-composition {
+      display: grid;
+      grid-template-columns: 170px minmax(0,1fr);
+      grid-template-areas: "try title" "subtitle subtitle";
+      column-gap: 18px;
+      row-gap: 10px;
+      align-items: start;
+      padding: 16px 18px 14px;
+      border: 1px solid var(--vu-line);
+      border-top: 6px solid var(--vu-gold);
+      border-radius: 12px 12px 0 0;
+      background: linear-gradient(135deg, var(--vu-soft) 0%, var(--white) 72%);
+    }
+    .integrated-try-row { grid-area: try; display: flex; align-items: flex-start; margin: 0; padding: 0 2px 0 0; }
+    .integrated-try-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+      min-height: 54px;
+      padding: 8px 13px 8px 20px;
+      border: 4px solid var(--vu-gold);
+      border-radius: 4px;
+      background: var(--vu-teal);
+      box-shadow: 0 2px 0 rgba(16,47,58,.16);
+      color: var(--white);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      line-height: 1;
+      text-transform: uppercase;
+      animation: integratedBadgePulse 2.2s ease-in-out infinite;
+    }
+    .integrated-cursor {
+      width: 22px;
+      height: 27px;
+      color: var(--vu-gold);
+      filter: drop-shadow(1px 1px 0 rgba(16,47,58,.32));
+      animation: integratedCursorTap 2.2s ease-in-out infinite;
+    }
+    .integrated-title-wrap { grid-area: title; min-width: 0; padding-top: 1px; }
+    .integrated-eyebrow {
+      margin: 0 0 3px;
+      color: var(--vu-teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+    .integrated-title {
+      margin: 0;
+      color: var(--vu-teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: clamp(25px,5vw,32px);
+      font-weight: 700;
+      letter-spacing: .01em;
+      line-height: 1.08;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+    .integrated-subtitle {
+      grid-area: subtitle;
+      width: 100%;
+      margin: 0;
+      color: var(--vu-gray);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+    @keyframes integratedBadgePulse { 0%,20%,100% { transform: scale(1); } 40% { transform: scale(1.025); } 58% { transform: scale(1); } }
+    @keyframes integratedCursorTap { 0%,20%,65%,100% { transform: translate(0,0); } 36% { transform: translate(3px,2px); } 48% { transform: translate(0,0); } }
+
+    .activity-shell {
+      overflow: hidden;
+      border: 1px solid var(--vu-line);
+      border-top: 0;
+      border-radius: 0 0 12px 12px;
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+    .instruction-strip {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
+      padding: 10px 18px;
+      border-bottom: 1px solid var(--vu-line);
+      background: #eef3f5;
+      color: var(--vu-gray);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .instruction-mark {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      background: var(--vu-gold);
+      color: var(--vu-dark);
+      font-family: "Century Gothic", Arial, sans-serif;
+      font-weight: 700;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(0,1.65fr) minmax(270px,.75fr);
+      min-width: 0;
+    }
+    .map-panel { min-width: 0; padding: 22px 20px 24px; border-right: 1px solid var(--vu-line); background: linear-gradient(180deg,#fff,#fafcfc); }
+    .detail-panel { min-width: 0; padding: 24px 22px; background: linear-gradient(145deg,#fff 65%,#fff8e7); }
+
+    .campaign-map { position: relative; min-width: 0; }
+    .campaign-node,
+    .group-heading,
+    .component-node {
+      width: 100%;
+      border: 0;
+      text-align: left;
+      cursor: pointer;
+    }
+    .campaign-node {
+      position: relative;
+      display: grid;
+      grid-template-columns: 46px minmax(0,1fr);
+      gap: 13px;
+      align-items: center;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 13px 16px;
+      border: 3px solid var(--vu-teal);
+      border-radius: 10px;
+      background: var(--white);
+      color: var(--vu-dark);
+      box-shadow: 0 5px 13px rgba(16,47,58,.09);
+    }
+    .campaign-node::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 100%;
+      width: 4px;
+      height: 28px;
+      transform: translateX(-50%);
+      background: var(--vu-gold);
+    }
+    .node-icon {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 9px;
+      background: var(--vu-teal);
+      color: var(--white);
+      font-family: "Century Gothic", Arial, sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .node-kicker,
+    .component-kicker {
+      display: block;
+      color: var(--vu-muted);
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: .13em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+    .node-title {
+      display: block;
+      margin-top: 2px;
+      font-family: "Century Gothic", "Segoe UI", Arial, sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.12;
+      text-transform: uppercase;
+    }
+
+    .branch-line {
+      position: relative;
+      height: 30px;
+      margin: 0 12.5%;
+      border-top: 4px solid var(--vu-gold);
+    }
+    .branch-line::before,
+    .branch-line::after {
+      content: "";
+      position: absolute;
+      top: -4px;
+      width: 4px;
+      height: 30px;
+      background: var(--vu-gold);
+    }
+    .branch-line::before { left: 0; }
+    .branch-line::after { right: 0; }
+
+    .groups-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
+    .ad-group { position: relative; min-width: 0; border: 2px solid var(--vu-teal); border-radius: 9px; background: var(--white); box-shadow: 0 4px 12px rgba(16,47,58,.07); }
+    .ad-group:nth-child(2)::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 100%;
+      width: 4px;
+      height: 30px;
+      transform: translateX(-50%);
+      background: var(--vu-gold);
+    }
+    .group-heading {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 11px;
+      border-radius: 6px 6px 0 0;
+      background: var(--vu-dark);
+      color: var(--white);
+      font-family: "Century Gothic", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+    .group-number { display: grid; place-items: center; flex: 0 0 25px; width: 25px; height: 25px; border-radius: 50%; background: var(--vu-gold); color: var(--vu-dark); }
+    .group-theme { display: block; margin-top: 2px; color: #d9edf3; font-family: Lato,Arial,sans-serif; font-size: 10px; font-weight: 700; text-transform: none; }
+    .group-body { display: grid; gap: 8px; padding: 9px; }
+    .component-node {
+      min-height: 122px;
+      padding: 9px;
+      border: 1px solid #cfdadd;
+      border-radius: 7px;
+      background: var(--vu-soft);
+      color: var(--vu-ink);
+    }
+    .component-node:hover,
+    .component-node:focus-visible,
+    .group-heading:hover,
+    .group-heading:focus-visible,
+    .campaign-node:hover,
+    .campaign-node:focus-visible,
+    [aria-pressed="true"] {
+      outline: 3px solid rgba(221,175,75,.65);
+      outline-offset: 2px;
+    }
+    [aria-pressed="true"].component-node { border-color: var(--vu-gold); background: var(--vu-gold-soft); }
+    .component-title { display: block; margin-top: 2px; color: var(--vu-dark); font-family: "Century Gothic",Arial,sans-serif; font-size: 13px; font-weight: 700; line-height: 1.2; text-transform: uppercase; }
+    .keyword-chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+    .keyword-chip { display: inline-block; padding: 3px 6px; border-radius: 999px; background: var(--white); color: var(--vu-gray); font-size: 10px; line-height: 1.2; }
+    .ad-preview { margin-top: 7px; padding: 7px; border-left: 3px solid var(--vu-gold); background: var(--white); }
+    .ad-url { display: block; color: #2d7145; font-size: 9px; line-height: 1.2; }
+    .ad-headline { display: block; margin-top: 2px; color: var(--vu-blue); font-size: 12px; font-weight: 700; line-height: 1.2; }
+    .ad-copy { display: block; margin-top: 2px; color: var(--vu-gray); font-size: 9px; line-height: 1.25; }
+
+    .relationship-note {
+      margin: 15px 0 0;
+      padding: 10px 12px;
+      border-left: 5px solid var(--vu-gold);
+      background: var(--vu-gold-soft);
+      color: var(--vu-gray);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .detail-kicker { margin: 0 0 4px; color: var(--vu-teal); font-size: 11px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
+    .detail-title { margin: 0; color: var(--vu-dark); font-family: "Century Gothic","Segoe UI",Arial,sans-serif; font-size: clamp(23px,3vw,31px); line-height: 1.12; }
+    .detail-definition { margin: 12px 0 15px; color: var(--vu-gray); font-size: 15px; line-height: 1.52; }
+    .detail-section-title { margin: 14px 0 6px; color: var(--vu-teal); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
+    .detail-list { display: grid; gap: 7px; margin: 0; padding: 0; list-style: none; }
+    .detail-list li { position: relative; padding: 8px 9px 8px 29px; border: 1px solid var(--vu-line); border-radius: 6px; background: #f8fafb; color: var(--vu-gray); font-size: 13px; line-height: 1.35; }
+    .detail-list li::before { content: "✓"; position: absolute; left: 10px; top: 8px; color: #9a6900; font-weight: 900; }
+    .tip-box { margin-top: 15px; padding: 10px 11px; border-left: 5px solid var(--vu-gold); background: var(--vu-gold-soft); color: var(--vu-gray); font-size: 13px; line-height: 1.4; }
+    .detail-status { margin: 12px 0 0; color: var(--vu-muted); font-size: 11px; font-weight: 700; }
+
+    @media (max-width: 900px) {
+      .workspace { grid-template-columns: 1fr; }
+      .map-panel { border-right: 0; border-bottom: 1px solid var(--vu-line); }
+      .detail-panel { padding: 21px 20px; }
+    }
+    @media (max-width: 700px) {
+      .integrated-activity { width: min(100% - 18px,1120px); padding-top: 10px; }
+      .integrated-top-composition { grid-template-columns: 1fr; grid-template-areas: "try" "title" "subtitle"; gap: 6px; padding: 12px 14px; }
+      .integrated-title { font-size: clamp(24px,7vw,30px); }
+      .integrated-subtitle { font-size: 14px; }
+      .integrated-try-badge { min-height: 48px; padding: 7px 11px 7px 16px; font-size: 16px; }
+      .instruction-strip { align-items: flex-start; padding: 9px 13px; }
+      .map-panel { padding: 18px 12px 20px; }
+      .groups-grid { grid-template-columns: 1fr; gap: 13px; }
+      .campaign-node::after { height: 20px; }
+      .branch-line { height: 20px; margin: 0 50%; border-top: 0; border-left: 4px solid var(--vu-gold); }
+      .branch-line::before,.branch-line::after,.ad-group:nth-child(2)::before { display: none; }
+      .ad-group::before { content: ""; position: absolute; left: 24px; bottom: 100%; width: 4px; height: 13px; background: var(--vu-gold); }
+      .group-body { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .component-node { min-height: 118px; }
+    }
+    @media (max-width: 430px) {
+      .campaign-node { grid-template-columns: 38px minmax(0,1fr); padding: 11px; }
+      .node-icon { width: 38px; height: 38px; font-size: 17px; }
+      .node-title { font-size: 18px; }
+      .group-body { grid-template-columns: 1fr; }
+      .component-node { min-height: 0; }
+      .detail-panel { padding: 18px 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .integrated-try-badge,.integrated-cursor { animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <section class="integrated-activity" aria-label="Interactive learning activity">
+    <div class="integrated-top-composition">
+      <div class="integrated-try-row" aria-label="Try this interactive activity">
+        <div class="integrated-try-badge"><span>Try This</span><svg class="integrated-cursor" viewBox="0 0 24 30" aria-hidden="true"><path fill="currentColor" d="M2 1.3v24.4l6.2-5 4.4 8.1 4.2-2.3-4.4-8.1 7.8-1.2L2 1.3Z"/></svg></div>
+      </div>
+      <div class="integrated-title-wrap">
+        <p class="integrated-eyebrow">Interactive Learning</p>
+        <h1 class="integrated-title">Organize a Search Ad Campaign</h1>
+      </div>
+      <p class="integrated-subtitle">Hover over, focus on, or select parts of the campaign map to see what each level contains and how the pieces work together.</p>
+    </div>
+
+    <div class="activity-shell">
+      <p class="instruction-strip"><span class="instruction-mark" aria-hidden="true">i</span><span>Start with the campaign, then explore an ad group, its focused keyword list, and its matching search ad. Select an item to keep its guidance visible.</span></p>
+      <div class="workspace">
+        <section class="map-panel" aria-label="Illustrated campaign hierarchy">
+          <div class="campaign-map">
+            <button class="campaign-node interactive-node" type="button" data-key="campaign" aria-pressed="true">
+              <span class="node-icon" aria-hidden="true">C</span>
+              <span><span class="node-kicker">Parent level</span><span class="node-title">Search Ad Campaign</span></span>
+            </button>
+            <div class="branch-line" aria-hidden="true"></div>
+
+            <div class="groups-grid">
+              <article class="ad-group">
+                <button class="group-heading interactive-node" type="button" data-key="group-emergency" aria-pressed="false"><span class="group-number">1</span><span>Ad Group 1<span class="group-theme">Emergency repair</span></span></button>
+                <div class="group-body">
+                  <button class="component-node interactive-node" type="button" data-key="keywords-emergency" aria-pressed="false">
+                    <span class="component-kicker">Contains</span><span class="component-title">Focused Keyword List</span>
+                    <span class="keyword-chips"><span class="keyword-chip">emergency bike repair</span><span class="keyword-chip">urgent bike repair</span><span class="keyword-chip">same-day bike repair</span></span>
+                  </button>
+                  <button class="component-node interactive-node" type="button" data-key="ad-emergency" aria-pressed="false">
+                    <span class="component-kicker">Paired with</span><span class="component-title">Matching Search Ad</span>
+                    <span class="ad-preview"><span class="ad-url">veloworksbikes.example / repair</span><span class="ad-headline">Emergency Bike Repair Today</span><span class="ad-copy">Fast, same-day help. Book online.</span></span>
+                  </button>
+                </div>
+              </article>
+
+              <article class="ad-group">
+                <button class="group-heading interactive-node" type="button" data-key="group-tuneup" aria-pressed="false"><span class="group-number">2</span><span>Ad Group 2<span class="group-theme">Tune-up service</span></span></button>
+                <div class="group-body">
+                  <button class="component-node interactive-node" type="button" data-key="keywords-tuneup" aria-pressed="false">
+                    <span class="component-kicker">Contains</span><span class="component-title">Focused Keyword List</span>
+                    <span class="keyword-chips"><span class="keyword-chip">bike tune-up</span><span class="keyword-chip">bicycle maintenance</span><span class="keyword-chip">spring bike service</span></span>
+                  </button>
+                  <button class="component-node interactive-node" type="button" data-key="ad-tuneup" aria-pressed="false">
+                    <span class="component-kicker">Search ad 1 of 2</span><span class="component-title">Matching Search Ad</span>
+                    <span class="ad-preview"><span class="ad-url">veloworksbikes.example / tune-up</span><span class="ad-headline">Professional Bike Tune-Ups</span><span class="ad-copy">Ride smoothly with expert service.</span></span>
+                  </button>
+                  <button class="component-node interactive-node" type="button" data-key="ad-tuneup-alt" aria-pressed="false">
+                    <span class="component-kicker">Search ad 2 of 2</span><span class="component-title">Another Matching Search Ad</span>
+                    <span class="ad-preview"><span class="ad-url">veloworksbikes.example / tune-up</span><span class="ad-headline">Get Your Bike Ready to Ride</span><span class="ad-copy">Schedule a complete tune-up with local bicycle experts.</span></span>
+                  </button>
+                </div>
+              </article>
+
+              <article class="ad-group">
+                <button class="group-heading interactive-node" type="button" data-key="group-tires" aria-pressed="false"><span class="group-number">3</span><span>Ad Group 3<span class="group-theme">Tire replacement</span></span></button>
+                <div class="group-body">
+                  <button class="component-node interactive-node" type="button" data-key="keywords-tires" aria-pressed="false">
+                    <span class="component-kicker">Contains</span><span class="component-title">Focused Keyword List</span>
+                    <span class="keyword-chips"><span class="keyword-chip">bike tire replacement</span><span class="keyword-chip">replace bicycle tire</span><span class="keyword-chip">new bike tires</span></span>
+                  </button>
+                  <button class="component-node interactive-node" type="button" data-key="ad-tires" aria-pressed="false">
+                    <span class="component-kicker">Paired with</span><span class="component-title">Matching Search Ad</span>
+                    <span class="ad-preview"><span class="ad-url">veloworksbikes.example / tires</span><span class="ad-headline">Bike Tire Replacement</span><span class="ad-copy">Quality tires installed quickly.</span></span>
+                  </button>
+                </div>
+              </article>
+            </div>
+            <p class="relationship-note">One campaign contains multiple ad groups. Each ad group connects one search theme to a focused keyword list, one or more matching ads, and a relevant landing-page experience.</p>
+          </div>
+        </section>
+
+        <aside class="detail-panel" aria-labelledby="detail-title" aria-live="polite">
+          <p class="detail-kicker" id="detail-kicker">Campaign level</p>
+          <h2 class="detail-title" id="detail-title">Search Ad Campaign</h2>
+          <p class="detail-definition" id="detail-definition"></p>
+          <h3 class="detail-section-title" id="detail-list-title">What belongs here</h3>
+          <ul class="detail-list" id="detail-list"></ul>
+          <div class="tip-box" id="tip-box"></div>
+          <p class="detail-status" id="detail-status">Search Ad Campaign is selected.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var details = {
+        campaign: {
+          kicker: "Campaign level",
+          title: "Search Ad Campaign",
+          definition: "The campaign is the parent container. It establishes the shared business goal and the settings that apply across its ad groups.",
+          listTitle: "Shared across the campaign",
+          items: ["Campaign goal and primary conversion", "Budget and bidding strategy", "Location, language, network, and schedule settings", "Multiple ad groups organized around distinct search themes"],
+          tip: "Tip: Create a separate campaign when a product line needs a different budget, goal, location, language, or bidding strategy."
+        },
+        "group-emergency": groupDetail("Emergency Repair", "People who need immediate or same-day bicycle repair."),
+        "group-tuneup": groupDetail("Tune-Up Service", "People planning routine maintenance or a performance tune-up."),
+        "group-tires": groupDetail("Tire Replacement", "People specifically searching for a replacement tire or tire installation."),
+        "keywords-emergency": keywordDetail("Emergency Repair", ["emergency bike repair", "urgent bike repair", "same-day bike repair"]),
+        "keywords-tuneup": keywordDetail("Tune-Up Service", ["bike tune-up", "bicycle maintenance", "spring bike service"]),
+        "keywords-tires": keywordDetail("Tire Replacement", ["bike tire replacement", "replace bicycle tire", "new bike tires"]),
+        "ad-emergency": adDetail("Emergency Repair", "Emergency Bike Repair Today", "Fast, same-day help. Book online."),
+        "ad-tuneup": adDetail("Tune-Up Service — Ad 1 of 2", "Professional Bike Tune-Ups", "Ride smoothly with expert service."),
+        "ad-tuneup-alt": adDetail("Tune-Up Service — Ad 2 of 2", "Get Your Bike Ready to Ride", "Schedule a complete tune-up with local bicycle experts."),
+        "ad-tires": adDetail("Tire Replacement", "Bike Tire Replacement", "Quality tires installed quickly.")
+      };
+
+      function groupDetail(name, intent) {
+        return {
+          kicker: "Ad-group level",
+          title: name + " Ad Group",
+          definition: "An ad group organizes one closely related search theme. It keeps the keywords, ad message, and landing-page intent aligned.",
+          listTitle: "This ad group connects",
+          items: [intent, "A focused keyword list", "One or more responsive search ads written for that intent", "A landing page that continues the same promise"],
+          tip: "Tip: If one ad cannot speak naturally to every keyword in the group, split the keywords into more focused ad groups."
+        };
+      }
+
+      function keywordDetail(name, words) {
+        return {
+          kicker: "Inside the " + name + " ad group",
+          title: "Focused Keyword List",
+          definition: "Keywords help Google determine which searches may be relevant to this ad group. The terms should share the same underlying intent.",
+          listTitle: "Example keyword theme",
+          items: words,
+          tip: "Tip: Choose match types intentionally and add negative keywords for searches the business does not want. Review actual search terms after launch."
+        };
+      }
+
+      function adDetail(name, headline, copy) {
+        return {
+          kicker: "Inside the " + name + " ad group",
+          title: "Matching Search Ad",
+          definition: "The search ad answers the same need expressed by the keyword list. Its headline, benefit, call to action, and final URL should feel specific to this theme.",
+          listTitle: "Message alignment",
+          items: ["Headline: " + headline, "Description: " + copy, "Display path and final URL match the service", "Landing page repeats the offer and next action"],
+          tip: "Tip: Responsive search-ad assets can appear in different combinations. Write each headline and description so it remains clear when rearranged."
+        };
+      }
+
+      var nodes = Array.prototype.slice.call(document.querySelectorAll(".interactive-node"));
+      var kicker = document.getElementById("detail-kicker");
+      var title = document.getElementById("detail-title");
+      var definition = document.getElementById("detail-definition");
+      var listTitle = document.getElementById("detail-list-title");
+      var list = document.getElementById("detail-list");
+      var tip = document.getElementById("tip-box");
+      var status = document.getElementById("detail-status");
+      var pinnedKey = "campaign";
+
+      function render(key, preview) {
+        var item = details[key];
+        if (!item) return;
+        kicker.textContent = item.kicker;
+        title.textContent = item.title;
+        definition.textContent = item.definition;
+        listTitle.textContent = item.listTitle;
+        list.innerHTML = "";
+        item.items.forEach(function (text) {
+          var li = document.createElement("li");
+          li.textContent = text;
+          list.appendChild(li);
+        });
+        tip.textContent = item.tip;
+        status.textContent = item.title + (preview ? " is being previewed." : " is selected.");
+      }
+
+      function pin(key) {
+        pinnedKey = key;
+        nodes.forEach(function (node) { node.setAttribute("aria-pressed", String(node.dataset.key === key)); });
+        render(key, false);
+      }
+
+      nodes.forEach(function (node) {
+        node.addEventListener("click", function () { pin(node.dataset.key); });
+        node.addEventListener("mouseenter", function () { render(node.dataset.key, node.dataset.key !== pinnedKey); });
+        node.addEventListener("mouseleave", function () { render(pinnedKey, false); });
+        node.addEventListener("focus", function () { render(node.dataset.key, node.dataset.key !== pinnedKey); });
+        node.addEventListener("blur", function () { render(pinnedKey, false); });
+      });
+
+      render("campaign", false);
+    }());
+  </script>
+</body>
+</html>
