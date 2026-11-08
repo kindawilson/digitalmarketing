@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#103c4c" flood-opacity=".15"/></filter>
+    <style>
+      text{font-family:'Segoe UI',Arial,sans-serif;fill:#103f52}.mainTitle{font-size:43px;font-weight:800;letter-spacing:1px}.subtitle{font-size:20px;fill:#4c5a60}.cardTitle{font-size:23px;font-weight:800}.cardText{font-size:17px;fill:#44535a}.num{font-size:22px;font-weight:800;text-anchor:middle;dominant-baseline:middle}.kicker{font-size:14px;font-weight:800;letter-spacing:2px;fill:#17647d}.box{fill:#fff;stroke:#d4dde1;stroke-width:2}.titleBox{fill:#fff;stroke:#cbd8dd;stroke-width:2}.definitionBox{fill:#fff;stroke:#d4dde1;stroke-width:2}.gold{fill:#e0aa3e}.teal{fill:#0c4b61}.pale{fill:#eef3f5}.line{fill:none;stroke:#c99528;stroke-width:3;stroke-linecap:round}.serpTitle{font-size:19px;fill:#164da0}.small{font-size:14px;fill:#526168}.tiny{font-size:12px;fill:#526168}
+    </style>
+  </defs>
+  <rect width="1920" height="1080" fill="#f7f8f8"/>
+  <text x="960" y="64" text-anchor="middle" class="mainTitle">HOW GOOGLE RANKS SEARCH RESULTS</text>
+  <text x="960" y="99" text-anchor="middle" class="subtitle">Five key signals help Google decide which results may be the most relevant and useful</text>
+
+  <!-- center search-results illustration -->
+  <g filter="url(#shadow)">
+    <rect x="700" y="148" width="520" height="855" rx="20" class="box"/>
+    <rect x="700" y="148" width="520" height="88" rx="20" class="pale"/>
+    <circle cx="735" cy="192" r="10" fill="#c3cfd4"/><circle cx="765" cy="192" r="10" fill="#c3cfd4"/><circle cx="795" cy="192" r="10" fill="#c3cfd4"/>
+    <rect x="825" y="171" width="350" height="43" rx="22" fill="#fff" stroke="#cbd8dd" stroke-width="2"/>
+    <circle cx="855" cy="192" r="9" fill="none" stroke="#17647d" stroke-width="3"/><path d="M862 199 l9 9" stroke="#17647d" stroke-width="3"/>
+    <text x="885" y="198" font-size="17">best hiking checklist</text>
+    <text x="740" y="282" class="kicker">SEARCH RESULTS</text>
+
+    <g transform="translate(740,315)">
+      <text x="0" y="0" class="tiny" fill="#26723b">trailwise.example › guides</text>
+      <text x="0" y="30" class="serpTitle">Beginner Hiking Checklist | Trailwise</text>
+      <text x="0" y="57" class="small">A practical guide to gear, safety, comfort, and trail preparation.</text>
+      <line x1="0" y1="82" x2="440" y2="82" stroke="#d8e0e3"/>
+    </g>
+    <g transform="translate(740,430)">
+      <text x="0" y="0" class="tiny" fill="#26723b">outdoor.example › first-hike</text>
+      <text x="0" y="30" class="serpTitle">How to Prepare for Your First Hike</text>
+      <text x="0" y="57" class="small">Plan a safe, comfortable route with these beginner tips.</text>
+      <line x1="0" y1="82" x2="440" y2="82" stroke="#d8e0e3"/>
+    </g>
+    <g transform="translate(740,545)">
+      <text x="0" y="0" class="tiny" fill="#26723b">parks.example › hiking-basics</text>
+      <text x="0" y="30" class="serpTitle">Hiking Basics: What to Bring</text>
+      <text x="0" y="57" class="small">A clear equipment list for a successful day on the trail.</text>
+      <line x1="0" y1="82" x2="440" y2="82" stroke="#d8e0e3"/>
+    </g>
+    <rect x="740" y="675" width="440" height="265" rx="14" fill="#f0f5f6"/>
+    <text x="960" y="724" text-anchor="middle" class="kicker">RANKING DECISION</text>
+    <circle cx="960" cy="815" r="66" fill="#0c4b61"/>
+    <text x="960" y="808" text-anchor="middle" font-size="20" font-weight="800" style="fill:#fff">MOST USEFUL</text>
+    <text x="960" y="838" text-anchor="middle" font-size="20" font-weight="800" style="fill:#fff">RESULTS</text>
+    <path d="M900 758 C850 710 805 720 780 755" class="line"/><path d="M1020 758 C1070 710 1115 720 1140 755" class="line"/>
+    <path d="M900 870 C850 918 805 905 780 875" class="line"/><path d="M1020 870 C1070 918 1115 905 1140 875" class="line"/>
+  </g>
+
+  <!-- connectors behind callouts -->
+  <g>
+    <path class="line" d="M610 240 L700 240"/><path class="line" d="M1220 240 L1310 240"/>
+    <path class="line" d="M610 408 L700 408"/><path class="line" d="M1220 408 L1310 408"/>
+    <path class="line" d="M610 576 L700 576"/><path class="line" d="M1220 576 L1310 576"/>
+    <path class="line" d="M610 744 L700 744"/><path class="line" d="M1220 744 L1310 744"/>
+    <path class="line" d="M610 912 L700 912"/><path class="line" d="M1220 912 L1310 912"/>
+  </g>
+
+  <!-- factor labels and definitions -->
+  <g>
+    <rect x="45" y="170" width="565" height="140" rx="14" class="titleBox"/><rect x="45" y="170" width="9" height="140" rx="4" class="gold"/>
+    <circle cx="92" cy="220" r="25" class="teal"/><text x="92" y="220" class="num" fill="#fff">1</text>
+    <text x="135" y="215" class="kicker">FACTOR 01</text><text x="135" y="252" class="cardTitle">Meaning of your query</text>
+    <text x="82" y="287" class="cardText">Understands language, spelling, and search intent.</text>
+    <rect x="1310" y="170" width="565" height="140" rx="14" class="definitionBox"/><text x="1345" y="212" class="cardTitle">What does the searcher mean?</text>
+    <text x="1345" y="248" class="cardText">Google interprets the words and intent behind a</text><text x="1345" y="275" class="cardText">query—not just an exact keyword match.</text>
+
+    <rect x="45" y="338" width="565" height="140" rx="14" class="titleBox"/><rect x="45" y="338" width="9" height="140" rx="4" class="gold"/>
+    <circle cx="92" cy="388" r="25" class="teal"/><text x="92" y="388" class="num" fill="#fff">2</text>
+    <text x="135" y="383" class="kicker">FACTOR 02</text><text x="135" y="420" class="cardTitle">Relevance of content</text>
+    <text x="82" y="455" class="cardText">Checks whether the page meaningfully answers the topic.</text>
+    <rect x="1310" y="338" width="565" height="140" rx="14" class="definitionBox"/><text x="1345" y="380" class="cardTitle">Does the page answer the query?</text>
+    <text x="1345" y="416" class="cardText">Relevant pages cover the topic thoroughly instead of</text><text x="1345" y="443" class="cardText">repeating a keyword without useful information.</text>
+
+    <rect x="45" y="506" width="565" height="140" rx="14" class="titleBox"/><rect x="45" y="506" width="9" height="140" rx="4" class="gold"/>
+    <circle cx="92" cy="556" r="25" class="teal"/><text x="92" y="556" class="num" fill="#fff">3</text>
+    <text x="135" y="551" class="kicker">FACTOR 03</text><text x="135" y="588" class="cardTitle">Quality of content</text>
+    <text x="82" y="623" class="cardText">Looks for helpfulness, trust, expertise, and authority.</text>
+    <rect x="1310" y="506" width="565" height="140" rx="14" class="definitionBox"/><text x="1345" y="548" class="cardTitle">Is the content credible and useful?</text>
+    <text x="1345" y="584" class="cardText">Accurate information, demonstrated expertise, and</text><text x="1345" y="611" class="cardText">references from reputable sites can support quality.</text>
+
+    <rect x="45" y="674" width="565" height="140" rx="14" class="titleBox"/><rect x="45" y="674" width="9" height="140" rx="4" class="gold"/>
+    <circle cx="92" cy="724" r="25" class="teal"/><text x="92" y="724" class="num" fill="#fff">4</text>
+    <text x="135" y="719" class="kicker">FACTOR 04</text><text x="135" y="756" class="cardTitle">Usability of content</text>
+    <text x="82" y="791" class="cardText">Considers accessibility, mobile experience, and speed.</text>
+    <rect x="1310" y="674" width="565" height="140" rx="14" class="definitionBox"/><text x="1345" y="716" class="cardTitle">Can people use the page easily?</text>
+    <text x="1345" y="752" class="cardText">When other signals are similar, a faster and more</text><text x="1345" y="779" class="cardText">mobile-friendly experience may be favored.</text>
+
+    <rect x="45" y="842" width="565" height="140" rx="14" class="titleBox"/><rect x="45" y="842" width="9" height="140" rx="4" class="gold"/>
+    <circle cx="92" cy="892" r="25" class="teal"/><text x="92" y="892" class="num" fill="#fff">5</text>
+    <text x="135" y="887" class="kicker">FACTOR 05</text><text x="135" y="924" class="cardTitle">Context and settings</text>
+    <text x="82" y="959" class="cardText">Uses location, settings, and context when appropriate.</text>
+    <rect x="1310" y="842" width="565" height="140" rx="14" class="definitionBox"/><text x="1345" y="884" class="cardTitle">What is useful in this moment?</text>
+    <text x="1345" y="920" class="cardText">The same query can produce different results based on</text><text x="1345" y="947" class="cardText">location, search settings, and prior activity.</text>
+  </g>
+
+  <text x="1875" y="1050" text-anchor="end" class="small">Source: Google — How Search Works</text>
+</svg>
