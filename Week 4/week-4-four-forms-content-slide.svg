@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#103c4c" flood-opacity=".14"/></filter>
+    <style>
+      text{font-family:'Segoe UI',Arial,sans-serif}.title{font-size:56px;font-weight:800;letter-spacing:1px;fill:#103f52}.subtitle{font-size:25px;fill:#4c5a60}.name{font-size:43px;font-weight:800;fill:#103f52}.desc{font-size:27px;font-weight:600;fill:#66757c}.num{font-size:20px;font-weight:800;letter-spacing:2px;fill:#78868c}.source{font-size:17px;fill:#526168}.icon{fill:none;stroke:#17647d;stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+    </style>
+  </defs>
+  <rect width="1920" height="1080" fill="#f7f8f8"/>
+  <text x="960" y="86" text-anchor="middle" class="title">FOUR FORMS OF CONTENT</text>
+  <text x="960" y="132" text-anchor="middle" class="subtitle">Choose formats that match the audience, platform, and purpose</text>
+
+  <g filter="url(#shadow)">
+    <rect x="150" y="205" width="780" height="340" rx="24" fill="#fff" stroke="#d4dde1" stroke-width="2"/>
+    <rect x="990" y="205" width="780" height="340" rx="24" fill="#fff" stroke="#d4dde1" stroke-width="2"/>
+    <rect x="150" y="590" width="780" height="340" rx="24" fill="#fff" stroke="#d4dde1" stroke-width="2"/>
+    <rect x="990" y="590" width="780" height="340" rx="24" fill="#fff" stroke="#d4dde1" stroke-width="2"/>
+  </g>
+
+  <g>
+    <rect x="150" y="205" width="13" height="340" rx="6" fill="#e0aa3e"/>
+    <circle cx="280" cy="375" r="76" fill="#edf4f6"/>
+    <path d="M249 326 H292 L314 348 V424 H249 Z M292 326 V350 H314 M263 374 H299 M263 392 H299" class="icon"/>
+    <text x="385" y="333" class="num">01 · WRITTEN CONTENT</text>
+    <text x="385" y="391" class="name">Written</text>
+    <text x="385" y="440" class="desc"><tspan x="385">Newsletters, articles,</tspan><tspan x="385" dy="38">and blogs</tspan></text>
+
+    <rect x="990" y="205" width="13" height="340" rx="6" fill="#e0aa3e"/>
+    <circle cx="1120" cy="375" r="76" fill="#edf4f6"/>
+    <rect x="1096" y="319" width="48" height="82" rx="24" class="icon"/><path d="M1078 374 V384 A42 42 0 0 0 1162 384 V374 M1120 426 V445 M1095 445 H1145" class="icon"/>
+    <text x="1225" y="333" class="num">02 · AUDIO CONTENT</text>
+    <text x="1225" y="391" class="name">Audio</text>
+    <text x="1225" y="440" class="desc"><tspan x="1225">Podcasts, audiograms,</tspan><tspan x="1225" dy="38">and voice content</tspan></text>
+
+    <rect x="150" y="590" width="13" height="340" rx="6" fill="#e0aa3e"/>
+    <circle cx="280" cy="760" r="76" fill="#edf4f6"/>
+    <rect x="235" y="727" width="72" height="66" rx="8" class="icon"/><path d="M307 745 L336 730 V790 L307 775 Z M263 744 L289 760 L263 776 Z" class="icon"/>
+    <text x="385" y="718" class="num">03 · VIDEO CONTENT</text>
+    <text x="385" y="776" class="name">Video</text>
+    <text x="385" y="825" class="desc"><tspan x="385">Hosted video, reels,</tspan><tspan x="385" dy="38">and social video</tspan></text>
+
+    <rect x="990" y="590" width="13" height="340" rx="6" fill="#e0aa3e"/>
+    <circle cx="1120" cy="760" r="76" fill="#edf4f6"/>
+    <rect x="1074" y="718" width="92" height="82" rx="7" class="icon"/><circle cx="1098" cy="742" r="10" class="icon"/><path d="M1084 787 L1113 758 L1132 777 L1145 765 L1156 787" class="icon"/>
+    <text x="1225" y="718" class="num">04 · IMAGE CONTENT</text>
+    <text x="1225" y="776" class="name">Image</text>
+    <text x="1225" y="825" class="desc"><tspan x="1225">Social graphics, infographics,</tspan><tspan x="1225" dy="38">and website banners</tspan></text>
+  </g>
+
+  <text x="1770" y="1028" text-anchor="end" class="source">Source: Adobe — Content Marketing</text>
+</svg>
