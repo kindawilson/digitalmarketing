@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Digital Ad Metrics Explorer</title>
+<style>
+:root{--navy:#17324d;--teal:#1d627b;--dark:#102f3a;--gold:#ddaf4b;--gold-deep:#a36d00;--pale:#e4eff2;--paper:#f7f7f5;--line:#d6dee2;--muted:#52616a;--blue:#1558b0;--green:#16734a;--white:#fff;--red:#a43e35}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:var(--dark);font-family:Lato,"Segoe UI",Arial,sans-serif}
+button{font:inherit}
+.integrated-activity{width:min(1120px,calc(100% - 28px));margin:0 auto;padding:14px 0 0;font-family:Arial,Helvetica,sans-serif;color:#102f3a}
+.integrated-top-composition{display:grid;grid-template-columns:170px minmax(0,1fr);grid-template-areas:"try title" "subtitle subtitle";column-gap:18px;row-gap:10px;align-items:start;padding:16px 18px 14px;border:1px solid #dfe3e6;border-top:6px solid #ddaf4b;border-radius:12px 12px 0 0;background:linear-gradient(135deg,#f5f6f7 0%,#fff 72%)}
+.integrated-try-row{grid-area:try;display:flex;align-items:flex-start;margin:0;padding:0 2px 0 0}
+.integrated-try-badge{display:inline-flex;align-items:center;gap:13px;min-height:54px;padding:8px 13px 8px 20px;border:4px solid #ddaf4b;border-radius:4px;background:#1d627b;box-shadow:0 2px 0 rgba(16,47,58,.16);color:#fff;font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:18px;font-weight:700;letter-spacing:.08em;line-height:1;text-transform:uppercase;animation:integratedBadgePulse 2.2s ease-in-out infinite}
+.integrated-cursor{width:22px;height:27px;color:#ddaf4b;filter:drop-shadow(1px 1px 0 rgba(16,47,58,.32));animation:integratedCursorTap 2.2s ease-in-out infinite}
+.integrated-title-wrap{grid-area:title;min-width:0;padding-top:1px}
+.integrated-eyebrow{margin:0 0 3px;color:#1d627b;font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.15em;line-height:1.2;text-transform:uppercase}
+.integrated-title{margin:0!important;padding:0!important;color:#1d627b!important;font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif!important;font-size:clamp(25px,5vw,32px)!important;font-weight:700!important;letter-spacing:.01em!important;line-height:1.08!important;text-transform:uppercase!important;overflow-wrap:anywhere}
+.integrated-subtitle{grid-area:subtitle;width:100%;margin:0;color:#4d5259;font-size:15px;font-weight:700;line-height:1.4;overflow-wrap:anywhere}
+@keyframes integratedBadgePulse{0%,20%,100%{transform:scale(1)}40%{transform:scale(1.025)}58%{transform:scale(1)}}
+@keyframes integratedCursorTap{0%,20%,65%,100%{transform:translate(0,0)}36%{transform:translate(3px,2px)}48%{transform:translate(0,0)}}
+
+.activity{width:min(1120px,calc(100% - 28px));margin:0 auto 18px;border:1px solid var(--line);border-top:0;background:var(--white)}
+.instruction{display:flex;gap:10px;align-items:center;margin:0;padding:10px 18px;border-bottom:1px solid var(--line);background:#edf4f6;color:#344c59;font-size:14px;font-weight:700;line-height:1.4}
+.info-dot{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:var(--gold);color:var(--navy);font-family:Georgia,serif;font-weight:800}
+.explorer{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr)}
+.metric-side{min-width:0;padding:18px 20px 20px;border-right:1px solid var(--line)}
+.category-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.category-tab{min-height:48px;padding:8px 12px;border:2px solid var(--teal);border-radius:6px;background:#fff;color:var(--navy);font-family:"Century Gothic",Arial,sans-serif;font-size:14px;font-weight:700;cursor:pointer}
+.category-tab[aria-selected="true"]{border-color:var(--gold);background:var(--navy);color:#fff;box-shadow:inset 0 -4px var(--gold)}
+.category-intro{min-height:42px;margin:0 0 12px;color:var(--muted);font-size:14px;line-height:1.45}
+.metric-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.metric-button{display:grid;grid-template-columns:42px minmax(0,1fr);gap:9px;align-items:center;min-height:76px;padding:9px;border:1px solid #cbd7dc;border-radius:8px;background:#f8fafb;color:var(--dark);text-align:left;cursor:pointer;transition:transform .15s ease,border-color .15s ease,background .15s ease}
+.metric-button:hover,.metric-button:focus-visible{border-color:var(--teal);background:#eef5f7;transform:translateY(-1px)}
+.metric-button[aria-pressed="true"]{border:2px solid var(--gold);background:#fff8e6;box-shadow:0 3px 0 rgba(23,50,77,.08)}
+.metric-icon{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:var(--pale);color:var(--teal);font-family:"Century Gothic",Arial,sans-serif;font-size:15px;font-weight:700}
+.metric-name{display:block;color:var(--navy);font-family:"Century Gothic",Arial,sans-serif;font-size:14px;font-weight:700;line-height:1.2}
+.metric-value{display:block;margin-top:3px;color:var(--muted);font-size:12px;font-weight:700;line-height:1.2}
+.detail-side{min-width:0;padding:22px;background:linear-gradient(145deg,#fff 65%,#fff8e7)}
+.detail-kicker{margin:0 0 5px;color:var(--teal);font-family:"Century Gothic",Arial,sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.detail-title{margin:0;color:var(--navy);font-family:"Century Gothic","Segoe UI",Arial,sans-serif;font-size:clamp(24px,4vw,31px);line-height:1.1}
+.detail-definition{margin:10px 0 14px;color:var(--muted);font-size:15px;line-height:1.5}
+.detail-block{margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
+.detail-block h3{margin:0 0 5px;color:var(--teal);font-family:"Century Gothic",Arial,sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.detail-block p{margin:0;color:#344c59;font-size:13px;line-height:1.45}
+.formula{display:inline-block;margin-top:3px;padding:6px 8px;border-radius:5px;background:#edf4f6;color:var(--navy);font-family:Consolas,"Courier New",monospace;font-size:12px;font-weight:700}
+.example{margin-top:14px;padding:11px 12px;border-left:5px solid var(--gold);background:#fff6dd;color:#3d4b52;font-size:13px;line-height:1.45}
+.status{margin:11px 0 0;color:var(--muted);font-size:11px;font-weight:700}
+.note{margin:0;padding:11px 20px;border-top:1px solid var(--line);background:#f7f9fa;color:var(--muted);font-size:12px;line-height:1.45}
+.source{margin:0;padding:10px 20px 13px;color:var(--muted);font-size:12px;line-height:1.4}
+.source a{color:var(--teal);font-weight:700}
+
+@media(max-width:760px){
+ .explorer{grid-template-columns:1fr}.metric-side{border-right:0;border-bottom:1px solid var(--line)}.detail-side{padding:18px 20px}
+}
+@media(max-width:700px){
+ .integrated-activity{width:min(100% - 18px,1120px);padding-top:10px}.integrated-top-composition{grid-template-columns:1fr;grid-template-areas:"try" "title" "subtitle";gap:6px;padding:12px 14px}.integrated-title{font-size:clamp(24px,7vw,30px)!important}.integrated-subtitle{font-size:14px}.integrated-try-badge{min-height:48px;padding:7px 11px 7px 16px;font-size:16px}
+ .activity{width:calc(100% - 18px)}.instruction{align-items:flex-start;padding:9px 13px}.metric-side{padding:15px 12px 17px}.category-tab{font-size:13px}.metric-grid{grid-template-columns:1fr 1fr}.metric-button{min-height:72px;padding:8px}.detail-side{padding:18px 14px}.note,.source{padding-left:14px;padding-right:14px}
+}
+@media(max-width:430px){
+ .category-tabs{grid-template-columns:1fr}.metric-grid{grid-template-columns:1fr}.metric-button{min-height:68px}.journey-label{margin-left:3px}.detail-title{font-size:24px}
+}
+@media(prefers-reduced-motion:reduce){.integrated-try-badge,.integrated-cursor{animation:none!important}.metric-button{transition:none}}
+</style>
+</head>
+<body>
+<section class="integrated-activity" aria-label="Interactive learning activity">
+ <div class="integrated-top-composition">
+  <div class="integrated-try-row" aria-label="Try this interactive activity"><div class="integrated-try-badge"><span>Try This</span><svg class="integrated-cursor" viewBox="0 0 24 30" aria-hidden="true"><path fill="currentColor" d="M2 1.3v24.4l6.2-5 4.4 8.1 4.2-2.3-4.4-8.1 7.8-1.2L2 1.3Z"/></svg></div></div>
+  <div class="integrated-title-wrap"><p class="integrated-eyebrow">Interactive Learning</p><h1 class="integrated-title">Explore Digital Ad Metrics</h1></div>
+  <p class="integrated-subtitle">Follow a campaign from exposure to revenue. Use the tabs and metric cards below to see what each measure reveals.</p>
+ </div>
+</section>
+
+<main class="activity">
+ <p class="instruction"><span class="info-dot" aria-hidden="true">i</span><span>Choose a metric group, then hover over, focus on, or select a metric card to explore what it measures.</span></p>
+
+ <section class="explorer">
+  <div class="metric-side">
+   <div class="category-tabs" role="tablist" aria-label="Metric group">
+    <button class="category-tab" id="tab-engagement" type="button" role="tab" aria-selected="true" aria-controls="metrics-panel">Engagement metrics</button>
+    <button class="category-tab" id="tab-results" type="button" role="tab" aria-selected="false" aria-controls="metrics-panel">Campaign-result metrics</button>
+   </div>
+   <p class="category-intro" id="category-intro">These measures show whether the ad was delivered, seen, and compelling enough to earn attention.</p>
+   <div class="metric-grid" id="metrics-panel" role="tabpanel" aria-labelledby="tab-engagement"></div>
+  </div>
+  <aside class="detail-side" aria-live="polite" aria-atomic="true">
+   <p class="detail-kicker" id="detail-kicker">Engagement metric</p>
+   <h2 class="detail-title" id="detail-title">Clicks</h2>
+   <p class="detail-definition" id="detail-definition"></p>
+   <div class="detail-block"><h3>What it shows</h3><p id="detail-shows"></p></div>
+   <div class="detail-block" id="formula-block"><h3>How it is calculated</h3><p><span class="formula" id="detail-formula"></span></p></div>
+   <p class="example" id="detail-example"></p>
+   <p class="status" id="detail-status">Clicks is selected.</p>
+  </aside>
+ </section>
+ <p class="note"><strong>Important:</strong> Platforms may use different attribution windows, eligible events, and denominators. Confirm each platform's definition before comparing results.</p>
+ <p class="source">Source: <a href="https://advertising.amazon.com/library/guides/what-is-digital-advertising" target="_blank" rel="noopener noreferrer">https://advertising.amazon.com/library/guides/what-is-digital-advertising</a></p>
+</main>
+
+<script>
+(function(){
+ var groups={
+  engagement:{
+   intro:"These measures show whether the ad was delivered, seen, and compelling enough to earn attention.",
+   metrics:[
+    {id:"clicks",icon:"↗",name:"Clicks",value:"600",definition:"The number of times people selected the ad.",shows:"How much direct response the ad generated. Clicks alone do not show whether the visitors completed a valuable action.",formula:"Count of recorded ad clicks",example:"Example: The ad received 600 clicks, sending 600 visits toward the campaign landing page."},
+    {id:"impressions",icon:"◎",name:"Impressions",value:"12,000",definition:"The number of times the ad appeared on a screen.",shows:"How much ad exposure was delivered. One person can generate more than one impression.",formula:"Count of times the ad was served",example:"Example: The campaign delivered 12,000 impressions to an audience of 8,000 people."},
+    {id:"ctr",icon:"%",name:"Click-through rate (CTR)",value:"5.0%",definition:"The percentage of impressions that produced a click.",shows:"How effectively the ad turned appearances into visits. It is useful for comparing creative or targeting with similar objectives.",formula:"Clicks ÷ impressions × 100",example:"Example: 600 clicks ÷ 12,000 impressions × 100 = 5.0% CTR."},
+    {id:"reach",icon:"◉",name:"Reach",value:"8,000 people",definition:"The number of distinct viewers who were shown the ad.",shows:"How many unique people encountered the campaign, rather than how many total appearances were delivered.",formula:"Count of unique viewers reached",example:"Example: 8,000 people generated 12,000 impressions, so some people saw the ad more than once."},
+    {id:"vcr",icon:"▶",name:"Video completion rate",value:"75%",definition:"The percentage of eligible video views that reached the end of the ad.",shows:"Whether viewers stayed with the video through its full message. Platform rules for a view or completion can differ.",formula:"Completed video views ÷ eligible video starts × 100",example:"Example: 3,000 completions ÷ 4,000 eligible starts × 100 = 75% completion rate."}
+   ]
+  },
+  results:{
+   intro:"These measures show whether attention became meaningful actions, revenue, profit, or new customers.",
+   metrics:[
+    {id:"conversion",icon:"✓",name:"Conversion rate",value:"12.0%",definition:"The percentage of the chosen audience base that completed the campaign's desired action.",shows:"How effectively the campaign turned traffic or another eligible group into outcomes such as purchases, subscriptions, or bookings.",formula:"Conversions ÷ eligible clicks or visits × 100",example:"Example: 72 bookings ÷ 600 ad clicks × 100 = 12.0%. The denominator must match the platform setup."},
+    {id:"sales",icon:"$",name:"Ad-attributed sales",value:"$9,000",definition:"Revenue from purchases credited to the ad under the selected attribution rules.",shows:"How much tracked sales revenue the campaign influenced. The amount can change when the attribution model or window changes.",formula:"Sum of sales credited to the ad",example:"Example: The platform credited $9,000 in bicycle-service sales to this campaign."},
+    {id:"roas",icon:"×",name:"Return on ad spend (ROAS)",value:"3.0×",definition:"The revenue credited to advertising compared with the amount spent on ads.",shows:"How many dollars of attributed revenue were generated for each advertising dollar. It does not subtract product or operating costs.",formula:"Ad-attributed revenue ÷ ad spend",example:"Example: $9,000 attributed revenue ÷ $3,000 ad spend = 3.0× ROAS."},
+    {id:"roi",icon:"+",name:"Return on investment (ROI)",value:"40%",definition:"Net profit compared with the total amount invested in the campaign.",shows:"Whether the campaign created profit after relevant costs, making it broader than ROAS.",formula:"Net profit ÷ total campaign investment × 100",example:"Example: $2,000 net profit ÷ $5,000 total campaign investment × 100 = 40% ROI."},
+    {id:"acos",icon:"÷",name:"Advertising cost of sales (ACOS)",value:"33.3%",definition:"Ad spend expressed as a percentage of ad-attributed sales.",shows:"How much advertising cost was required to produce each dollar of attributed sales. Lower is not automatically better if volume or profit also changes.",formula:"Ad spend ÷ ad-attributed sales × 100",example:"Example: $3,000 ad spend ÷ $9,000 attributed sales × 100 = 33.3% ACOS."},
+    {id:"ntb",icon:"N",name:"New-to-brand sales",value:"28 purchases",definition:"Purchases made by customers who had not previously bought from the brand within the platform's defined lookback period.",shows:"Whether the campaign attracted new customers rather than only generating repeat purchases.",formula:"Count of attributed purchases from new-to-brand customers",example:"Example: 28 of the campaign's attributed purchases came from first-time Veloworks customers."}
+   ]
+  }
+ };
+ var currentGroup="engagement",pinned="clicks";
+ var panel=document.getElementById("metrics-panel"),intro=document.getElementById("category-intro");
+ var fields={kicker:document.getElementById("detail-kicker"),title:document.getElementById("detail-title"),definition:document.getElementById("detail-definition"),shows:document.getElementById("detail-shows"),formula:document.getElementById("detail-formula"),example:document.getElementById("detail-example"),status:document.getElementById("detail-status")};
+ function metricById(id){return groups[currentGroup].metrics.find(function(m){return m.id===id;})||groups[currentGroup].metrics[0]}
+ function show(id,preview){var m=metricById(id);fields.kicker.textContent=currentGroup==="engagement"?"Engagement metric":"Campaign-result metric";fields.title.textContent=m.name;fields.definition.textContent=m.definition;fields.shows.textContent=m.shows;fields.formula.textContent=m.formula;fields.example.textContent=m.example;fields.status.textContent=m.name+(preview?" is previewed.":" is selected.");}
+ function setPressed(id){panel.querySelectorAll(".metric-button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.id===id));});}
+ function render(){intro.textContent=groups[currentGroup].intro;panel.innerHTML="";groups[currentGroup].metrics.forEach(function(m){var b=document.createElement("button");b.type="button";b.className="metric-button";b.dataset.id=m.id;b.setAttribute("aria-pressed",String(m.id===pinned));b.innerHTML='<span class="metric-icon" aria-hidden="true"></span><span><span class="metric-name"></span><span class="metric-value"></span></span>';b.querySelector(".metric-icon").textContent=m.icon;b.querySelector(".metric-name").textContent=m.name;b.querySelector(".metric-value").textContent=m.value;b.addEventListener("mouseenter",function(){show(m.id,true)});b.addEventListener("focus",function(){show(m.id,true)});b.addEventListener("mouseleave",function(){show(pinned,false)});b.addEventListener("click",function(){pinned=m.id;setPressed(pinned);show(pinned,false)});panel.appendChild(b);});show(pinned,false)}
+ function switchGroup(group){currentGroup=group;pinned=groups[group].metrics[0].id;document.querySelectorAll(".category-tab").forEach(function(t){var active=t.id==="tab-"+group;t.setAttribute("aria-selected",String(active));});panel.setAttribute("aria-labelledby","tab-"+group);render()}
+ document.getElementById("tab-engagement").addEventListener("click",function(){switchGroup("engagement")});
+ document.getElementById("tab-results").addEventListener("click",function(){switchGroup("results")});
+ render();
+})();
+</script>
+<script>
+(function(){var raf=0,last=0;function height(){var top=document.body.getBoundingClientRect().top,bottom=0;Array.prototype.forEach.call(document.body.children,function(el){if(el.tagName==='SCRIPT'||getComputedStyle(el).position==='fixed')return;bottom=Math.max(bottom,el.getBoundingClientRect().bottom-top)});return Math.max(280,Math.ceil(bottom))}function report(){cancelAnimationFrame(raf);raf=requestAnimationFrame(function(){var h=height();if(h!==last){last=h;window.parent.postMessage({type:'vanderbilt-iframe-height',id:'digital-ad-metrics-explorer',height:h},'*')}})}window.addEventListener('load',report);window.addEventListener('resize',report);document.addEventListener('click',function(){setTimeout(report,30);setTimeout(report,450)});if('ResizeObserver'in window)new ResizeObserver(report).observe(document.body);setTimeout(report,100);setTimeout(report,700)})();
+</script>
+</body>
+</html>

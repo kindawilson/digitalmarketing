@@ -24,15 +24,7 @@ button{font:inherit}
 .activity{width:min(1120px,calc(100% - 28px));margin:0 auto 18px;border:1px solid var(--line);border-top:0;background:var(--white)}
 .instruction{display:flex;gap:10px;align-items:center;margin:0;padding:10px 18px;border-bottom:1px solid var(--line);background:#edf4f6;color:#344c59;font-size:14px;font-weight:700;line-height:1.4}
 .info-dot{display:grid;place-items:center;flex:0 0 28px;width:28px;height:28px;border-radius:50%;background:var(--gold);color:var(--navy);font-family:Georgia,serif;font-weight:800}
-.journey{padding:20px 22px 16px;background:linear-gradient(180deg,#fff,#fbfcfc)}
-.journey-label{margin:0 0 12px;color:var(--teal);font-family:"Century Gothic","Segoe UI",Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
-.journey-track{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;align-items:center}
-.stage{position:relative;min-width:0;padding:5px 9px;text-align:center;pointer-events:none;user-select:none}
-.stage:not(:last-child)::after{content:"→";position:absolute;z-index:0;top:8px;right:-10px;color:var(--gold);font-family:Arial,sans-serif;font-size:23px;font-weight:700;line-height:1}
-.stage-icon{position:relative;z-index:1;display:block!important;width:auto;height:auto;margin:0 0 4px;border:0;border-radius:0;background:transparent;color:var(--gold-deep);font-family:"Century Gothic",Arial,sans-serif;font-size:20px;font-weight:700;line-height:1}
-.stage strong{display:block;color:var(--navy);font-family:"Century Gothic",Arial,sans-serif;font-size:13px;line-height:1.2}
-.stage span{display:block;margin-top:2px;color:var(--muted);font-size:11px;line-height:1.25}
-.explorer{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);border-top:1px solid var(--line)}
+.explorer{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr)}
 .metric-side{min-width:0;padding:18px 20px 20px;border-right:1px solid var(--line)}
 .category-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
 .category-tab{min-height:48px;padding:8px 12px;border:2px solid var(--teal);border-radius:6px;background:#fff;color:var(--navy);font-family:"Century Gothic",Arial,sans-serif;font-size:14px;font-weight:700;cursor:pointer}
@@ -64,7 +56,7 @@ button{font:inherit}
 }
 @media(max-width:700px){
  .integrated-activity{width:min(100% - 18px,1120px);padding-top:10px}.integrated-top-composition{grid-template-columns:1fr;grid-template-areas:"try" "title" "subtitle";gap:6px;padding:12px 14px}.integrated-title{font-size:clamp(24px,7vw,30px)!important}.integrated-subtitle{font-size:14px}.integrated-try-badge{min-height:48px;padding:7px 11px 7px 16px;font-size:16px}
- .activity{width:calc(100% - 18px)}.instruction{align-items:flex-start;padding:9px 13px}.journey{padding:16px 13px}.journey-track{grid-template-columns:1fr;gap:5px}.stage{display:grid;grid-template-columns:58px minmax(0,1fr);column-gap:10px;align-items:center;padding:5px 0;text-align:left}.stage:not(:last-child)::after{content:"↓";top:auto;right:auto;bottom:-9px;left:22px;font-size:18px}.stage .stage-icon{display:block!important;width:auto;height:auto;margin:0;grid-row:1/3;text-align:right}.stage span:not(.stage-icon){margin:0}.metric-side{padding:15px 12px 17px}.category-tab{font-size:13px}.metric-grid{grid-template-columns:1fr 1fr}.metric-button{min-height:72px;padding:8px}.detail-side{padding:18px 14px}.note,.source{padding-left:14px;padding-right:14px}
+ .activity{width:calc(100% - 18px)}.instruction{align-items:flex-start;padding:9px 13px}.metric-side{padding:15px 12px 17px}.category-tab{font-size:13px}.metric-grid{grid-template-columns:1fr 1fr}.metric-button{min-height:72px;padding:8px}.detail-side{padding:18px 14px}.note,.source{padding-left:14px;padding-right:14px}
 }
 @media(max-width:430px){
  .category-tabs{grid-template-columns:1fr}.metric-grid{grid-template-columns:1fr}.metric-button{min-height:68px}.journey-label{margin-left:3px}.detail-title{font-size:24px}
@@ -82,17 +74,7 @@ button{font:inherit}
 </section>
 
 <main class="activity">
- <p class="instruction"><span class="info-dot" aria-hidden="true">i</span><span>The campaign flow is a visual example only. The two group tabs and metric cards below are interactive.</span></p>
- <section class="journey" aria-label="Campaign measurement pathway">
-  <p class="journey-label">Illustrative campaign flow — context only</p>
-  <div class="journey-track">
-   <div class="stage"><span class="stage-icon" aria-hidden="true">8K</span><strong>People</strong><span>Unique audience</span></div>
-   <div class="stage"><span class="stage-icon" aria-hidden="true">12K</span><strong>Ad appearances</strong><span>Exposure delivered</span></div>
-   <div class="stage"><span class="stage-icon" aria-hidden="true">600</span><strong>Visits</strong><span>Ad engagement</span></div>
-   <div class="stage"><span class="stage-icon" aria-hidden="true">72</span><strong>Bookings</strong><span>Desired actions</span></div>
-   <div class="stage"><span class="stage-icon" aria-hidden="true">$9K</span><strong>Sales</strong><span>Attributed revenue</span></div>
-  </div>
- </section>
+ <p class="instruction"><span class="info-dot" aria-hidden="true">i</span><span>Choose a metric group, then hover over, focus on, or select a metric card to explore what it measures.</span></p>
 
  <section class="explorer">
   <div class="metric-side">
