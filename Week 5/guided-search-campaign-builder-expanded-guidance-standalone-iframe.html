@@ -151,5 +151,29 @@
   window.addEventListener('load',sendHeight);window.addEventListener('resize',sendHeight);window.addEventListener('message',function(event){if(event.data&&event.data.type==='vanderbilt-request-height')sendHeight()});if(window.ResizeObserver)new ResizeObserver(sendHeight).observe(document.body);sync();showStep(0);
 }());
 </script>
+
+  <script id="vanderbilt-content-boundary-height-reporter">
+  (function(){
+    function reportPreciseHeight(){
+      var bottom=0;
+      if(document.body){
+        Array.prototype.forEach.call(document.body.children,function(element){
+          if(/^(SCRIPT|STYLE|LINK)$/.test(element.tagName))return;
+          var rect=element.getBoundingClientRect();
+          if(rect.width||rect.height)bottom=Math.max(bottom,rect.bottom+window.scrollY);
+        });
+      }
+      var height=Math.max(1,Math.ceil(bottom+16));
+      window.parent.postMessage({type:'vanderbilt-iframe-height',height:height,measure:'content-boundary'},'*');
+    }
+    window.addEventListener('load',reportPreciseHeight);
+    window.addEventListener('resize',reportPreciseHeight);
+    window.addEventListener('message',function(event){if(event.data&&event.data.type==='vanderbilt-request-height')reportPreciseHeight()});
+    if(window.ResizeObserver&&document.body)new ResizeObserver(reportPreciseHeight).observe(document.body);
+    if(window.MutationObserver&&document.body)new MutationObserver(reportPreciseHeight).observe(document.body,{subtree:true,childList:true,attributes:true});
+    window.setTimeout(reportPreciseHeight,100);
+    window.setTimeout(reportPreciseHeight,500);
+  }());
+  </script>
 </body>
 </html>
