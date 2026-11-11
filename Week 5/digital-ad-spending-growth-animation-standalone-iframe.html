@@ -604,10 +604,10 @@
 
     (function () {
       function reportHeight() {
-        var height = Math.max(
-          document.documentElement.scrollHeight,
-          document.body ? document.body.scrollHeight : 0
-        );
+        var activity = document.querySelector(".activity");
+        var height = activity
+          ? Math.ceil(activity.getBoundingClientRect().bottom + window.scrollY + 8)
+          : Math.max(document.documentElement.scrollHeight, document.body ? document.body.scrollHeight : 0);
         window.parent.postMessage({
           type: "vanderbilt-iframe-height",
           height: height
