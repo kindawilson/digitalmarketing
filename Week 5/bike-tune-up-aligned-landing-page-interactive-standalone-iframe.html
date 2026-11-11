@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Align the Bike Tune-Up Landing Page</title>
+  <style>
+    :root {
+      --ink: #102f3a;
+      --teal: #0f3f52;
+      --teal-2: #1d627b;
+      --gold: #ddaf4b;
+      --gold-soft: #fff6df;
+      --blue-soft: #e9f2f5;
+      --gray: #4d5259;
+      --line: #dfe3e6;
+      --soft: #f5f6f7;
+      --shadow: 0 18px 48px rgba(16, 47, 58, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    html { background: #ffffff; }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+
+    button, a { font: inherit; }
+
+    .activity {
+      width: min(1120px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 20px 0 18px;
+    }
+
+    .activity-header {
+      position: relative;
+      z-index: 4;
+      grid-area: title;
+      margin: 0;
+      padding: 1px 0 0;
+      border-left: 0;
+      background: transparent;
+    }
+
+    .top-composition {
+      position: relative;
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr);
+      grid-template-areas:
+        "try title"
+        "subtitle subtitle";
+      column-gap: 18px;
+      row-gap: 10px;
+      align-items: start;
+      margin-bottom: 0;
+      padding: 16px 18px 14px;
+      border: 1px solid var(--line);
+      border-top: 6px solid var(--gold);
+      border-radius: 12px 12px 0 0;
+      background: linear-gradient(135deg, #f5f6f7 0%, #ffffff 72%);
+    }
+
+    .eyebrow {
+      margin: 0 0 3px;
+      color: var(--teal-2);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .masthead-subtitle {
+      position: relative;
+      z-index: 4;
+      grid-area: subtitle;
+      width: 100%;
+      margin: 0;
+      color: var(--gray);
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--teal-2);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: clamp(25px, 5vw, 32px);
+      font-weight: 700;
+      letter-spacing: .01em;
+      line-height: 1.08;
+      text-transform: uppercase;
+    }
+
+    .intro {
+      max-width: 780px;
+      margin: 7px 0 0;
+      color: var(--gray);
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .explorer {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-top: 0;
+      border-radius: 0 0 12px 12px;
+      background: #ffffff;
+      box-shadow: var(--shadow);
+    }
+
+    .try-this-row {
+      position: relative;
+      z-index: 4;
+      grid-area: try;
+      display: flex;
+      gap: 4px;
+      align-items: flex-start;
+      margin: 0;
+      padding: 0 2px 0 0;
+    }
+
+    .try-this-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+      min-height: 54px;
+      padding: 8px 13px 8px 20px;
+      border: 4px solid var(--gold);
+      border-radius: 4px;
+      background: var(--teal-2);
+      box-shadow: 0 2px 0 rgba(16, 47, 58, .16);
+      color: #ffffff;
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      line-height: 1;
+      text-transform: uppercase;
+      transform-origin: center;
+      animation: tryBadgePulse 2.2s ease-in-out infinite;
+    }
+
+    .try-this-cursor {
+      width: 22px;
+      height: 27px;
+      color: var(--gold);
+      filter: drop-shadow(1px 1px 0 rgba(16, 47, 58, .32));
+      animation: tryCursorTap 2.2s ease-in-out infinite;
+    }
+
+    .try-this-line {
+      display: none;
+    }
+
+    @keyframes tryBadgePulse {
+      0%, 20%, 100% { transform: scale(1); box-shadow: 0 2px 0 rgba(16, 47, 58, .16); }
+      40% { transform: scale(1.025); box-shadow: 0 5px 10px rgba(29, 98, 123, .25); }
+      58% { transform: scale(1); box-shadow: 0 2px 0 rgba(16, 47, 58, .16); }
+    }
+
+    @keyframes tryCursorTap {
+      0%, 20%, 65%, 100% { transform: translate(0, 0); }
+      36% { transform: translate(3px, 2px); }
+      48% { transform: translate(0, 0); }
+    }
+
+    .explorer-top {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 16px;
+      padding: 11px 18px;
+      border-bottom: 1px solid var(--line);
+      background: #eef2f3;
+      color: var(--gray);
+      font-size: 15px;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-weight: 700;
+    }
+
+    .status-mark {
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--teal);
+      color: #ffffff;
+      font-size: 14px;
+    }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: minmax(245px, .82fr) minmax(0, 1.5fr);
+      min-height: 410px;
+    }
+
+    .factor-list {
+      display: grid;
+      align-content: start;
+      gap: 9px;
+      padding: 22px;
+      border-right: 1px solid var(--line);
+      background: var(--soft);
+    }
+
+    .factor-button {
+      position: relative;
+      display: grid;
+      grid-template-columns: 34px minmax(0, 1fr) 20px;
+      gap: 10px;
+      align-items: center;
+      width: 100%;
+      min-height: 58px;
+      padding: 10px 11px;
+      border: 1px solid #d6dde0;
+      border-radius: 8px;
+      background: #ffffff;
+      color: var(--teal);
+      cursor: pointer;
+      text-align: left;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease, box-shadow .18s ease;
+    }
+
+    .factor-button:hover {
+      border-color: var(--teal-2);
+      transform: translateX(3px);
+    }
+
+    .factor-button:focus-visible {
+      outline: 3px solid rgba(221, 175, 75, .8);
+      outline-offset: 2px;
+    }
+
+    .factor-button[aria-selected="true"] {
+      border-color: var(--gold);
+      background: var(--gold-soft);
+      box-shadow: inset 5px 0 0 var(--gold);
+    }
+
+    .number {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--blue-soft);
+      color: var(--teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .factor-button[aria-selected="true"] .number {
+      background: var(--teal);
+      color: #ffffff;
+    }
+
+    .button-label {
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .arrow { font-size: 20px; line-height: 1; text-align: center; }
+
+    .detail {
+      position: relative;
+      display: grid;
+      align-content: center;
+      min-width: 0;
+      padding: clamp(30px, 5vw, 62px);
+      background:
+        radial-gradient(circle at 88% 18%, rgba(221, 175, 75, .18), transparent 25%),
+        linear-gradient(145deg, #ffffff 0%, #f4f9fa 100%);
+    }
+
+    .detail::after {
+      content: "";
+      position: absolute;
+      right: -55px;
+      bottom: -55px;
+      width: 170px;
+      height: 170px;
+      border: 18px solid rgba(29, 98, 123, .07);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .detail-kicker {
+      margin: 0 0 7px;
+      color: var(--teal-2);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .detail h2 {
+      max-width: 650px;
+      margin: 0;
+      color: var(--teal);
+      font-family: "Century Gothic", "Aptos Display", "Segoe UI", Arial, sans-serif;
+      font-size: clamp(26px, 4vw, 42px);
+      line-height: 1.08;
+    }
+
+    .gold-rule {
+      width: 68px;
+      height: 5px;
+      margin: 18px 0;
+      border-radius: 999px;
+      background: var(--gold);
+    }
+
+    .definition {
+      max-width: 690px;
+      margin: 0;
+      color: var(--gray);
+      font-size: clamp(16px, 2.1vw, 19px);
+      line-height: 1.6;
+    }
+
+    .prompt {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 23px 0 0;
+      color: var(--teal-2);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .prompt-icon {
+      display: inline-grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: var(--teal);
+    }
+
+    .source {
+      margin: 10px 2px 0;
+      color: #596369;
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .source a {
+      color: var(--teal-2);
+      font-weight: 700;
+      text-underline-offset: 2px;
+    }
+
+    @media (max-width: 700px) {
+      .activity { width: min(100% - 18px, 1120px); padding-top: 10px; }
+      .top-composition {
+        grid-template-columns: 1fr;
+        grid-template-areas: "try" "title" "subtitle";
+        gap: 6px;
+      }
+      .try-this-row { margin-top: 0; }
+      .activity-header { margin-top: 0; padding-top: 2px; }
+      .workspace { grid-template-columns: 1fr; }
+      .factor-list {
+        grid-template-columns: repeat(5, minmax(48px, 1fr));
+        gap: 6px;
+        padding: 12px;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .factor-button {
+        display: grid;
+        grid-template-columns: 1fr;
+        place-items: center;
+        min-height: 51px;
+        padding: 7px;
+        text-align: center;
+      }
+      .factor-button:hover { transform: translateY(-2px); }
+      .factor-button[aria-selected="true"] { box-shadow: inset 0 -4px 0 var(--gold); }
+      .number { width: 32px; height: 32px; }
+      .button-label, .arrow { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+      .detail { min-height: 330px; padding: 32px 24px 40px; }
+      .source { text-align: left; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+      .try-this-badge, .try-this-cursor { animation: none !important; }
+    }
+  </style>
+</head>
+<style>
+.landing-lab{border-top:1px solid #d7e0e5;background:#f4f7f8;padding:24px}.alignment-map{display:grid;grid-template-columns:minmax(220px,.75fr) minmax(320px,1.25fr);gap:22px;align-items:start}.controls{display:grid;gap:12px}.alignment-button{width:100%;padding:15px 16px;border:2px solid #1d627b;border-radius:10px;background:#fff;color:#0f3f52;font:700 17px 'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif;text-align:left;cursor:pointer}.alignment-button[aria-selected="true"]{border-color:#ddaf4b;background:#fff8e7;box-shadow:0 0 0 3px rgba(221,175,75,.22)}.tip-panel{padding:18px;border-left:7px solid #ddaf4b;background:#fff;color:#30383d;font-size:17px;line-height:1.5}.browser-frame{overflow:hidden;border:1px solid #cbd5da;border-radius:12px;background:#fff;box-shadow:0 12px 28px rgba(15,63,82,.12)}.browser-bar{display:flex;gap:7px;padding:12px 14px;border-bottom:1px solid #d7e0e5;background:#edf1f3}.browser-dot{width:11px;height:11px;border-radius:50%;background:#aab7bd}.landing-page{padding:28px}.service-kicker{color:#a76f00;font:700 15px 'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}.landing-page h2{margin:7px 0 12px;color:#0f3f52;font:700 34px/1.12 'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif}.offer{display:grid;grid-template-columns:1fr 150px;gap:18px;align-items:center}.offer-art{display:grid;min-height:150px;place-items:center;border-radius:12px;background:linear-gradient(145deg,#e4eff2,#fff8e7);font-size:68px}.benefits{margin:18px 0;padding-left:22px;font-size:17px}.cta{display:inline-block;padding:14px 20px;border:0;border-radius:8px;background:#0f3f52;color:#fff;font:700 17px 'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif}.highlight{outline:4px solid #ddaf4b;outline-offset:4px}.alignment-note{margin:20px 0 0;padding:16px 18px;border-left:7px solid #1d627b;background:#e4eff2;font-size:17px}.activity{border-radius:16px;overflow:hidden}.top-composition{border-radius:16px 16px 0 0}@media(max-width:700px){.alignment-map,.offer{grid-template-columns:1fr}.landing-lab{padding:18px}.landing-page{padding:22px}.landing-page h2{font-size:29px}.offer-art{min-height:120px}}
+</style><body><main class="activity"><div class="top-composition"><div class="try-this-row" aria-label="Try this interactive activity"><div class="try-this-badge"><span>Try This</span><svg class="try-this-cursor" viewBox="0 0 24 30" aria-hidden="true"><path fill="currentColor" d="M2 1.3v24.4l6.2-5 4.4 8.1 4.2-2.3-4.4-8.1 7.8-1.2L2 1.3Z"/></svg></div><div class="try-this-line" aria-hidden="true"></div></div><header class="activity-header"><p class="eyebrow">Interactive Learning</p><h1>Align the Landing Page</h1></header><p class="masthead-subtitle">Select each alignment check to see how the bike tune-up landing page continues the promise made by the keyword list and search ad.</p></div><section class="landing-lab" aria-label="Aligned landing page example"><div class="alignment-map"><div><div class="controls" role="tablist" aria-label="Alignment checks"><button class="alignment-button" type="button" role="tab" aria-selected="true" data-target="message">1. Message match</button><button class="alignment-button" type="button" role="tab" aria-selected="false" data-target="offer">2. Offer details</button><button class="alignment-button" type="button" role="tab" aria-selected="false" data-target="cta">3. Call to action</button></div><div class="tip-panel" id="tip-panel" aria-live="polite"><strong>Message match:</strong> The headline repeats the “bike tune-up” idea that appeared in the keyword list and ad, so the visitor immediately knows the page is relevant.</div></div><div class="browser-frame"><div class="browser-bar" aria-hidden="true"><span class="browser-dot"></span><span class="browser-dot"></span><span class="browser-dot"></span></div><div class="landing-page"><p class="service-kicker">Veloworks Bike Repair · Midtown Nashville</p><div class="offer"><div><h2 id="message">Professional Bike Tune-Ups</h2><p>Get your bike ready for the road with a complete inspection, adjustment, and safety check.</p></div><div class="offer-art" aria-label="Bicycle tune-up illustration">🚲</div></div><ul class="benefits" id="offer"><li>Brake and gear adjustment</li><li>Tire and safety inspection</li><li>Clear pricing before work begins</li></ul><button class="cta" id="cta" type="button">Book a Tune-Up</button></div></div></div><p class="alignment-note"><strong>Why it works:</strong> The focused keyword list, the search-ad promise, and the landing-page content all address the same service and customer intent.</p></section></main><script>
+const tips={message:'<strong>Message match:</strong> The headline repeats the “bike tune-up” idea that appeared in the keyword list and ad, so the visitor immediately knows the page is relevant.',offer:'<strong>Offer details:</strong> The page explains the service attributes promised by the ad and gives the visitor enough information to evaluate the offer.',cta:'<strong>Call to action:</strong> “Book a Tune-Up” provides one clear next step that matches the campaign goal.'};
+document.querySelectorAll('.alignment-button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.alignment-button').forEach(x=>x.setAttribute('aria-selected','false'));document.querySelectorAll('.highlight').forEach(x=>x.classList.remove('highlight'));b.setAttribute('aria-selected','true');const id=b.dataset.target;document.getElementById(id).classList.add('highlight');document.getElementById('tip-panel').innerHTML=tips[id];}));
+function report(){parent.postMessage({type:'vanderbilt-iframe-height',height:document.documentElement.scrollHeight},'*')}window.addEventListener('load',report);window.addEventListener('resize',report);window.addEventListener('message',e=>{if(e.data&&e.data.type==='vanderbilt-request-height')report()});setTimeout(report,250);
+</script></body></html>

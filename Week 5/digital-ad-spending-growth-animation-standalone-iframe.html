@@ -601,6 +601,29 @@
 
       update(false);
     }());
+
+    (function () {
+      function reportHeight() {
+        var height = Math.max(
+          document.documentElement.scrollHeight,
+          document.body ? document.body.scrollHeight : 0
+        );
+        window.parent.postMessage({
+          type: "vanderbilt-iframe-height",
+          height: height
+        }, "*");
+      }
+
+      window.addEventListener("load", reportHeight);
+      window.addEventListener("resize", reportHeight);
+      window.addEventListener("message", function (event) {
+        if (event.data && event.data.type === "vanderbilt-request-height") {
+          reportHeight();
+        }
+      });
+      window.setTimeout(reportHeight, 100);
+      window.setTimeout(reportHeight, 500);
+    }());
   </script>
 </body>
 </html>

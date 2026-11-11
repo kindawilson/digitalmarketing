@@ -147,7 +147,7 @@
 
     .workspace {
       display: grid;
-      grid-template-columns: minmax(0,1.65fr) minmax(270px,.75fr);
+      grid-template-columns: minmax(0,1.72fr) minmax(220px,.72fr);
       min-width: 0;
     }
     .map-panel { min-width: 0; padding: 22px 20px 24px; border-right: 1px solid var(--vu-line); background: linear-gradient(180deg,#fff,#fafcfc); }
@@ -315,11 +315,14 @@
     .detail-status { margin: 12px 0 0; color: var(--vu-muted); font-size: 11px; font-weight: 700; }
 
     @media (max-width: 900px) {
-      .workspace { grid-template-columns: 1fr; }
-      .map-panel { border-right: 0; border-bottom: 1px solid var(--vu-line); }
-      .detail-panel { padding: 21px 20px; }
+      .workspace { grid-template-columns: minmax(0,1.72fr) minmax(220px,.72fr); }
+      .map-panel { padding: 18px 12px 20px; }
+      .detail-panel { padding: 20px 14px; }
+      .groups-grid { gap: 8px; }
     }
     @media (max-width: 700px) {
+      .workspace { grid-template-columns: 1fr; }
+      .map-panel { border-right: 0; border-bottom: 1px solid var(--vu-line); }
       .integrated-activity { width: min(100% - 18px,1120px); padding-top: 10px; }
       .integrated-top-composition { grid-template-columns: 1fr; grid-template-areas: "try" "title" "subtitle"; gap: 6px; padding: 12px 14px; }
       .integrated-title { font-size: clamp(24px,7vw,30px); }
@@ -536,6 +539,32 @@
       });
 
       render("campaign", false);
+    }());
+
+    (function () {
+      function reportHeight() {
+        var height = Math.max(
+          document.documentElement.scrollHeight,
+          document.body ? document.body.scrollHeight : 0
+        );
+        window.parent.postMessage({
+          type: "vanderbilt-iframe-height",
+          height: height
+        }, "*");
+      }
+
+      window.addEventListener("load", reportHeight);
+      window.addEventListener("resize", reportHeight);
+      window.addEventListener("message", function (event) {
+        if (event.data && event.data.type === "vanderbilt-request-height") {
+          reportHeight();
+        }
+      });
+      if (window.ResizeObserver) {
+        new ResizeObserver(reportHeight).observe(document.body);
+      }
+      window.setTimeout(reportHeight, 100);
+      window.setTimeout(reportHeight, 500);
     }());
   </script>
 </body>
