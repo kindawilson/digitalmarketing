@@ -163,6 +163,17 @@
     });
 
     setPinned('sponsored');
+
+    function reportHeight(){
+      const height=Math.max(document.documentElement.scrollHeight,document.body?document.body.scrollHeight:0);
+      window.parent.postMessage({type:'vanderbilt-iframe-height',height:height},'*');
+    }
+    window.addEventListener('load',reportHeight);
+    window.addEventListener('resize',reportHeight);
+    window.addEventListener('message',event=>{if(event.data&&event.data.type==='vanderbilt-request-height')reportHeight()});
+    if(window.ResizeObserver)new ResizeObserver(reportHeight).observe(document.body);
+    setTimeout(reportHeight,100);
+    setTimeout(reportHeight,500);
   </script>
 </body>
 </html>

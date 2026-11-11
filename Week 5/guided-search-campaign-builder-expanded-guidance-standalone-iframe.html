@@ -147,8 +147,8 @@
   document.querySelectorAll('[data-choice="goal"] .choice').forEach(function(btn){btn.addEventListener('click',function(){document.querySelectorAll('[data-choice="goal"] .choice').forEach(function(x){x.classList.remove('selected')});btn.classList.add('selected');state.goal=btn.dataset.value;sync()})});
   document.querySelectorAll('input,textarea,select').forEach(function(el){el.addEventListener('input',sync);el.addEventListener('change',sync)});tabs.forEach(function(t){t.addEventListener('click',function(){showStep(Number(t.dataset.go))})});q('back').addEventListener('click',function(){showStep(current-1)});q('next').addEventListener('click',function(){showStep(current+1)});q('publish').addEventListener('click',review);
   document.querySelectorAll('.learn-more,.advanced').forEach(function(detail){detail.addEventListener('toggle',sendHeight)});
-  function sendHeight(){setTimeout(function(){if(window.parent!==window.parent.parent||window.parent!==window){window.parent.postMessage({type:'iframe-height',id:'guided-search-campaign-builder-expanded-guidance',height:document.documentElement.scrollHeight},'*')}},40)}
-  window.addEventListener('load',sendHeight);window.addEventListener('resize',sendHeight);sync();showStep(0);
+  function sendHeight(){setTimeout(function(){window.parent.postMessage({type:'vanderbilt-iframe-height',height:Math.max(document.documentElement.scrollHeight,document.body?document.body.scrollHeight:0)},'*')},40)}
+  window.addEventListener('load',sendHeight);window.addEventListener('resize',sendHeight);window.addEventListener('message',function(event){if(event.data&&event.data.type==='vanderbilt-request-height')sendHeight()});if(window.ResizeObserver)new ResizeObserver(sendHeight).observe(document.body);sync();showStep(0);
 }());
 </script>
 </body>
