@@ -543,13 +543,18 @@
 
     (function () {
       function reportHeight() {
-        var height = Math.max(
-          document.documentElement.scrollHeight,
-          document.body ? document.body.scrollHeight : 0
-        );
+        var bottom = 0;
+        Array.prototype.forEach.call(document.body.children, function (element) {
+          if (/^(SCRIPT|STYLE|LINK)$/.test(element.tagName)) return;
+          var rect = element.getBoundingClientRect();
+          bottom = Math.max(bottom, rect.bottom + window.scrollY);
+        });
+        var bodyStyle = window.getComputedStyle(document.body);
+        var height = Math.ceil(bottom + (parseFloat(bodyStyle.marginBottom) || 0));
         window.parent.postMessage({
           type: "vanderbilt-iframe-height",
-          height: height
+          height: height,
+          measure: "content-boundary"
         }, "*");
       }
 
@@ -560,9 +565,8 @@
           reportHeight();
         }
       });
-      if (window.ResizeObserver) {
-        new ResizeObserver(reportHeight).observe(document.body);
-      }
+      if (window.ResizeObserver) new ResizeObserver(reportHeight).observe(document.body);
+      if (window.MutationObserver) new MutationObserver(reportHeight).observe(document.body, {subtree:true, childList:true, attributes:true, characterData:true});
       window.setTimeout(reportHeight, 100);
       window.setTimeout(reportHeight, 500);
     }());
