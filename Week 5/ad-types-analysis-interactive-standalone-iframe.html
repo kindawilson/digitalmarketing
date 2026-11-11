@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Explore Digital Ad Types</title>
+  <style>
+    :root{--teal:#1d627b;--dark:#0f3f52;--gold:#ddaf4b;--text:#30343b;--muted:#5d646b;--soft:#f5f6f7;--line:#d6dde1;--white:#fff;--green:#18794e;--red:#a52a2a}
+    *{box-sizing:border-box}html,body{margin:0;padding:0;background:transparent}body{padding:8px;color:var(--text);font-family:Lato,Arial,sans-serif;font-size:16px;line-height:1.5}button{font:inherit}
+    .activity{width:100%;max-width:1120px;margin:0 auto;overflow:hidden;border:1px solid var(--line);border-radius:12px 12px 5px 5px;background:var(--white);box-shadow:0 7px 22px rgba(15,63,82,.11)}
+    .try-header{display:grid;grid-template-columns:170px minmax(0,1fr);grid-template-areas:"badge title" "subtitle subtitle";align-items:start;gap:10px 18px;padding:16px 18px 14px;border-top:6px solid var(--gold);border-bottom:1px solid var(--line)}
+    .try-badge{grid-area:badge;display:inline-flex;align-items:center;gap:13px;min-height:54px;width:max-content;padding:8px 13px 8px 20px;border:4px solid var(--gold);border-radius:4px;background:var(--teal);box-shadow:0 2px 0 rgba(16,47,58,.16);color:#fff;font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:18px;font-weight:700;letter-spacing:.08em;line-height:1;text-transform:uppercase;animation:badgePulse 2.2s ease-in-out infinite}
+    .cursor{width:22px;height:27px;color:var(--gold);filter:drop-shadow(1px 1px 0 rgba(16,47,58,.32));animation:cursorTap 2.2s ease-in-out infinite}.title-wrap{grid-area:title;min-width:0}.eyebrow{margin:0 0 3px;color:var(--teal);font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}.title{margin:0;color:var(--teal);font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:clamp(25px,5vw,32px);font-weight:700;line-height:1.08;text-transform:uppercase}.subtitle{grid-area:subtitle;margin:0;color:var(--text);font-size:15px;font-weight:700}
+    @keyframes badgePulse{0%,20%,100%{transform:scale(1)}40%{transform:scale(1.025)}58%{transform:scale(1)}}@keyframes cursorTap{0%,20%,65%,100%{transform:translate(0,0)}36%{transform:translate(3px,2px)}48%{transform:translate(0,0)}}
+    .tabs-wrap{padding:16px 18px;border-bottom:1px solid var(--line);background:var(--soft)}.tabs-label{margin:0 0 9px;color:var(--dark);font-size:14px;font-weight:700}.tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}.tab{min-height:48px;padding:9px 8px;border:2px solid var(--teal);border-radius:6px;background:var(--white);color:var(--dark);font-weight:700;cursor:pointer}.tab:hover,.tab:focus-visible{background:#e8f2f5}.tab[aria-selected="true"]{border-color:var(--dark);background:var(--dark);color:#fff;box-shadow:inset 0 -4px 0 var(--gold)}
+    .panel{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(330px,.92fr);min-height:540px}.example{display:flex;align-items:center;justify-content:center;padding:22px;background:#eef3f5;border-right:1px solid var(--line)}.example figure{width:100%;margin:0}.example img{display:block;width:100%;max-height:500px;object-fit:contain;background:#fff}.example figcaption{margin-top:10px;color:var(--muted);font-size:14px;text-align:center}
+    .details{padding:24px}.type-kicker{margin:0 0 4px;color:var(--teal);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}.details h2{margin:0 0 14px;color:var(--dark);font-family:"Century Gothic","Aptos Display","Segoe UI",Arial,sans-serif;font-size:30px;line-height:1.12}.descriptor{margin:0 0 18px;font-size:17px}.facts{display:grid;gap:12px;margin:0}.fact{padding:14px 15px;border-left:6px solid var(--teal);background:var(--soft)}.fact dt{margin:0 0 4px;color:var(--dark);font-size:14px;font-weight:800;text-transform:uppercase}.fact dd{margin:0}.fact.positive{border-left-color:var(--green)}.fact.negative{border-left-color:var(--red)}.fact.notes{border-left-color:var(--gold);background:#fff8e7}.status{padding:10px 18px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;font-weight:700}
+    @media(max-width:860px){.tabs{grid-template-columns:repeat(3,minmax(0,1fr))}.panel{grid-template-columns:1fr}.example{border-right:0;border-bottom:1px solid var(--line)}.example img{max-height:430px}}
+    @media(max-width:560px){body{padding:4px}.activity{border-radius:8px 8px 4px 4px}.try-header{grid-template-columns:1fr;grid-template-areas:"badge" "title" "subtitle";gap:7px;padding:12px 14px}.try-badge{min-height:48px;padding:7px 11px 7px 16px;font-size:16px}.tabs-wrap{padding:13px}.tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.tab{min-height:52px}.panel{min-height:0}.example,.details{padding:16px}.example img{max-height:360px}.details h2{font-size:27px}.descriptor{font-size:16px}.fact{padding:12px 13px}}
+    @media(prefers-reduced-motion:reduce){.try-badge,.cursor{animation:none}}
+  </style>
+</head>
+<body>
+  <main class="activity">
+    <header class="try-header">
+      <div class="try-badge"><span>Try This</span><svg class="cursor" viewBox="0 0 24 30" aria-hidden="true"><path fill="currentColor" d="M2 1.3v24.4l6.2-5 4.4 8.1 4.2-2.3-4.4-8.1 7.8-1.2L2 1.3Z"></path></svg></div>
+      <div class="title-wrap"><p class="eyebrow">Interactive Learning</p><h1 class="title">Explore Digital Ad Types</h1></div>
+      <p class="subtitle">Choose an ad type to compare what it is, when it works best, its strengths and limitations, and a real-world example.</p>
+    </header>
+    <section class="tabs-wrap" aria-labelledby="ad-type-prompt">
+      <p class="tabs-label" id="ad-type-prompt">Select an ad type</p>
+      <div class="tabs" role="tablist" aria-label="Digital ad types">
+        <button class="tab" id="tab-search" role="tab" aria-controls="analysis-panel" aria-selected="true" data-type="search">Search</button>
+        <button class="tab" id="tab-display" role="tab" aria-controls="analysis-panel" aria-selected="false" data-type="display">Display</button>
+        <button class="tab" id="tab-video" role="tab" aria-controls="analysis-panel" aria-selected="false" data-type="video">Video</button>
+        <button class="tab" id="tab-social" role="tab" aria-controls="analysis-panel" aria-selected="false" data-type="social">Social media</button>
+        <button class="tab" id="tab-native" role="tab" aria-controls="analysis-panel" aria-selected="false" data-type="native">Native</button>
+        <button class="tab" id="tab-shopping" role="tab" aria-controls="analysis-panel" aria-selected="false" data-type="shopping">Shopping</button>
+      </div>
+    </section>
+    <section class="panel" id="analysis-panel" role="tabpanel" aria-labelledby="tab-search" aria-live="polite">
+      <div class="example"><figure><img id="example-image" src="search-ad-example-source.png" alt="Example of a search advertisement"><figcaption id="example-caption">Example search advertisement</figcaption></figure></div>
+      <div class="details">
+        <p class="type-kicker">Ad type analysis</p><h2 id="type-title">Search ads</h2>
+        <p class="descriptor" id="descriptor"></p>
+        <dl class="facts">
+          <div class="fact"><dt>Best use</dt><dd id="best-use"></dd></div>
+          <div class="fact positive"><dt>Positives</dt><dd id="positives"></dd></div>
+          <div class="fact negative"><dt>Negatives</dt><dd id="negatives"></dd></div>
+          <div class="fact notes"><dt>Notes</dt><dd id="notes"></dd></div>
+        </dl>
+      </div>
+    </section>
+    <div class="status" id="status">Search ads are selected.</div>
+  </main>
+  <script>
+    const types={
+      search:{title:'Search ads',image:'search-ad-example-source.png',alt:'Example of a sponsored search result',caption:'Example search advertisement',descriptor:'Paid text ads that appear with search-engine results and often resemble organic listings, while clearly identifying themselves as sponsored.',best:'Reach people who are actively searching and may already have strong purchase or action intent.',positive:'Targets customers according to the terms they search, making the message highly relevant to an expressed need.',negative:'Competitive keywords can carry a high cost per click, and advertisers pay when users click without necessarily converting.',notes:'Use negative keywords to filter unwanted searches, and apply location settings when the offer serves a defined area.'},
+      display:{title:'Display ads',image:'display-ad-example-source.png',alt:'Example of display advertisements placed beside and within webpage content',caption:'Example display advertisements',descriptor:'Visual advertising blocks or banners that appear beside, above, below, or within website and app content.',best:'Build awareness with branding, vivid imagery, or repeated visual exposure across relevant sites and audiences.',positive:'Supports images and calls to action, with targeting options such as location, interests, and demographics.',negative:'People may become banner blind, use ad blockers, or click at lower rates than they do with more intent-driven formats.',notes:'Monitor placement and frequency so the ad stays visible without becoming repetitive or intrusive.'},
+      video:{title:'Video ads',image:'video-ad-example-source.png',alt:'Example of a video advertisement',caption:'Example video advertisement',descriptor:'Video messages shown independently or inserted before, during, or after other streaming content.',best:'Tell a story, demonstrate a product, or communicate emotion through motion, sound, and sequencing.',positive:'Movement, sound, and narrative can capture attention and explain more than a static ad.',negative:'Viewers may be frustrated when an ad interrupts the content they intended to watch.',notes:'Formats and placements vary by platform. Keep the opening clear and provide captions for viewers watching without sound.'},
+      social:{title:'Social media ads',image:'social-media-ad-example-source.png',alt:'Example of a sponsored social media advertisement',caption:'Example social media advertisement',descriptor:'Paid placements on social platforms, often designed to resemble promoted posts or other native social content.',best:'Reach interest-based audiences with timely, engaging content that fits a social platform’s environment.',positive:'Can appear naturally within a customer’s feed and invite reactions, comments, shares, or clicks.',negative:'Too many promoted posts can annoy users or compete with the personal content they came to see.',notes:'Match the platform’s content conventions and monitor frequency, comments, and audience response.'},
+      native:{title:'Native ads',image:'native-ad-example-source.png',alt:'Example of advertising designed to resemble surrounding editorial content',caption:'Example native advertisement',descriptor:'Sponsored content designed to match the look, format, and experience of the website or platform where it appears.',best:'Benefit from the trust and context of a publisher or platform while presenting content that feels relevant there.',positive:'Blends with surrounding content, so it can feel less disruptive and earn stronger attention than a standard banner.',negative:'Customers may feel misled if the sponsorship is unclear or the click leads somewhere they did not expect.',notes:'Label sponsorship clearly. Match the surrounding format without disguising the fact that the content is advertising.'},
+      shopping:{title:'Shopping ads',image:'shopping-ad-example-source.png',alt:'Example shopping advertisements with product images, names, and prices',caption:'Example shopping advertisements',descriptor:'Product-focused ads that show purchasing information—such as an image, product name, price, seller, or rating—directly in the ad.',best:'Reach shoppers comparing specific products and move them quickly from search results to a relevant product page.',positive:'Shows useful product and price information before the click, helping shoppers assess the offer quickly.',negative:'Outdated feed data, pricing, or availability can create a poor experience and waste clicks.',notes:'Keep the product feed, price, inventory, images, and destination page accurate and aligned.'}
+    };
+    const tabs=[...document.querySelectorAll('.tab')];
+    function selectType(key,focus=false){const item=types[key];tabs.forEach(tab=>{const selected=tab.dataset.type===key;tab.setAttribute('aria-selected',String(selected));if(selected){document.getElementById('analysis-panel').setAttribute('aria-labelledby',tab.id);if(focus)tab.focus()}});document.getElementById('type-title').textContent=item.title;document.getElementById('descriptor').textContent=item.descriptor;document.getElementById('best-use').textContent=item.best;document.getElementById('positives').textContent=item.positive;document.getElementById('negatives').textContent=item.negative;document.getElementById('notes').textContent=item.notes;const image=document.getElementById('example-image');image.src=item.image;image.alt=item.alt;document.getElementById('example-caption').textContent=item.caption;document.getElementById('status').textContent=item.title+' are selected.';requestHeight()}
+    tabs.forEach((tab,index)=>{tab.addEventListener('click',()=>selectType(tab.dataset.type));tab.addEventListener('keydown',event=>{if(!['ArrowRight','ArrowLeft','Home','End'].includes(event.key))return;event.preventDefault();let next=index;if(event.key==='ArrowRight')next=(index+1)%tabs.length;if(event.key==='ArrowLeft')next=(index-1+tabs.length)%tabs.length;if(event.key==='Home')next=0;if(event.key==='End')next=tabs.length-1;selectType(tabs[next].dataset.type,true)})});
+    function requestHeight(){requestAnimationFrame(()=>{const root=document.querySelector('.activity');const height=Math.ceil(root.getBoundingClientRect().bottom+8);window.parent.postMessage({type:'vanderbilt-iframe-height',height,measure:'content-boundary'},'*')})}
+    window.addEventListener('load',()=>{selectType('search');requestHeight()});window.addEventListener('resize',requestHeight);window.addEventListener('message',event=>{if(event.data&&event.data.type==='vanderbilt-request-height')requestHeight()});if('ResizeObserver'in window)new ResizeObserver(requestHeight).observe(document.querySelector('.activity'));
+  </script>
+</body>
+</html>
