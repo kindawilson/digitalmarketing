@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <filter id="shadow" x="-10%" y="-15%" width="120%" height="135%">
+      <feDropShadow dx="0" dy="9" stdDeviation="10" flood-color="#173E4B" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .sans{font-family:Arial,Helvetica,sans-serif}.title{font-size:58px;font-weight:800;letter-spacing:1px}.sub{font-size:25px;fill:#43545d}.cardTitle{font-size:31px;font-weight:800;fill:#0c4b61}.body{font-size:22px;fill:#364850}.num{font-size:29px;font-weight:800;fill:white}.small{font-size:18px;fill:#52636b}.eyebrow{font-size:17px;font-weight:800;letter-spacing:2.5px;fill:#0c4b61}
+    </style>
+  </defs>
+  <rect width="1920" height="1080" fill="#f6f8f8"/>
+  <rect x="0" y="0" width="1920" height="17" fill="#e0aa3e"/>
+  <path d="M1660 0h260v260c-89-7-167-47-218-109-38-46-58-95-42-151z" fill="#0c4b61" opacity=".08"/>
+  <circle cx="1835" cy="84" r="106" fill="none" stroke="#0c4b61" stroke-width="35" opacity=".09"/>
+
+  <rect x="118" y="66" rx="22" width="245" height="47" fill="#f5d98d"/>
+  <text x="240" y="98" text-anchor="middle" class="sans eyebrow">UPDATED NOV. 2026</text>
+  <text x="118" y="174" class="sans title" fill="#0c4052">BUILDING ANSWER-READY WEBPAGES</text>
+  <text x="118" y="218" class="sans sub">Current guidance for AI Overviews, AI search, and cited answers</text>
+
+  <!-- Card 1 -->
+  <g filter="url(#shadow)">
+    <rect x="118" y="278" rx="20" width="812" height="205" fill="white" stroke="#d5e0e4" stroke-width="2"/>
+  </g>
+  <rect x="118" y="278" rx="20" width="11" height="205" fill="#e0aa3e"/>
+  <circle cx="181" cy="342" r="34" fill="#0c4b61"/><text x="181" y="352" text-anchor="middle" class="sans num">1</text>
+  <text x="235" y="337" class="sans cardTitle">Answer first</text>
+  <text x="235" y="378" class="sans body"><tspan x="235">Lead with a direct answer. Use descriptive headings,</tspan><tspan x="235" dy="31">short sections, lists, tables, and concise FAQs.</tspan></text>
+  <path d="M813 337h54v38h-54z M823 348h34 M823 359h25 M823 370h30" fill="none" stroke="#0c4b61" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Card 2 -->
+  <g filter="url(#shadow)"><rect x="990" y="278" rx="20" width="812" height="205" fill="white" stroke="#d5e0e4" stroke-width="2"/></g>
+  <rect x="990" y="278" rx="20" width="11" height="205" fill="#e0aa3e"/>
+  <circle cx="1053" cy="342" r="34" fill="#0c4b61"/><text x="1053" y="352" text-anchor="middle" class="sans num">2</text>
+  <text x="1107" y="337" class="sans cardTitle">Add original value</text>
+  <text x="1107" y="378" class="sans body"><tspan x="1107">Share firsthand expertise, examples, research, and a</tspan><tspan x="1107" dy="31">distinct point of view—not another commodity summary.</tspan></text>
+  <path d="M1680 333l15-29 15 29 32 5-23 22 6 32-30-15-29 15 5-32-23-22z" fill="#e0aa3e" opacity=".9"/>
+
+  <!-- Card 3 -->
+  <g filter="url(#shadow)"><rect x="118" y="515" rx="20" width="812" height="205" fill="white" stroke="#d5e0e4" stroke-width="2"/></g>
+  <rect x="118" y="515" rx="20" width="11" height="205" fill="#e0aa3e"/>
+  <circle cx="181" cy="579" r="34" fill="#0c4b61"/><text x="181" y="589" text-anchor="middle" class="sans num">3</text>
+  <text x="235" y="574" class="sans cardTitle">Make facts easy to trust</text>
+  <text x="235" y="615" class="sans body"><tspan x="235">Cite credible sources, identify authors, show dates, and</tspan><tspan x="235" dy="31">keep claims accurate, current, and supported by evidence.</tspan></text>
+  <path d="M837 548l25 10v20c0 23-11 39-25 48-14-9-25-25-25-48v-20z" fill="none" stroke="#0c4b61" stroke-width="4"/><path d="M824 578l9 9 18-20" fill="none" stroke="#e0aa3e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Card 4 -->
+  <g filter="url(#shadow)"><rect x="990" y="515" rx="20" width="812" height="205" fill="white" stroke="#d5e0e4" stroke-width="2"/></g>
+  <rect x="990" y="515" rx="20" width="11" height="205" fill="#e0aa3e"/>
+  <circle cx="1053" cy="579" r="34" fill="#0c4b61"/><text x="1053" y="589" text-anchor="middle" class="sans num">4</text>
+  <text x="1107" y="574" class="sans cardTitle">Clarify meaning with structure</text>
+  <text x="1107" y="615" class="sans body"><tspan x="1107">Use semantic HTML and accurate schema that matches</tspan><tspan x="1107" dy="31">the content people can actually see on the page.</tspan></text>
+  <text x="1677" y="594" class="sans" font-size="48" font-weight="800" fill="#0c4b61">&lt;/&gt;</text>
+
+  <!-- Card 5 -->
+  <g filter="url(#shadow)"><rect x="118" y="752" rx="20" width="812" height="205" fill="white" stroke="#d5e0e4" stroke-width="2"/></g>
+  <rect x="118" y="752" rx="20" width="11" height="205" fill="#e0aa3e"/>
+  <circle cx="181" cy="816" r="34" fill="#0c4b61"/><text x="181" y="826" text-anchor="middle" class="sans num">5</text>
+  <text x="235" y="811" class="sans cardTitle">Stay crawlable and indexable</text>
+  <text x="235" y="852" class="sans body"><tspan x="235">Keep important content accessible to search crawlers.</tspan><tspan x="235" dy="31">For ChatGPT search, do not block OAI-SearchBot.</tspan></text>
+  <circle cx="838" cy="815" r="30" fill="none" stroke="#0c4b61" stroke-width="4"/><circle cx="838" cy="815" r="9" fill="#e0aa3e"/><path d="M838 775v-14 M838 869v-14 M798 815h-14 M892 815h-14" stroke="#0c4b61" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Card 6 -->
+  <g filter="url(#shadow)"><rect x="990" y="752" rx="20" width="812" height="205" fill="white" stroke="#d5e0e4" stroke-width="2"/></g>
+  <rect x="990" y="752" rx="20" width="11" height="205" fill="#e0aa3e"/>
+  <circle cx="1053" cy="816" r="34" fill="#0c4b61"/><text x="1053" y="826" text-anchor="middle" class="sans num">6</text>
+  <text x="1107" y="811" class="sans cardTitle">Deliver page quality</text>
+  <text x="1107" y="852" class="sans body"><tspan x="1107">Build fast, mobile-friendly, accessible pages with useful</tspan><tspan x="1107" dy="31">visuals, clear internal links, and a strong user experience.</tspan></text>
+  <rect x="1675" y="781" rx="6" width="45" height="70" fill="none" stroke="#0c4b61" stroke-width="4"/><circle cx="1697.5" cy="840" r="3" fill="#e0aa3e"/>
+
+  <rect x="118" y="989" width="1684" height="52" rx="12" fill="#0c4b61"/>
+  <text x="960" y="1023" text-anchor="middle" class="sans" font-size="23" font-weight="700" fill="white">SEO IS STILL THE FOUNDATION. AEO MAKES CONTENT EASIER TO RETRIEVE, UNDERSTAND, AND CITE.</text>
+  <text x="1802" y="1065" text-anchor="end" class="sans small">Sources: Google Search Central · Bing Webmaster Tools · OpenAI</text>
+</svg>
