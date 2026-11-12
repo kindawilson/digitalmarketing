@@ -28,7 +28,7 @@ body h1::after{background-color:#ddaf4b!important;border-color:#ddaf4b!important
 .video-placeholder strong{display:block;font-family:'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif;font-size:24px;line-height:1.2;text-transform:uppercase}
 .video-placeholder span{display:block;margin-top:8px;color:#4d5259;font-size:16px}
 .video-caption{margin:14px 0 0;color:#5c6267;font-size:15px;text-align:center}
-.video-frame iframe{display:block;width:100%;height:100%;border:0}
+.video-frame video{display:block;width:100%;height:100%;border:0;background:#000}
 .discussion-card{margin-top:32px;border:1px solid #e7e6e6;border-top:6px solid #1d627b;padding:28px 30px;background:#fff;box-shadow:0 12px 28px rgba(77,82,89,.08)}
 .discussion-card h2{margin:0 0 10px!important;padding:0!important;color:#1d627b!important;font-family:'Century Gothic','Aptos Display','Segoe UI',Arial,sans-serif!important;font-size:27px!important;font-weight:700!important;letter-spacing:.01em;line-height:1.18!important;text-transform:uppercase}
 .discussion-intro{margin:0 0 22px;font-size:18px}
@@ -74,7 +74,10 @@ body h1::after{background-color:#ddaf4b!important;border-color:#ddaf4b!important
 
   <article class="video-card" aria-labelledby="video-heading">
     <div class="video-frame">
-      <iframe src="https://www.youtube-nocookie.com/embed/gdio0JCJDvU?rel=0" title="Amy Good - Digital Ads expert discussion" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <video controls preload="metadata" playsinline aria-label="Amy Good - Digital Ads expert discussion">
+        <source src="https://www.dropbox.com/scl/fi/sc6hlwqpnt2fzd8bhi0od/Digital-Marketing-Amy-Good-Interview-Digital-Ads.mp4?rlkey=4xv8724n5bee89wtn5txjonvq&amp;raw=1" type="video/mp4">
+        Your browser does not support embedded video. <a href="https://www.dropbox.com/scl/fi/sc6hlwqpnt2fzd8bhi0od/Digital-Marketing-Amy-Good-Interview-Digital-Ads.mp4?rlkey=4xv8724n5bee89wtn5txjonvq&amp;raw=1" target="_blank" rel="noopener noreferrer">Open the Amy Good interview video</a>.
+      </video>
     </div>
     <p class="video-caption" id="video-heading">Amy Good - Digital Ads</p>
   </article>
