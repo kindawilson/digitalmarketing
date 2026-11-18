@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Holiday Dress Shopper buyer persona</title>
+  <desc id="desc">A face silhouette beside four characteristics describing a budget-conscious holiday dress shopper.</desc>
+  <defs>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="7" stdDeviation="10" flood-color="#123746" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .title { font-family: "Century Gothic", "Avenir Next", Arial, sans-serif; font-size: 64px; font-weight: 700; letter-spacing: 1.5px; fill: #0f3f52; }
+      .body { font-family: "Century Gothic", "Avenir Next", Arial, sans-serif; font-size: 31px; font-weight: 600; fill: #173f4f; }
+      .num { font-family: "Century Gothic", Arial, sans-serif; font-size: 28px; font-weight: 700; fill: #ffffff; text-anchor: middle; dominant-baseline: middle; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="#fbfaf7"/>
+  <text class="title" x="800" y="92" text-anchor="middle">HOLIDAY DRESS SHOPPER</text>
+  <rect x="690" y="121" width="220" height="6" rx="3" fill="#ddaf4b"/>
+
+  <g transform="translate(88 195)">
+    <circle cx="250" cy="275" r="230" fill="#eef3f4" stroke="#d6e1e4" stroke-width="3"/>
+    <!-- Neutral face-only profile silhouette -->
+    <path d="M203 105
+             C139 134 108 195 116 262
+             C120 298 135 329 158 354
+             C170 367 178 385 177 404
+             L174 433
+             C174 451 188 466 206 466
+             L343 466
+             C358 466 368 453 363 438
+             C351 402 322 386 295 374
+             C278 366 271 346 280 330
+             C291 310 312 295 326 276
+             C337 261 342 244 336 228
+             C330 211 313 204 296 207
+             C299 183 294 154 275 132
+             C257 111 229 98 203 105 Z" fill="#0b3045"/>
+    <path d="M136 212 C160 157 217 126 275 139" fill="none" stroke="#0b3045" stroke-width="34" stroke-linecap="round"/>
+    <circle cx="250" cy="275" r="230" fill="none" stroke="#ddaf4b" stroke-width="7"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="630" y="183" width="860" height="128" rx="18" fill="#ffffff" stroke="#d9e3e5" stroke-width="2"/>
+    <rect x="630" y="331" width="860" height="128" rx="18" fill="#ffffff" stroke="#d9e3e5" stroke-width="2"/>
+    <rect x="630" y="479" width="860" height="150" rx="18" fill="#ffffff" stroke="#d9e3e5" stroke-width="2"/>
+    <rect x="630" y="649" width="860" height="128" rx="18" fill="#ffffff" stroke="#d9e3e5" stroke-width="2"/>
+  </g>
+
+  <g>
+    <circle cx="694" cy="247" r="34" fill="#0f3f52"/><text class="num" x="694" y="249">1</text>
+    <text class="body" x="753" y="258">Wants a dress for holiday parties</text>
+
+    <circle cx="694" cy="395" r="34" fill="#0f3f52"/><text class="num" x="694" y="397">2</text>
+    <text class="body" x="753" y="406">Values inclusive sizing</text>
+
+    <circle cx="694" cy="554" r="34" fill="#0f3f52"/><text class="num" x="694" y="556">3</text>
+    <text class="body" x="753" y="545">
+      <tspan x="753" dy="0">Not looking for luxury fashion;</tspan>
+      <tspan x="753" dy="43">prefers budget-friendly shopping</tspan>
+    </text>
+
+    <circle cx="694" cy="713" r="34" fill="#0f3f52"/><text class="num" x="694" y="715">4</text>
+    <text class="body" x="753" y="724">Would love a black dress, but is flexible</text>
+  </g>
+</svg>
