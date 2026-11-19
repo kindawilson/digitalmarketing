@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Holiday Dress Shopper buyer persona</title>
+  <desc id="desc">A face silhouette beside four characteristics describing a budget-conscious holiday dress shopper.</desc>
+  <defs>
+    <clipPath id="portraitClip"><circle cx="250" cy="275" r="226"/></clipPath>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="7" stdDeviation="10" flood-color="#123746" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .title { font-family: "Century Gothic", "Avenir Next", Arial, sans-serif; font-size: 64px; font-weight: 700; letter-spacing: 1.5px; fill: #0f3f52; }
+      .body { font-family: "Century Gothic", "Avenir Next", Arial, sans-serif; font-size: 31px; font-weight: 600; fill: #173f4f; }
+      .num { font-family: "Century Gothic", Arial, sans-serif; font-size: 28px; font-weight: 700; fill: #ffffff; text-anchor: middle; dominant-baseline: middle; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="#fbfaf7"/>
+  <text class="title" x="800" y="92" text-anchor="middle">HOLIDAY DRESS SHOPPER</text>
+  <rect x="690" y="121" width="220" height="6" rx="3" fill="#ddaf4b"/>
+
+  <g transform="translate(88 195)">
+    <circle cx="250" cy="275" r="230" fill="#eef3f4" stroke="#d6e1e4" stroke-width="3"/>
+    <!-- Clear, neutral human head-and-shoulders silhouette -->
+    <g clip-path="url(#portraitClip)">
+      <!-- One continuous solid path: rounded bob, neck, and shoulders -->
+      <path d="M250 80
+               C185 80 150 123 150 190
+               L150 240
+               C150 281 137 309 108 325
+               C145 330 177 315 198 288
+               L198 360
+               C198 392 180 410 150 420
+               C100 438 70 465 60 505
+               L440 505
+               C430 465 400 438 350 420
+               C320 410 302 392 302 360
+               L302 288
+               C323 315 355 330 392 325
+               C363 309 350 281 350 240
+               L350 190
+               C350 123 315 80 250 80 Z" fill="#0b3045"/>
+    </g>
+    <circle cx="250" cy="275" r="230" fill="none" stroke="#ddaf4b" stroke-width="7"/>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="630" y="164" width="860" height="112" rx="18" fill="#ffffff" stroke="#d9e3e5" stroke-width="2"/>
+    <rect x="630" y="288" width="860" height="104" rx="18" fill="#ffffff" stroke="#d9e3e5" stroke-width="2"/>
+    <rect x="630" y="404" width="860" height="128" rx="18" fill="#ffffff" stroke="#d9e3e5" stroke-width="2"/>
+    <rect x="630" y="544" width="860" height="104" rx="18" fill="#ffffff" stroke="#d9e3e5" stroke-width="2"/>
+    <rect x="630" y="660" width="860" height="104" rx="18" fill="#ffffff" stroke="#d9e3e5" stroke-width="2"/>
+  </g>
+
+  <g>
+    <circle cx="694" cy="220" r="32" fill="#0f3f52"/><text class="num" x="694" y="222">1</text>
+    <text class="body" x="753" y="209">
+      <tspan x="753" dy="0">Wants to purchase a dress for</tspan>
+      <tspan x="753" dy="42">holiday parties</tspan>
+    </text>
+
+    <circle cx="694" cy="340" r="32" fill="#0f3f52"/><text class="num" x="694" y="342">2</text>
+    <text class="body" x="753" y="351">Values inclusive sizing</text>
+
+    <circle cx="694" cy="468" r="32" fill="#0f3f52"/><text class="num" x="694" y="470">3</text>
+    <text class="body" x="753" y="459">
+      <tspan x="753" dy="0">Not looking for luxury fashion;</tspan>
+      <tspan x="753" dy="40">prefers budget-friendly shopping</tspan>
+    </text>
+
+    <circle cx="694" cy="596" r="32" fill="#0f3f52"/><text class="num" x="694" y="598">4</text>
+    <text class="body" x="753" y="585">
+      <tspan x="753" dy="0">Would love to have a little black</tspan>
+      <tspan x="753" dy="40">dress, but is flexible</tspan>
+    </text>
+
+    <circle cx="694" cy="712" r="32" fill="#0f3f52"/><text class="num" x="694" y="714">5</text>
+    <text class="body" x="753" y="723">Is comfortable purchasing online</text>
+  </g>
+</svg>
