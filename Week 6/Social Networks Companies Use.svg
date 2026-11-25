@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
+<title id="title">Which social networks do companies use?</title><desc id="desc">Facebook 83 percent; Instagram 78 percent; LinkedIn 69 percent; YouTube 53 percent; TikTok 27 percent; X 26 percent; Threads 12 percent. Source shown in reference: Statista 2026.</desc>
+<rect width="1536" height="1024" fill="#fff"/>
+<text x="768" y="105" text-anchor="middle" fill="#124b5d" font-family="Century Gothic,Arial,sans-serif" font-size="55" font-weight="700">WHICH SOCIAL NETWORKS DO COMPANIES USE?</text>
+<path d="M438 134H1098" stroke="#dda826" stroke-width="4"/>
+<g stroke="#dce6e8" stroke-width="2"><path d="M158 748H1425M158 612H1425M158 476H1425M158 340H1425M158 204H1425"/></g>
+<g fill="#17324d" font-family="Arial,sans-serif" font-size="23" font-weight="700" text-anchor="end"><text x="140" y="756">0%</text><text x="140" y="620">20%</text><text x="140" y="484">40%</text><text x="140" y="348">60%</text><text x="140" y="212">80%</text></g>
+<g fill="#1d627b"><rect x="190" y="184" width="135" height="564" rx="4"/><rect x="369" y="218" width="135" height="530" rx="4"/><rect x="548" y="279" width="135" height="469" rx="4"/><rect x="727" y="388" width="135" height="360" rx="4"/><rect x="906" y="564" width="135" height="184" rx="4"/><rect x="1085" y="571" width="135" height="177" rx="4"/><rect x="1264" y="666" width="135" height="82" rx="4"/></g>
+<g fill="#fff" font-family="Arial,sans-serif" font-size="30" font-weight="700" text-anchor="middle"><text x="257.5" y="224">83%</text><text x="436.5" y="258">78%</text><text x="615.5" y="319">69%</text><text x="794.5" y="428">53%</text><text x="973.5" y="604">27%</text><text x="1152.5" y="611">26%</text><text x="1331.5" y="706">12%</text></g>
+<g fill="#17324d" font-family="Century Gothic,Arial,sans-serif" font-size="22" font-weight="700" text-anchor="middle"><text x="257.5" y="793">Facebook</text><text x="436.5" y="793">Instagram</text><text x="615.5" y="793">LinkedIn</text><text x="794.5" y="793">YouTube</text><text x="973.5" y="793">TikTok</text><text x="1152.5" y="793">X (Twitter)</text><text x="1331.5" y="793">Threads</text></g>
+<path d="M158 748H1425" stroke="#17324d" stroke-width="3"/><text x="768" y="890" text-anchor="middle" fill="#4d5259" font-family="Arial,sans-serif" font-size="21">Source: Statista 2026</text>
+</svg>
